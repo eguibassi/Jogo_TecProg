@@ -2,12 +2,10 @@
 #include "entidades/Jogador.h"
 
 int main() {
-    // Cria a janela de teste
     sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Jogador - Clash++");
     window.setFramerateLimit(60);
 
-    // Instancia o nosso jogador no meio da tela
-    Jogador jogador(400.f, 300.f);
+    Jogador jogador;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -16,16 +14,11 @@ int main() {
                 window.close();
         }
 
-        // 1. Atualiza a lógica do jogador (física e input)
-        jogador.atualiza();
+        // AGORA CHAMAMOS O MÉTODO ORIGINAL DO UML
+        jogador.executar();
 
-        // 2. Limpa a tela
         window.clear(sf::Color::Black);
-        
-        // 3. Desenha o jogador
         jogador.desenhar(&window);
-        
-        // 4. Mostra na tela
         window.display();
     }
 
