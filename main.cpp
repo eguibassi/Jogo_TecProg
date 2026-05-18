@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "entidades/Jogador.h"
-using namespace Personagens;
+using namespace Personagens;/*linguica*/
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Jogador - Clash++");
