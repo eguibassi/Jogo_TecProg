@@ -1,53 +1,25 @@
-#ifndef JOGADOR_H
-#define JOGADOR_H
+#pragma once
+#include <SFML/Graphics.hpp>
 
-// Inclui a classe base da qual o Jogador herda
-#include "Personagem.h"
-
-// "Avisamos" o compilador que essas classes existem para podermos usar os ponteiros
-class Inimigo;
-class Obstaculo;
-
-class Jogador : public Personagem {
-protected:
-    // Atributo protegido exigido pelo UML base
-    int pontos;
-
+class Jogador {
 private:
-    // Nossos atributos novos e privados (Encapsulamento)
-    float velX;
-    float velY;
-    bool noChao;
-    float velocidadePulo;
-    bool olhandoParaDireita;
-    float tempoUltimoTiro;
-    bool estaVivo;
+    sf::RectangleShape corpo;
+    sf::Texture textura;
+    sf::Vector2f velocidade;
+    int vida;
 
 public:
-    // Construtor e Destrutor
-    Jogador();
+    // Construtor com posições iniciais
+    Jogador(float x = 0.0f, float y = 0.0f);
     ~Jogador();
 
-    // Métodos base do UML
-    void executar(); // Sobrescrito de Personagem
-    void salvar();
-    void colidir(Inimigo* pin);
-
-    // Nossos métodos novos
-    void pular();
-    void atirar();
+    void atualiza();
     void mover();
-    void receberDano(int dano);
-    void resetarPosicao();
-    void colidir(Obstaculo* pObs); // Sobrecarga para obstáculos
+    
+    // Como ainda não temos o Gerenciador Gráfico, passamos a janela por parâmetro
+    void desenhar(sf::RenderWindow* window);
 
-    // Métodos de acesso (Getters e Setters)
-    void incrementarPontos(int p);
-    int getPontos();
-    float getPosicaoX();
-    float getPosicaoY();
-    void setVelY(float v);
-    void setNoChao(bool estado);
+    // Getters básicos
+    sf::RectangleShape getCorpo() const { return corpo; }
+    int getVida() const { return vida; }
 };
-
-#endif

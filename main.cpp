@@ -1,27 +1,31 @@
 #include <SFML/Graphics.hpp>
+#include "jogador.h"
 
-int main()
-{
-    // Cria a janela
-    sf::RenderWindow window(sf::VideoMode(400, 400), "Meu Primeiro Jogo SFML!");
+int main() {
+    // Cria a janela de teste
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Jogador - Clash++");
+    window.setFramerateLimit(60);
 
-    // Cria um circulo verde
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-    shape.setPosition(100.f, 100.f);
+    // Instancia o nosso jogador no meio da tela
+    Jogador jogador(400.f, 300.f);
 
-    // Mantém a janela aberta até o usuário fechar
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
-        window.clear();
-        window.draw(shape);
+        // 1. Atualiza a lógica do jogador (física e input)
+        jogador.atualiza();
+
+        // 2. Limpa a tela
+        window.clear(sf::Color::Black);
+        
+        // 3. Desenha o jogador
+        jogador.desenhar(&window);
+        
+        // 4. Mostra na tela
         window.display();
     }
 
