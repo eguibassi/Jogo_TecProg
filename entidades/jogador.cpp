@@ -1,4 +1,5 @@
 #include "Jogador.h"
+using namespace Personagens;
 
 Jogador::Jogador() : pontos(0), vida(5) {
     corpo.setSize(sf::Vector2f(50.f, 50.f));
