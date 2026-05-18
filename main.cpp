@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "jogador.h"
+#include "Jogador.h"
 
 int main() {
     // Cria a janela de teste
