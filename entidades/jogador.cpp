@@ -15,7 +15,7 @@ Jogador::~Jogador() {
 }
 
 void Jogador::mover() {
-    // Movimentação horizontal
+    // 1. Movimentação horizontal
     velocidade.x = 0.f;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -25,23 +25,22 @@ void Jogador::mover() {
         velocidade.x = 5.f;  // Direita
     }
 
-    // Pulo (só pula se estiver no "chão" falso que criaremos abaixo)
-    // No futuro, isso será controlado pelo Gerenciador de Colisões
+    // 2. Gravidade puxando para baixo
+    velocidade.y += 0.5f; 
+
+    // 3. Pulo (só pula se estiver exatamente no chão falso)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && corpo.getPosition().y >= 500.f) {
         velocidade.y = -12.f; 
     }
 
-    // Efeito da gravidade constante puxando para baixo
-    velocidade.y += 0.5f; 
-
-    // Chão falso para podermos testar sem cair infinitamente
-    if (corpo.getPosition().y >= 500.f) {
-        corpo.setPosition(corpo.getPosition().x, 500.f);
-        velocidade.y = 0.f; // Zera a velocidade y ao tocar no chão
-    }
-
-    // Aplica a velocidade na posição do corpo
+    // 4. Aplica a velocidade na posição do corpo PRIMEIRO
     corpo.move(velocidade);
+
+    // 5. DEPOIS verifica a colisão com o chão para não cair infinitamente
+    if (corpo.getPosition().y > 500.f) {
+        corpo.setPosition(corpo.getPosition().x, 500.f);
+        velocidade.y = 0.f; // Zera a velocidade ao bater no chão
+    }
 }
 
 void Jogador::atualiza() {
