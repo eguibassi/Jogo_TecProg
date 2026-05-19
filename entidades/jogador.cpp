@@ -1,5 +1,7 @@
 #include "Jogador.h"
 using namespace Personagens;
+#define VEL_JOGADOR_X 5.f
+#define VEL_JOGADOR_Y 12.f
 
 Jogador::Jogador() : pontos(0), vida(5) {
     corpo.setSize(sf::Vector2f(50.f, 50.f));
@@ -15,16 +17,16 @@ void Jogador::mover() {
     velocidade.x = 0.f;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        velocidade.x = -5.f; 
+        velocidade.x = -VEL_JOGADOR_X; 
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        velocidade.x = 5.f;  
+        velocidade.x = VEL_JOGADOR_X;  
     }
 
     velocidade.y += 0.5f; 
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && corpo.getPosition().y >= 500.f) {
-        velocidade.y = -12.f; 
+        velocidade.y = VEL_JOGADOR_Y; 
     }
 
     corpo.move(velocidade);
