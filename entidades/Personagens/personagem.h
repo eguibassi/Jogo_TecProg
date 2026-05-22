@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Entidade.h" // Incluímos a nova classe base
+#include "../Entidade.h"
 
 namespace Personagens {
 
-    // Personagem agora herda de Entidade!
+    // Personagem agora herda de Entidade
     class Personagem : public Entidades::Entidade {
     protected:
         int num_vidas;

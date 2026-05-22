@@ -1,6 +1,5 @@
-#include <SFML/Graphics.hpp>
-#include "entidades/Jogador.h"
-#include "entidades/Inimigo.h" 
+#include "Entidades/Personagens/Jogador.h"
+#include "Entidades/Personagens/Inimigo.h"
 
 using namespace Personagens;
 
