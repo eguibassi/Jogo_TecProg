@@ -1,40 +1,32 @@
+#include <SFML/Graphics.hpp>
 #include "Entidades/Personagens/Jogador.h"
-#include "Entidades/Personagens/Inimigo.h"
+#include "Entidades/Personagens/Inimigo.h" 
+#include "Entidades/Obstaculos/Plataforma.h" 
 
 using namespace Personagens;
+using namespace Entidades;
 
 
 class Hog : public Inimigo {
 public:
     Hog() {}
-
-    void executar() override {
-        mover(); 
-    }
-
-    void danificar(Jogador* p) override {
-    }
-
-   
-    void salva() override {
-    }
-
-    
-    void salvar() override {
-    }
+    void executar() override { mover(); }
+    void danificar(Jogador* p) override {}
+    void salva() override {}
+    void salvar() override {}
 };
 
 int main() {
-    
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Jogador e Inimigo - Clash++");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Plataforma - Clash++");
     window.setFramerateLimit(60);
 
-    // Instancia o jogador
     Jogador jogador;
-
     
     Hog inimigoTeste;
-    inimigoTeste.setJogador(&jogador); // Passamos a referência do jogador para o inimigo saber quem perseguir
+    inimigoTeste.setJogador(&jogador);
+
+
+    Plataforma chao;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -46,10 +38,12 @@ int main() {
         
         jogador.executar();
         inimigoTeste.executar(); 
+        chao.executar(); 
 
         window.clear(sf::Color::Black);
         
-        // DESENHAMOS AMBOS
+        
+        chao.desenhar(&window);
         jogador.desenhar(&window);
         inimigoTeste.desenhar(&window);
         
