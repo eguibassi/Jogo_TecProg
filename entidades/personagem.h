@@ -1,16 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Entidade.h" // Incluímos a nova classe base
 
 namespace Personagens {
 
-    class Personagem {
+    // Personagem agora herda de Entidade!
+    class Personagem : public Entidades::Entidade {
     protected:
-        // Original do seu esboço
         int num_vidas;
-
-        // Movido das classes filhas para cá
-        sf::RectangleShape corpo;
-        sf::Vector2f velocidade;
+        
+        sf::Vector2f velocidade; 
 
     public:
         Personagem();
@@ -18,13 +17,9 @@ namespace Personagens {
 
         void salvarDataBuffer();
         
-        // Virtuais puras
         virtual void executar() = 0;
         virtual void salvar() = 0;
         virtual void mover() = 0;
-
-        void desenhar(sf::RenderWindow* window);
-        sf::RectangleShape getCorpo() const { return corpo; }
     };
 
 } // namespace Personagens

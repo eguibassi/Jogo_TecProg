@@ -14,11 +14,4 @@ namespace Personagens {
         // TODO futuramente
     }
 
-    
-    void Personagem::desenhar(sf::RenderWindow* window) {
-        if (window) {
-            window->draw(corpo);
-        }
-    }
-
 }
