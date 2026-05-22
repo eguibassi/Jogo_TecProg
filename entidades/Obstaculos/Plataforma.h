@@ -15,11 +15,11 @@ namespace Entidades {
         ~Plataforma();
         
      
-        void executar() override;
-        void obstaculizar(Personagens::Jogador* p) override;
+        void executar() ;
+        void obstaculizar(Personagens::Jogador* p) ;
 
    
-        void salvar() override; 
+        void salvar() ;
     };
 
 } 

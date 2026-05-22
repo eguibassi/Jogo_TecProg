@@ -24,7 +24,7 @@ namespace Personagens {
 
     
         virtual void executar() = 0; 
-        void mover() override;
+        void mover() ;
     };
 
 } // namespace Personagens

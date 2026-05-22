@@ -2,6 +2,7 @@
 #include "Entidades/Personagens/Jogador.h"
 #include "Entidades/Personagens/Inimigo.h" 
 #include "Entidades/Obstaculos/Plataforma.h" 
+#include "Entidades/Obstaculos/ObstaculoDano.h" 
 
 using namespace Personagens;
 using namespace Entidades;
@@ -17,16 +18,17 @@ public:
 };
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Plataforma - Clash++");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Plataforma e Espinho - Clash++");
     window.setFramerateLimit(60);
 
     Jogador jogador;
-    
     Hog inimigoTeste;
     inimigoTeste.setJogador(&jogador);
-
-
+    
     Plataforma chao;
+    
+    // CRIANDO O NOVO OBSTÁCULO DE DANO
+    ObstaculoDano espinho;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -35,15 +37,17 @@ int main() {
                 window.close();
         }
 
-        
+        // Executando todo mundo
         jogador.executar();
         inimigoTeste.executar(); 
         chao.executar(); 
+        espinho.executar(); 
 
         window.clear(sf::Color::Black);
         
-        
+        // Desenhando:
         chao.desenhar(&window);
+        espinho.desenhar(&window); // Desenha o espinho
         jogador.desenhar(&window);
         inimigoTeste.desenhar(&window);
         

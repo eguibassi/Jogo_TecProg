@@ -12,9 +12,9 @@ namespace Personagens {
         ~Jogador();
         
         // Sobrescrevendo as funções virtuais da classe pai
-        void executar() override;
-        void mover() override;
-        void salvar() override;
+        void executar() ;
+        void mover() ;
+        void salvar() ;
         
         
         void colidir(); 
