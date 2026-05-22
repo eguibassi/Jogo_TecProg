@@ -7,30 +7,33 @@ using namespace Personagens;
 
 class Hog : public Inimigo {
 public:
-    Hog() {
-       
-    }
+    Hog() {}
 
-    
     void executar() override {
-        mover();  
+        mover(); 
+    }
+
+    void danificar(Jogador* p) override {
+    }
+
+   
+    void salva() override {
     }
 
     
-    void danificar(Jogador* p) override {
-       
+    void salvar() override {
     }
 };
 
 int main() {
-    // Atualizei o nome da janela
+    
     sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Jogador e Inimigo - Clash++");
     window.setFramerateLimit(60);
 
     // Instancia o jogador
     Jogador jogador;
 
-    // Instancia o inimigo de teste (Orc)
+    
     Hog inimigoTeste;
     inimigoTeste.setJogador(&jogador); // Passamos a referência do jogador para o inimigo saber quem perseguir
 
@@ -41,7 +44,7 @@ int main() {
                 window.close();
         }
 
-        // AGORA CHAMAMOS O MÉTODO ORIGINAL DO UML PARA AMBOS
+        
         jogador.executar();
         inimigoTeste.executar(); 
 

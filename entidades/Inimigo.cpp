@@ -7,16 +7,13 @@
 namespace Personagens {
 
     Inimigo::Inimigo() : nivel_maldade(1), pJogador(nullptr) {
-        num_vidas = 3; // Usa a variável herdada
+        num_vidas = 3; 
         corpo.setSize(sf::Vector2f(50.f, 50.f));
         corpo.setPosition(600.f, 100.f); 
         corpo.setFillColor(sf::Color::Red); 
     }
 
     Inimigo::~Inimigo() {
-    }
-
-    void Inimigo::salvar() {
     }
 
     void Inimigo::mover() {
@@ -42,4 +39,4 @@ namespace Personagens {
         }
     }
 
-}
+} // namespace Personagens
