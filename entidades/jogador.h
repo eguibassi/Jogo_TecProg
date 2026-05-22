@@ -1,31 +1,24 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-namespace Personagens{
-    
-    class Jogador {
-        protected:
-            int pontos;
-        private:
+#include "Personagem.h" // Herda de Personagem
 
-        sf::RectangleShape corpo;
-        sf::Vector2f velocidade;
-        int vida;
+namespace Personagens {
 
-        public:
+    class Jogador : public Personagem { 
+    protected:
+        int pontos;
 
-            Jogador();
-            ~Jogador();
-    
-            void executar();
-            void mover();
-            void salvar();
-            void colidir(); 
-    
-
-    
-            void desenhar(sf::RenderWindow* window);
-    
-            int getPontos() const { return pontos; }
-            sf::RectangleShape getCorpo() const { return corpo; }
+    public:
+        Jogador();
+        ~Jogador();
+        
+        // Sobrescrevendo as funções virtuais da classe pai
+        void executar() override;
+        void mover() override;
+        void salvar() override;
+        
+        
+        void colidir(); 
+        int getPontos() const { return pontos; }
     };
+
 }
