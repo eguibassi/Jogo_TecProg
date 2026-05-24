@@ -3,32 +3,32 @@
 #include "Entidades/Personagens/Inimigo.h" 
 #include "Entidades/Obstaculos/Plataforma.h" 
 #include "Entidades/Obstaculos/ObstaculoDano.h" 
+#include "Entidades/Obstaculos/ObstaculoLento.h" 
 
 using namespace Personagens;
 using namespace Entidades;
-
 
 class Hog : public Inimigo {
 public:
     Hog() {}
     void executar() override { mover(); }
-    void danificar(Jogador* p) override {}
-    void salva() override {}
-    void salvar() override {}
+    void danificar(Jogador* p) {}
+    void salva()  {}
+    void salvar() {}
 };
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Plataforma e Espinho - Clash++");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Nível Completo - Clash++");
     window.setFramerateLimit(60);
 
     Jogador jogador;
     Hog inimigoTeste;
     inimigoTeste.setJogador(&jogador);
     
-    Plataforma chao;
     
-    // CRIANDO O NOVO OBSTÁCULO DE DANO
+    Plataforma chao;
     ObstaculoDano espinho;
+    ObstaculoLento lama; 
 
     while (window.isOpen()) {
         sf::Event event;
@@ -37,17 +37,20 @@ int main() {
                 window.close();
         }
 
-        // Executando todo mundo
+        
         jogador.executar();
         inimigoTeste.executar(); 
         chao.executar(); 
         espinho.executar(); 
+        lama.executar();
 
         window.clear(sf::Color::Black);
         
-        // Desenhando:
+    
         chao.desenhar(&window);
-        espinho.desenhar(&window); // Desenha o espinho
+        lama.desenhar(&window);
+        espinho.desenhar(&window);
+        
         jogador.desenhar(&window);
         inimigoTeste.desenhar(&window);
         
