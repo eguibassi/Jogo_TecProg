@@ -25,6 +25,16 @@ namespace Entidades {
 
         virtual void desenhar(sf::RenderWindow* window);
         sf::RectangleShape getCorpo() const { return corpo; }
+
+        
+        void setPosicao(int novoX, int novoY) {
+            x = novoX;
+            y = novoY;
+            corpo.setPosition((float)x, (float)y);
+        }
+        sf::Vector2f getPosicao() const { 
+            return corpo.getPosition(); 
+        }
     };
 
 } // namespace Entidades

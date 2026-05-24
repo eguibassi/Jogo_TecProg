@@ -4,14 +4,16 @@
 #include "Entidades/Obstaculos/Plataforma.h" 
 #include "Entidades/Obstaculos/ObstaculoDano.h" 
 #include "Entidades/Obstaculos/ObstaculoLento.h" 
+#include "Gerenciadores/Gerenciador_Colisoes.h"
 
 using namespace Personagens;
 using namespace Entidades;
+using namespace Gerenciadores; 
 
 class Hog : public Inimigo {
 public:
     Hog() {}
-    void executar() override { mover(); }
+    void executar()  { mover(); }
     void danificar(Jogador* p) {}
     void salva()  {}
     void salvar() {}
@@ -25,10 +27,20 @@ int main() {
     Hog inimigoTeste;
     inimigoTeste.setJogador(&jogador);
     
-    
     Plataforma chao;
     ObstaculoDano espinho;
     ObstaculoLento lama; 
+
+   
+    Gerenciador_Colisoes gerenciador;
+    
+    
+    gerenciador.setJogador(&jogador);
+    gerenciador.incluirInimigo(&inimigoTeste);
+    gerenciador.incluirObstaculo(&chao);
+    gerenciador.incluirObstaculo(&espinho);
+    gerenciador.incluirObstaculo(&lama);
+    
 
     while (window.isOpen()) {
         sf::Event event;
@@ -36,7 +48,6 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
         
         jogador.executar();
         inimigoTeste.executar(); 
@@ -44,9 +55,11 @@ int main() {
         espinho.executar(); 
         lama.executar();
 
+    
+        gerenciador.executar();
+
         window.clear(sf::Color::Black);
         
-    
         chao.desenhar(&window);
         lama.desenhar(&window);
         espinho.desenhar(&window);

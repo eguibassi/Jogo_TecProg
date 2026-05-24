@@ -16,15 +16,13 @@ namespace Personagens {
         Inimigo();
         virtual ~Inimigo();
         
-        
         virtual void danificar(Jogador* p) = 0;
         virtual void salva() = 0; 
         
         void setJogador(Jogador* j) { pJogador = j; }
 
-    
         virtual void executar() = 0; 
-        void mover() ;
+        void mover(); 
     };
 
-} // namespace Personagens
+} 
