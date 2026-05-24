@@ -35,14 +35,24 @@ namespace Entidades {
     }
 
     void ObstaculoDano::obstaculizar(Personagens::Jogador* p) {
-        
-        // Quando o Gerenciador de Colisões avisar que bateu aqui, tiramos a vida do jogador.
-        
         if (p != nullptr) {
-            // Como a vida lá no Jogador (via Personagem) é protected, 
-            // no futuro teremos que criar um "tomarDano(int)" no Jogador.
-            // Para deixar a estrutura preparada, faríamos assim:
-            // p->tomarDano(danosidade);
+            
+            
+            p->tomarDano(danosidade);
+
+            
+            sf::Vector2f velKnockback = p->getVelocidade();
+            velKnockback.y = -10.0f; // Joga o jogador para cima
+            
+           
+            if (p->getPosicao().x < this->x) {
+                velKnockback.x = -10.0f; 
+            } else {
+                velKnockback.x = 10.0f;  
+            }
+            
+            
+            p->setVelocidade(velKnockback);
         }
     }
 

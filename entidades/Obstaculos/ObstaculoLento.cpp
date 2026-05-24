@@ -17,17 +17,17 @@ namespace Entidades {
     }
 
     void ObstaculoLento::executar() {
-        // Fixo no chão, apenas aguarda colisão
+       
     }
 
     void ObstaculoLento::salvar() {
-        // Gravará a posição da lama no futuro
+     
     }
 
-    void ObstaculoLento::obstaculizar(Personagens::Jogador* p) {
-        // Quando o Gerenciador de Colisões avisar que o jogador pisou aqui:
+void ObstaculoLento::obstaculizar(Personagens::Jogador* p) {
         if (p != nullptr) {
-            // p->aplicarAtrito(0.5f)
+           
+            p->setLento(true);
         }
     }
 

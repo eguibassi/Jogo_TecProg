@@ -7,6 +7,7 @@ namespace Personagens {
     class Jogador : public Personagem { 
     protected:
         int pontos;
+        bool lento;
 
     public:
         Jogador();
@@ -18,6 +19,11 @@ namespace Personagens {
         
         void colidir(); 
         int getPontos() const { return pontos; }
+        
+      
+        void tomarDano(int dano); 
+        void setLento(bool estado) { lento = estado; }
+        bool getLento() const { return lento; }
     };
 
 }
