@@ -20,7 +20,7 @@ public:
 };
 
 int main() {
-    // === O GERENCIADOR GRÁFICO ASSUME O CONTROLE DA JANELA ===
+    
     Gerenciador_Grafico* pGrafico = Gerenciador_Grafico::getInstancia();
 
     Jogador jogador;
@@ -56,7 +56,7 @@ int main() {
 
         gerenciador.executar();
 
-        // === LIMPANDO E DESENHANDO USANDO O GERENCIADOR ===
+    
         pGrafico->limparJanela();
         
         chao.desenhar(pGrafico->getWindow());
