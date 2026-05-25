@@ -2,7 +2,7 @@
 
 #include "Lista.h"
 #include "../Entidades/Entidade.h"
-
+namespace Listas{
 class ListaEntidades
 {
 private:
@@ -15,3 +15,4 @@ public:
     void incluir(Entidades::Entidade* pE);
     void percorrer();
 };
+}
