@@ -37,22 +37,22 @@ namespace Entidades {
         if (p != nullptr) {
             
             
-            p->tomarDano(danosidade);
+            p->tomarDano(danosidade);/*chama o metodo do jogador para diminuir a vida*/
 
             
-            sf::Vector2f velKnockback = p->getVelocidade();
-            velKnockback.y = -10.0f; // Joga o jogador para cima
+            sf::Vector2f velKnockback = p->getVelocidade();/*velocidade do jogador*/
+            velKnockback.y = -10.0f; /*joga ele pra cima*/
             
            
-            if (p->getPosicao().x < this->x) {
+            if (p->getPosicao().x < this->x) { /*se o jogador estiver a esquerda joga ele mais pra esquerda*/
                 velKnockback.x = -10.0f; 
             } else {
-                velKnockback.x = 10.0f;  
+                velKnockback.x = 10.0f;  /* se estiver para direita joga ele mais para direita*/
             }
             
             
-            p->setVelocidade(velKnockback);
+            p->setVelocidade(velKnockback); /*aplica a nova velocidade no jogador*/
         }
     }
 
-} // namespace Entidades
+} 

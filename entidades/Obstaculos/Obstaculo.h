@@ -25,4 +25,4 @@ namespace Entidades {
         virtual void obstaculizar(Personagens::Jogador* p);
     };
 
-} // namespace Entidades
+} 
