@@ -6,6 +6,7 @@ namespace Entidades {
     protected:
         int vx;
         int dano;
+        bool ativo;
 
     public:
         Projetil();
