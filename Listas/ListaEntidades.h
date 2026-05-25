@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Lista.h"
-#include "../entidades/Entidade.h"
+#include "../Entidades/Entidade.h"
 
 class ListaEntidades
 {
