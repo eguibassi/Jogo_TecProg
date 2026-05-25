@@ -1,4 +1,6 @@
 #include "Inimigo.h"
+#include <iostream>
+#include "../../Gerenciadores/Gerenciador_Grafico.h" 
 
 #define VELOCIDADE_X_INIMIGO 2.0f
 #define GRAVIDADE 0.5f
@@ -12,8 +14,19 @@ namespace Personagens {
         y = 100; 
         
         corpo.setSize(sf::Vector2f(50.f, 50.f));
-        corpo.setPosition((float)x, (float)y); 
-        corpo.setFillColor(sf::Color::Red); 
+        corpo.setPosition((float)x, (float)y);
+        corpo.setFillColor(sf::Color::Transparent);  
+        
+
+        /*passando a imagem e desenhando ela*/
+        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Goblin.png");
+        if(textura!=nullptr)
+        {
+            sprite.setTexture(*textura);
+            sprite.setScale(0.102f,0.102f);// Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
+            sprite.setPosition((float)x, (float)y);
+
+        }
     }
 
     Inimigo::~Inimigo() {
@@ -41,5 +54,10 @@ namespace Personagens {
         
       
     }
-
+    void Inimigo::desenhar(sf::RenderWindow* window){
+        if(textura!=nullptr)
+            Gerenciadores::Gerenciador_Grafico::getInstancia()->desenharElemento(sprite);
+        else
+            std::cout<<"deu problema na imagem"<<std::endl;
+    }
 } 

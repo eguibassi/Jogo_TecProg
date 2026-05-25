@@ -20,7 +20,7 @@ namespace Personagens {
         
        
       
-        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("imagens/Rei Azul.png");
+        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Rei Azul.png");
         
         if (textura != nullptr) {
             sprite.setTexture(*textura);

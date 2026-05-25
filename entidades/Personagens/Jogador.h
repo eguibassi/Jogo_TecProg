@@ -13,9 +13,9 @@ namespace Personagens {
         Jogador();
         ~Jogador();
         
-        void executar() override;
-        void mover() override;
-        void salvar() override;
+        void executar();
+        void mover() ;
+        void salvar() ;
         
         void colidir(); 
         int getPontos() const { return pontos; }
@@ -24,7 +24,7 @@ namespace Personagens {
         void tomarDano(int dano); 
         void setLento(bool estado) { lento = estado; }
         bool getLento() const { return lento; }
-        void desenhar(sf::RenderWindow* window) override;
+        void desenhar(sf::RenderWindow* window);
     };
 
 }

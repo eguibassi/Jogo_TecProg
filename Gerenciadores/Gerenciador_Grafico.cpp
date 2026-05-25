@@ -1,5 +1,5 @@
 #include "Gerenciador_Grafico.h"
-
+/*O método das colisões foi extraído do */
 namespace Gerenciadores {
 
     

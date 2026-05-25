@@ -23,6 +23,8 @@ namespace Personagens {
 
         virtual void executar() = 0; 
         void mover(); 
+
+        void desenhar(sf::RenderWindow* window);
     };
 
 } 
