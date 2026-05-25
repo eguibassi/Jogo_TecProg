@@ -22,10 +22,6 @@ namespace Entidades {
 
     void Plataforma::obstaculizar(Personagens::Jogador* p) {
         if (p == nullptr) return;
-
-       
-        // p->setSobAtrito(true);
-        // p->setHspd(p->getHspd() * atrito);
     }
 
-} // namespace Entidades
+} 

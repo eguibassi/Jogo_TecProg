@@ -4,7 +4,7 @@
 
 namespace Personagens {
 
-    // Personagem agora herda de Entidade
+    
     class Personagem : public Entidades::Entidade {
     protected:
         int num_vidas;
@@ -25,4 +25,4 @@ namespace Personagens {
         sf::Vector2f getVelocidade() const { return velocidade; }
     };
 
-} // namespace Personagens
+} 

@@ -26,39 +26,39 @@ namespace Gerenciadores {
             Entidades::Obstaculo* obs = *it;
 
             if (verificarColisao(pJog1, obs)) {
-                sf::FloatRect rectJogador = pJog1->getCorpo().getGlobalBounds();
-                sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();
+                sf::FloatRect rectJogador = pJog1->getCorpo().getGlobalBounds(); /*dimensao e posicao do jogador*/
+                sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();/*dimensao e posicao do obstaculo*/
 
                 float centroJogX = rectJogador.left + rectJogador.width / 2.0f;
                 float centroJogY = rectJogador.top + rectJogador.height / 2.0f;
                 float centroObsX = rectObs.left + rectObs.width / 2.0f;
                 float centroObsY = rectObs.top + rectObs.height / 2.0f;
 
-                float distX = centroJogX - centroObsX;
+                float distX = centroJogX - centroObsX;/*distancia entre os dois centros*/
                 float distY = centroJogY - centroObsY;
 
-                float minDistX = (rectJogador.width / 2.0f) + (rectObs.width / 2.0f);
+                float minDistX = (rectJogador.width / 2.0f) + (rectObs.width / 2.0f);/*// Calcula a distância mínima que deveriam ter para estar apenas encostados (metade da largura/altura de cada)*/
                 float minDistY = (rectJogador.height / 2.0f) + (rectObs.height / 2.0f);
 
-                float intersectX = std::abs(distX) - minDistX;
+                float intersectX = std::abs(distX) - minDistX;/*// Subtrai a distância real da distância mínima (usando módulo para não ter número negativo) para ver o quanto invadiu*/
                 float intersectY = std::abs(distY) - minDistY;
 
-                if (intersectX < 0.0f && intersectY < 0.0f) {
+                if (intersectX < 0.0f && intersectY < 0.0f) { /*Se ambos são menores que zero, há intersecção*/
                     sf::Vector2f velJog = pJog1->getVelocidade();
                     sf::Vector2f posJog = pJog1->getPosicao();
 
-                    if (intersectX > intersectY) {
-                        if (distX > 0.0f) posJog.x -= intersectX; 
-                        else posJog.x += intersectX; 
+                    if (intersectX > intersectY) { /*// Se a invasão no eixo X for maior que a do eixo Y (ou seja, foi colisão vertical)*/
+                        if (distX > 0.0f) posJog.x -= intersectX; /*Se bateu pela direita, empurra pra direita*/
+                        else posJog.x += intersectX;  /*Se bateu pela esquerda empurra pela esquerda*/
                         velJog.x = 0.0f; 
                     } 
                     else {
-                        if (distY > 0.0f) posJog.y -= intersectY; 
+                        if (distY > 0.0f) posJog.y -= intersectY;  /*Se bateu vindo de baixo, empurra pra baixo*/
                         else posJog.y += intersectY; 
                         velJog.y = 0.0f; 
                     }
 
-                    pJog1->setPosicao(static_cast<int>(posJog.x), static_cast<int>(posJog.y));
+                    pJog1->setPosicao(static_cast<int>(posJog.x), static_cast<int>(posJog.y)); /*aplica a nova posicao*/
                     pJog1->setVelocidade(velJog);
                 }
 

@@ -20,8 +20,8 @@ namespace Entidades {
         void executar();
         void obstaculizar(Personagens::Jogador* p);
         
-        // Função que era virtual = 0 no pai e precisa de corpo aqui
+      
         void salvar(); 
     };
 
-} // namespace Entidades
+} 
