@@ -1,4 +1,4 @@
-#include "ListaEntidades.h"
+/*#include "ListaEntidades.h"
 //"../" no include volta uma pasta, necessário para acessar arquivos em pastas diferentes.
 #include "../entidades/Entidade.h"
 
@@ -33,4 +33,4 @@ void ListaEntidades::percorrer()
 
         pAux = pAux->getProximo();
     }
-}
+}*/

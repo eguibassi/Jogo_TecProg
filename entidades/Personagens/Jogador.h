@@ -24,6 +24,7 @@ namespace Personagens {
         void tomarDano(int dano); 
         void setLento(bool estado) { lento = estado; }
         bool getLento() const { return lento; }
+        void desenhar(sf::RenderWindow* window) override;
     };
 
 }

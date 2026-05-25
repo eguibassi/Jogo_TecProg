@@ -22,12 +22,11 @@ namespace Entidades {
     }
 
     void ObstaculoDano::salvarDataBuffer() {
-        // Grava os dados do buffer
+        
     }
 
     void ObstaculoDano::executar() {
-        // Como é fixo no chão, não tem movimento. 
-        // Ele apenas existe no game loop.
+        
     }
 
     void ObstaculoDano::salvar() {

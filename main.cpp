@@ -1,14 +1,14 @@
-#include <SFML/Graphics.hpp>
+#include "Gerenciadores/Gerenciador_Grafico.h"
+#include "Gerenciadores/Gerenciador_Colisoes.h"
 #include "Entidades/Personagens/Jogador.h"
 #include "Entidades/Personagens/Inimigo.h" 
 #include "Entidades/Obstaculos/Plataforma.h" 
 #include "Entidades/Obstaculos/ObstaculoDano.h" 
 #include "Entidades/Obstaculos/ObstaculoLento.h" 
-#include "Gerenciadores/Gerenciador_Colisoes.h"
 
 using namespace Personagens;
 using namespace Entidades;
-using namespace Gerenciadores; 
+using namespace Gerenciadores;
 
 class Hog : public Inimigo {
 public:
@@ -20,8 +20,8 @@ public:
 };
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Teste Nível Completo - Clash++");
-    window.setFramerateLimit(60);
+    // === O GERENCIADOR GRÁFICO ASSUME O CONTROLE DA JANELA ===
+    Gerenciador_Grafico* pGrafico = Gerenciador_Grafico::getInstancia();
 
     Jogador jogador;
     Hog inimigoTeste;
@@ -31,43 +31,42 @@ int main() {
     ObstaculoDano espinho;
     ObstaculoLento lama; 
 
-   
     Gerenciador_Colisoes gerenciador;
-    
     
     gerenciador.setJogador(&jogador);
     gerenciador.incluirInimigo(&inimigoTeste);
     gerenciador.incluirObstaculo(&chao);
     gerenciador.incluirObstaculo(&espinho);
     gerenciador.incluirObstaculo(&lama);
-    
 
-    while (window.isOpen()) {
+    // O loop agora pergunta para o Gerenciador Gráfico se a janela está aberta
+    while (pGrafico->verificaJanelaAberta()) {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        // Pega os eventos através do ponteiro da janela do Gerenciador
+        while (pGrafico->getWindow()->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
-                window.close();
+                pGrafico->fecharJanela();
         }
-        
+
         jogador.executar();
         inimigoTeste.executar(); 
         chao.executar(); 
         espinho.executar(); 
         lama.executar();
 
-    
         gerenciador.executar();
 
-        window.clear(sf::Color::Black);
+        // === LIMPANDO E DESENHANDO USANDO O GERENCIADOR ===
+        pGrafico->limparJanela();
         
-        chao.desenhar(&window);
-        lama.desenhar(&window);
-        espinho.desenhar(&window);
+        chao.desenhar(pGrafico->getWindow());
+        lama.desenhar(pGrafico->getWindow());
+        espinho.desenhar(pGrafico->getWindow());
         
-        jogador.desenhar(&window);
-        inimigoTeste.desenhar(&window);
+        jogador.desenhar(pGrafico->getWindow());
+        inimigoTeste.desenhar(pGrafico->getWindow());
         
-        window.display();
+        pGrafico->mostrarElementos();
     }
 
     return 0;
