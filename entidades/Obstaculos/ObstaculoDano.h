@@ -21,7 +21,8 @@ namespace Entidades {
         void obstaculizar(Personagens::Jogador* p);
         
       
-        void salvar(); 
+        void salvar();
+        void desenhar(sf::RenderWindow* window); 
     };
 
 } 

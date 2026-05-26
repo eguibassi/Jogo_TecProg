@@ -1,4 +1,5 @@
 #include "ObstaculoDano.h"
+#include "../../Gerenciadores/Gerenciador_Grafico.h" 
 
 namespace Entidades {
 
@@ -14,8 +15,15 @@ namespace Entidades {
         corpo.setSize(sf::Vector2f(20.f, 20.f)); 
         corpo.setPosition((float)x, (float)y);
         
-      
-        corpo.setFillColor(sf::Color(255, 165, 0)); 
+     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Lapide.png");
+        
+        if (textura != nullptr) {
+            sprite.setTexture(*textura);
+            // Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
+            sprite.setScale(0.102f, 0.102f); 
+            sprite.setPosition((float)x, (float)y);
+        }
+        
     }
 
     ObstaculoDano::~ObstaculoDano() {
@@ -53,6 +61,13 @@ namespace Entidades {
             
             p->setVelocidade(velKnockback); /*aplica a nova velocidade no jogador*/
         }
+    }
+
+    void ObstaculoDano::desenhar(sf::RenderWindow* window){
+        if(textura!=nullptr)
+            Gerenciadores::Gerenciador_Grafico::getInstancia()->desenharElemento(sprite);
+        else
+            std::cout<<"deu problema na imagem"<<std::endl;
     }
 
 } 
