@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Lista.h"
-#include "../entidades/Entidade.h"
-
+#include "../Entidades/Entidade.h"
+namespace Listas{
 class ListaEntidades
 {
 private:
@@ -15,3 +15,4 @@ public:
     void incluir(Entidades::Entidade* pE);
     void percorrer();
 };
+}

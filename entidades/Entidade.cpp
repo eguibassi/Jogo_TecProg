@@ -1,6 +1,6 @@
 #include "Entidade.h"
 
-namespace Entidades {
+using namespace Entidades; 
 
     // Inicializa x e y com o número inteiro 0
     Entidade::Entidade() : x(0), y(0) {
@@ -18,4 +18,3 @@ namespace Entidades {
         }
     }
 
-}
