@@ -1,4 +1,5 @@
 #pragma once
+#include "Entidade.h"
 
 namespace Entidades {
 
@@ -17,6 +18,9 @@ namespace Entidades {
 
         void setDano(int d);
         int getDano() const;
+
+        void setAtivo(bool a);
+        bool getAtivo() const;
 
         void executar();
         void salvar();
