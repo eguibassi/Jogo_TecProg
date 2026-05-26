@@ -1,5 +1,6 @@
 #include "Gerenciador_Colisoes.h"
 #include <cmath> 
+/*O método das colisões foi extraído majoritariamente do exemplo do monitor Giovannihttps://github.com/Giovanenero/JogoPlataforma2D-Jungle/blob/main/Jungle%2B%2B/src/Gerenciador/GerenciadorColisao.cpp */
 
 namespace Gerenciadores {
 
