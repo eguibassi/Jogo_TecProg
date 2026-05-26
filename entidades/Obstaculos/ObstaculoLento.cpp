@@ -1,4 +1,5 @@
 #include "ObstaculoLento.h"
+#include "../../Gerenciadores/Gerenciador_Grafico.h" 
 
 namespace Entidades {
 
@@ -9,8 +10,16 @@ namespace Entidades {
         corpo.setSize(sf::Vector2f(largura, 10.f)); 
         corpo.setPosition((float)x, (float)y);
         
+        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Gelo.png");
         
-        corpo.setFillColor(sf::Color(139, 69, 19)); 
+        if (textura != nullptr) {
+            sprite.setTexture(*textura);
+            // Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
+            sprite.setScale(0.102f, 0.102f); 
+            sprite.setPosition((float)x, (float)y);
+        }
+        
+        
     }
 
     ObstaculoLento::~ObstaculoLento() {
@@ -24,11 +33,19 @@ namespace Entidades {
      
     }
 
-void ObstaculoLento::obstaculizar(Personagens::Jogador* p) {
+    void ObstaculoLento::obstaculizar(Personagens::Jogador* p) {
         if (p != nullptr) {
            
             p->setLento(true);
         }
+    }
+
+    void ObstaculoLento::desenhar(sf::RenderWindow* window)
+    {
+        if(textura!=nullptr)
+            Gerenciadores::Gerenciador_Grafico::getInstancia()->desenharElemento(sprite);
+        else
+            std::cout<<"deu problema na imagem"<<std::endl;
     }
 
 } 
