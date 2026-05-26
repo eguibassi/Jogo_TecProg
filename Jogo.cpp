@@ -1,26 +1,21 @@
 #include "Jogo.h"
 
 Jogo::Jogo() : estadoAtual(FASE_TESTE) {
-    
-    inimigoTeste.setJogador(&pJog1);
-
-    gerenciadorColisoes.setJogador(&pJog1);
-    gerenciadorColisoes.incluirInimigo(&inimigoTeste);
-    gerenciadorColisoes.incluirObstaculo(&chao);
-    gerenciadorColisoes.incluirObstaculo(&espinho);
-    gerenciadorColisoes.incluirObstaculo(&lama);
+    fasePrimeira = new Fases::FasePrimeira(&pJog1);
 }
 
 Jogo::~Jogo() {
+    
+    if (fasePrimeira) {
+        delete fasePrimeira;
+    }
 }
 
 void Jogo::executar() {
     
-    
     while (GG.verificaJanelaAberta()) {
         
         sf::Event event;
-        
         while (GG.getWindow()->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 GG.fecharJanela();
@@ -29,29 +24,15 @@ void Jogo::executar() {
 
         GG.limparJanela();
 
-        
         switch (estadoAtual) {
             case MENU:
-                /*menu futuramente*/
                 break;
 
             case FASE_TESTE:
                 
-                pJog1.executar();
-                inimigoTeste.executar(); 
-                chao.executar(); 
-                espinho.executar(); 
-                lama.executar();
-
-    
-                gerenciadorColisoes.executar();
-
-                // Desenha na tela
-                chao.desenhar(GG.getWindow());
-                lama.desenhar(GG.getWindow());
-                espinho.desenhar(GG.getWindow());
-                inimigoTeste.desenhar(GG.getWindow());
-                pJog1.desenhar(GG.getWindow());
+                if (fasePrimeira) {
+                    fasePrimeira->executar();
+                }
                 break;
         }
 

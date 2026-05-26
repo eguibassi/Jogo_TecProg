@@ -34,3 +34,15 @@ void ListaEntidades::percorrer()
         pAux = pAux->getProximo();
     }
 }
+
+void ListaEntidades::desenhar(sf::RenderWindow* window) {
+    Listas::Elemento<Entidades::Entidade>* pAux = LEs.getPrimeiro();
+
+    while (pAux != nullptr) {
+        Entidades::Entidade* pEntidade = pAux->getInfo();
+        if (pEntidade != nullptr) {
+            pEntidade->desenhar(window);
+        }
+        pAux = pAux->getProximo();
+    }
+}
