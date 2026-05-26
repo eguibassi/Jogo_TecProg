@@ -17,9 +17,9 @@ namespace Gerenciadores {
         static Gerenciador_Grafico* instancia;
 
         
-        Gerenciador_Grafico();
-
+        
     public:
+        Gerenciador_Grafico();
         ~Gerenciador_Grafico();
         
         // Ponto de acesso global
