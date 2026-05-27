@@ -4,9 +4,14 @@ using namespace Entidades;
 
 Projetil::Projetil():
     Entidade(),
-    vx(0),
-    dano(0),
-    ativo(true){}
+    vx(10),
+    dano(1),
+    ativo(false)
+{
+    corpo.setSize(sf::Vector2f(20.f, 10.f));
+    corpo.setFillColor(sf::Color::Red);
+    corpo.setPosition(0.f, 0.f);
+}
 
 Projetil::~Projetil(){}
 
@@ -26,9 +31,9 @@ void Projetil::executar()
         return;
     }
 
-    sprite.move(vx, 0);
+    corpo.move((float)vx, 0.f);
 
-    if (sprite.getPosition().x < 0 || sprite.getPosition().x > 1280)
+    if (corpo.getPosition().x < 0 || corpo.getPosition().x > 1280)
     {
         ativo = false;
     }
