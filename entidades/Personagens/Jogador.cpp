@@ -62,26 +62,30 @@ namespace Personagens {
         lento = false;
     }
 
-    void Jogador::atirar() {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-            if (podeAtirar) {
-                if (pProjetil == nullptr || !pProjetil->getAtivo()) {
-                    pProjetil = new Entidades::Projetil();
+    Entidades::Projetil* Jogador::atirar() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+        if (podeAtirar) {
+            // Criamos o projétil
+            Entidades::Projetil* novoProjetil = new Entidades::Projetil();
 
-                    sf::Vector2f posJogador = getPosicao();
+            sf::Vector2f posJogador = getPosicao();
+            // Posiciona na frente do jogador
+            novoProjetil->setPosicao((int)(posJogador.x + 50.0f), (int)(posJogador.y + 20.0f));
+            novoProjetil->setAtivo(true);
 
-                    pProjetil->setPosicao((int)(posJogador.x + 50.0f), (int)(posJogador.y + 20.0f));
-                    pProjetil->setAtivo(true);
-                }
-
-                podeAtirar = false;
-            }
-        }
-        else {
-            podeAtirar = true;
+            podeAtirar = false;
+            
+            // Retorna o projétil criado para a Fase poder adotá-lo!
+            return novoProjetil; 
         }
     }
-
+    else {
+        podeAtirar = true;
+    }
+    
+    // Se não apertou Z ou não podia atirar, retorna nada
+    return nullptr; 
+}
     Entidades::Projetil* Jogador::getProjetil() const {
         return pProjetil;
     }
@@ -104,16 +108,5 @@ namespace Personagens {
         std::cout << "Tomou dano ! Vidas restantes: " << num_vidas << std::endl;
     }
 
-    void Jogador::desenhar(sf::RenderWindow* window) {
-        if (textura != nullptr) {/*desenha o elemento*/
-            Gerenciadores::Gerenciador_Grafico::getInstancia()->desenharElemento(sprite);
-        } else {
-            std::cout << "Deu problema na imagem , conferir" << std::endl;
-        }
-
-        if (pProjetil != nullptr && pProjetil->getAtivo()) {
-            pProjetil->desenhar(window);
-        }
-    }
 
 } 

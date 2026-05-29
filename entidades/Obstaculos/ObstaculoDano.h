@@ -22,7 +22,7 @@ namespace Entidades {
         
       
         void salvar();
-        void desenhar(sf::RenderWindow* window); 
+      
     };
 
 } 

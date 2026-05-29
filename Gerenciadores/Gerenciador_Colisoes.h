@@ -2,42 +2,40 @@
 #include <vector>
 #include <list>
 #include <set>
-#include <SFML/Graphics.hpp>
-#include "../Entidades/Obstaculos/Plataforma.h"
 #include "../Entidades/Personagens/Jogador.h"
 #include "../Entidades/Personagens/Inimigo.h"
 #include "../Entidades/Obstaculos/Obstaculo.h"
-
-class Projetil;
+#include "../Entidades/Projetil.h" 
 
 namespace Gerenciadores {
 
     class Gerenciador_Colisoes {
     private:
+        Personagens::Jogador* pJog1;
         std::vector<Personagens::Inimigo*> LIs;
         std::list<Entidades::Obstaculo*> LOs;
-        std::set<Projetil*> Lps; 
-        Personagens::Jogador* pJog1;
 
+        std::set<Entidades::Projetil*> Lps; 
     private:
         bool verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2) const;
         void tratarColisoesJogsObstacs();
+        void tratarColisoesInimigsObstacs(); // Movida junto por coerência arquitetural
         void tratarColisoesJogsInimgs();
         void tratarColisoesJogsProjeteis();
-        
-        
-        void tratarColisoesInimigsObstacs();
 
     public:
         Gerenciador_Colisoes();
         ~Gerenciador_Colisoes();
 
         void setJogador(Personagens::Jogador* pJog);
+        
+        
+        void incluirProjetil(Entidades::Projetil* pj); 
+
         void incluirInimigo(Personagens::Inimigo* pi);
         void incluirObstaculo(Entidades::Obstaculo* po);
-        void incluirProjetil(Projetil* pj);
-        
+
         void executar();
     };
 
-} 
+}

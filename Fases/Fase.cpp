@@ -1,5 +1,7 @@
 #include "Fase.h"
 
+#include "../Entidades/Projetil.h" 
+
 namespace Fases {
 
     Fase::Fase() : pJogador(nullptr) {
@@ -9,16 +11,26 @@ namespace Fases {
     }
 
     void Fase::executar() {
-    
-        lista_ents.percorrer();
 
+    if (pJogador != nullptr) {
+        Entidades::Projetil* tiro = pJogador->atirar();
         
-        GC.executar();
-
-        //Pega a janela do Singleton e desenha todos de uma vez
-        sf::RenderWindow* janela = Gerenciadores::Gerenciador_Grafico::getInstancia()->getWindow();
-        lista_ents.desenhar(janela);
+        
+        if (tiro != nullptr) {
+            lista_ents.incluir(tiro); //atualizado e desenhado
+            GC.incluirProjetil(tiro); //colidir com os inimigos
+        }
     }
+
+    //  Atualiza a lógica de TODAS as entidades (
+    lista_ents.percorrer();
+
+    //  Resolve colisões
+    GC.executar();
+
+    //  Desenha todo mundo
+    lista_ents.desenhar();
+}
 
     void Fase::criarInimFaceis() {}
     void Fase::criarPlataformas() {}

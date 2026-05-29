@@ -7,7 +7,6 @@ namespace Entidades {
     protected:
         int vx;
         int dano;
-        bool ativo;
 
     public:
         Projetil();
@@ -18,9 +17,6 @@ namespace Entidades {
 
         void setDano(int d);
         int getDano() const;
-
-        void setAtivo(bool a);
-        bool getAtivo() const;
 
         void executar();
         void salvar();

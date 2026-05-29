@@ -17,20 +17,20 @@ namespace Personagens {
     public:
         Jogador();
         ~Jogador();
-
+        void colidir();
         void executar();
-        void mover();
         void salvar();
-        void atirar();
+        void mover();
+        Entidades::Projetil* atirar();
 
-        void colidir(); 
+         
         int getPontos() const { return pontos; }
         Entidades::Projetil* getProjetil() const;
 
         void tomarDano(int dano); 
         void setLento(bool estado) { lento = estado; }
         bool getLento() const { return lento; }
-        void desenhar(sf::RenderWindow* window);
+
     };
 
 }

@@ -17,7 +17,7 @@ namespace Listas {
         void percorrer();
         
         
-        void desenhar(sf::RenderWindow* window);
+        void desenhar();
     };
 
 }

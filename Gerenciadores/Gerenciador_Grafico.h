@@ -3,6 +3,11 @@
 #include <map>
 #include <string>
 #include <iostream>
+class Ente;
+
+namespace Entidades {
+    class Entidade; 
+}
 
 namespace Gerenciadores {
 
@@ -10,18 +15,14 @@ namespace Gerenciadores {
     private:
         sf::RenderWindow* window;
         
-        
         std::map<std::string, sf::Texture*> texturas;
-        
         
         static Gerenciador_Grafico* instancia;
 
-        
-        
     public:
         Gerenciador_Grafico();
         ~Gerenciador_Grafico();
-        
+        void desenharEnte(Ente* pE);
         // Ponto de acesso global
         static Gerenciador_Grafico* getInstancia();
 
@@ -33,8 +34,7 @@ namespace Gerenciadores {
         bool verificaJanelaAberta();
 
         
-        void desenharElemento(sf::Sprite sprite);
-        void desenharElemento(sf::RectangleShape corpo); 
+        
 
         
         sf::Texture* carregarTextura(const char* caminho);

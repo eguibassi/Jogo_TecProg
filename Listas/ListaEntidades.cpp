@@ -1,7 +1,12 @@
 #include "ListaEntidades.h"
 //"../" no include volta uma pasta, necessário para acessar arquivos em pastas diferentes.
-#include "../entidades/Entidade.h"
+#include "../Entidades/Entidade.h"
+
+
+#include "../Gerenciadores/Gerenciador_Grafico.h"
+
 using namespace Listas;
+
 ListaEntidades::ListaEntidades()
 {
 }
@@ -35,13 +40,13 @@ void ListaEntidades::percorrer()
     }
 }
 
-void ListaEntidades::desenhar(sf::RenderWindow* window) {
+void ListaEntidades::desenhar() {
     Listas::Elemento<Entidades::Entidade>* pAux = LEs.getPrimeiro();
 
     while (pAux != nullptr) {
         Entidades::Entidade* pEntidade = pAux->getInfo();
         if (pEntidade != nullptr) {
-            pEntidade->desenhar(window);
+            pEntidade->desenhar(); 
         }
         pAux = pAux->getProximo();
     }

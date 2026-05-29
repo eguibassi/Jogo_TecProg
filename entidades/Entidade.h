@@ -1,33 +1,35 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <sstream> 
-
+#include "../Ente.h"
 namespace Entidades {
 
-    class Entidade {
+    class Entidade : public Ente {
     protected:
         int x;
         int y; 
         std::ostringstream buffer; 
 
-       
         sf::Sprite sprite;
-        sf::Texture* textura;
-
-      
+        sf::Texture* textura;      
         sf::RectangleShape corpo;
 
+        bool ativo;
+    protected:
+        void salvarDataBuffer();
     public:
         Entidade();
         virtual ~Entidade();
-
-        void salvarDataBuffer();
         virtual void executar() = 0;
         virtual void salvar() = 0;
-
-        virtual void desenhar(sf::RenderWindow* window);
-        sf::RectangleShape getCorpo() const { return corpo; }
         
+        bool getAtivo() const { return ativo; }
+        void setAtivo(bool a) { ativo = a; }
+
+        
+        sf::RectangleShape& getCorpo()  { return corpo; }
+        sf::Sprite& getSprite()  { return sprite; }
+
         void setPosicao(int novoX, int novoY) {
             x = novoX;
             y = novoY;

@@ -54,10 +54,5 @@ namespace Personagens {
         
       
     }
-    void Inimigo::desenhar(sf::RenderWindow* window){
-        if(textura!=nullptr)
-            Gerenciadores::Gerenciador_Grafico::getInstancia()->desenharElemento(sprite);
-        else
-            std::cout<<"deu problema na imagem"<<std::endl;
-    }
+
 } 

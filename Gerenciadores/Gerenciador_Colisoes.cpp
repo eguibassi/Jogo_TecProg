@@ -1,4 +1,5 @@
 #include "Gerenciador_Colisoes.h"
+#include "../Entidades/Obstaculos/Plataforma.h" 
 #include <cmath> 
 /*O método das colisões foi extraído majoritariamente do exemplo do monitor Giovannihttps://github.com/Giovanenero/JogoPlataforma2D-Jungle/blob/main/Jungle%2B%2B/src/Gerenciador/GerenciadorColisao.cpp */
 
@@ -150,7 +151,7 @@ namespace Gerenciadores {
         if (po) LOs.push_back(po);
     }
 
-    void Gerenciador_Colisoes::incluirProjetil(Projetil* pj) {
+    void Gerenciador_Colisoes::incluirProjetil(Entidades::Projetil* pj) {
         if (pj) Lps.insert(pj);
     }
 
@@ -161,4 +162,4 @@ namespace Gerenciadores {
         tratarColisoesJogsProjeteis();
     }
 
-} 
+}

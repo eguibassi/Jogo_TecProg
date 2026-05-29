@@ -1,4 +1,6 @@
 #include "Gerenciador_Grafico.h"
+#include "../Ente.h"
+#include "../Entidades/Entidade.h"
 
 namespace Gerenciadores {
 
@@ -8,9 +10,8 @@ namespace Gerenciadores {
         window = new sf::RenderWindow(sf::VideoMode(800, 600), "Clash++");
         window->setFramerateLimit(60);
         
-        
-        
         instancia = this; 
+        Ente::setGG(this);
     }
 
     Gerenciador_Grafico* Gerenciador_Grafico::getInstancia() {
@@ -40,8 +41,22 @@ namespace Gerenciadores {
     }
 
     bool Gerenciador_Grafico::verificaJanelaAberta() { return window->isOpen(); }
-    void Gerenciador_Grafico::desenharElemento(sf::Sprite sprite) { window->draw(sprite); }
-    void Gerenciador_Grafico::desenharElemento(sf::RectangleShape corpo) { window->draw(corpo); }
+    void Gerenciador_Grafico::desenharEnte(Ente* pE) {
+        if (!pE) return;
+
+        
+        Entidades::Entidade* pEntidade = dynamic_cast<Entidades::Entidade*>(pE);
+        
+    
+        if (pEntidade && pEntidade->getAtivo()) {
+            if (pEntidade->getSprite().getTexture() != nullptr) {
+                window->draw(pEntidade->getSprite());
+            } 
+            else {
+                window->draw(pEntidade->getCorpo());
+            }
+        }
+    }
 
     sf::Texture* Gerenciador_Grafico::carregarTextura(const char* caminho) {
         if (texturas.find(caminho) != texturas.end()) {
