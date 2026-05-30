@@ -1,7 +1,7 @@
 #include "Gerenciador_Grafico.h"
 #include "../Ente.h"
 #include "../Entidades/Entidade.h"
-
+/*implementar singleton*/
 namespace Gerenciadores {
 
     Gerenciador_Grafico* Gerenciador_Grafico::instancia = nullptr;

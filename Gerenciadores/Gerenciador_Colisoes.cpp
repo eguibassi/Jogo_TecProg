@@ -2,7 +2,8 @@
 #include "../Entidades/Obstaculos/Plataforma.h" 
 #include <cmath> 
 /*O método das colisões foi extraído majoritariamente do exemplo do monitor Giovannihttps://github.com/Giovanenero/JogoPlataforma2D-Jungle/blob/main/Jungle%2B%2B/src/Gerenciador/GerenciadorColisao.cpp */
-
+/*implemenar singleton
+/*sem funcoes locais*/
 namespace Gerenciadores {
 
     Gerenciador_Colisoes::Gerenciador_Colisoes() : pJog1(nullptr) {
