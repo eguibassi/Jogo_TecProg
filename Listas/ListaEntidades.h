@@ -13,10 +13,12 @@ namespace Listas {
         ListaEntidades();
         ~ListaEntidades();
 
+        //Inclui uma entidade na lista
         void incluir(Entidades::Entidade* pE);
+        //Percorre a lista de entidades
         void percorrer();
         
-        
+        //Chama o desenhar das entidades da lista
         void desenhar();
     };
 

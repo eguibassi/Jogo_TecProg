@@ -3,10 +3,10 @@
 
 Gerenciadores::Gerenciador_Grafico* Ente::pGG = nullptr;
 
-Ente::Ente() : id(0), pFig(nullptr) {
-}
+Ente::Ente() : id(0), pFig(nullptr), textos() {}
 
 Ente::~Ente() {
+    textos.clear();
 }
 
 void Ente::setGG(Gerenciadores::Gerenciador_Grafico* pG) {
@@ -19,3 +19,22 @@ void Ente::desenhar() {
         pGG->desenharEnte(this);
     }
 }
+
+
+void Ente::adicionarTexto(sf::Text* pTexto){
+    if (pTexto != nullptr)
+    {
+        textos.push_back(pTexto);
+    }
+}
+
+void Ente::limparTextos()
+{
+    textos.clear();
+}
+
+const std::vector<sf::Text*>& Ente::getTextos() const
+{
+    return textos;
+}
+

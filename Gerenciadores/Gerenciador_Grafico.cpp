@@ -56,6 +56,15 @@ namespace Gerenciadores {
                 window->draw(pEntidade->getCorpo());
             }
         }
+        
+        //A parte a seguir é para a implementação do desenho de textos necessário para o menu
+        std::vector<sf::Text*> textos = pE->getTextos();
+        for (unsigned int i = 0; i < textos.size(); i++){
+            if (textos[i] != nullptr){
+                window->draw(*textos[i]);
+                }
+            }
+        textos.clear();
     }
 
     sf::Texture* Gerenciador_Grafico::carregarTextura(const char* caminho) {
