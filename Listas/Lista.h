@@ -1,14 +1,33 @@
 #pragma once
-#include "Elemento.h"
 
-// Template inspirado no slide 10A de conceitos avançados de c++, disponível em:
-// https://pessoal.dainf.ct.utfpr.edu.br/jeansimao/Fundamentos2/Fundamentos2.htm
+// Template inspirado no slide 10A de conceitos avançados de C++
+// Elemento fica dentro de Lista, como no UML
 
 namespace Listas
 {
     template <class TL>
     class Lista
     {
+    public:
+        template <class TE>
+        class Elemento
+        {
+        private:
+            Elemento<TE>* pProx;
+            TE* pInfo;
+
+        public:
+            Elemento();
+            ~Elemento();
+
+            //Coloca a informação dentro do elemento
+            void incluir(TE* p);
+            //Define o próximo elemento
+            void setProx(Elemento<TE>* pE);
+            Elemento<TE>* getProximo() const;
+            TE* getInfo() const;
+        };
+
     private:
         Elemento<TL>* pPrimeiro;
         Elemento<TL>* pUltimo;
@@ -17,12 +36,60 @@ namespace Listas
         Lista();
         ~Lista();
 
+        //Adiciona um elemtno no FINAL da lista
         void incluir(TL* p);
+        //Apaga os elementos da lista
         void limpar();
 
         Elemento<TL>* getPrimeiro() const;
         Elemento<TL>* getUltimo() const;
     };
+
+
+    template <class TL>
+    template <class TE>
+    Lista<TL>::Elemento<TE>::Elemento()
+    {
+        pProx = nullptr;
+        pInfo = nullptr;
+    }
+
+    template <class TL>
+    template <class TE>
+    Lista<TL>::Elemento<TE>::~Elemento()
+    {
+        pProx = nullptr;
+        pInfo = nullptr;
+    }
+
+    template <class TL>
+    template <class TE>
+    void Lista<TL>::Elemento<TE>::incluir(TE* p)
+    {
+        pInfo = p;
+    }
+
+    template <class TL>
+    template <class TE>
+    void Lista<TL>::Elemento<TE>::setProx(Elemento<TE>* pE)
+    {
+        pProx = pE;
+    }
+
+    template <class TL>
+    template <class TE>
+    typename Lista<TL>::template Elemento<TE>* Lista<TL>::Elemento<TE>::getProximo() const
+    {
+        return pProx;
+    }
+
+    template <class TL>
+    template <class TE>
+    TE* Lista<TL>::Elemento<TE>::getInfo() const
+    {
+        return pInfo;
+    }
+
 
     template <class TL>
     Lista<TL>::Lista()
@@ -80,13 +147,13 @@ namespace Listas
     }
 
     template <class TL>
-    Elemento<TL>* Lista<TL>::getPrimeiro() const
+    typename Lista<TL>::template Elemento<TL>* Lista<TL>::getPrimeiro() const
     {
         return pPrimeiro;
     }
 
     template <class TL>
-    Elemento<TL>* Lista<TL>::getUltimo() const
+    typename Lista<TL>::template Elemento<TL>* Lista<TL>::getUltimo() const
     {
         return pUltimo;
     }

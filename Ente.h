@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "Gerenciadores/Gerenciador_Grafico.h"
 
 
@@ -9,6 +10,8 @@ protected:
     int id;
     static Gerenciadores::Gerenciador_Grafico* pGG;
     Figura* pFig; 
+    //Vector para textos no menu
+    std::vector<sf::Text*> textos;
 
 public:
     Ente();
@@ -18,4 +21,10 @@ public:
     void desenhar();
     
     static void setGG(Gerenciadores::Gerenciador_Grafico* pG);    
+
+    //pushback no vector
+    void adicionarTexto(sf::Text* pTexto);
+    //limpa o vector
+    void limparTextos();
+    const std::vector<sf::Text*>& getTextos() const;
 };
