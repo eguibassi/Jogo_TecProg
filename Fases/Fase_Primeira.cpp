@@ -49,12 +49,11 @@ namespace Fases {
         }
     }
     void FasePrimeira::desenharFundo(){
-    Gerenciadores::Gerenciador_Grafico* pGraf = Gerenciadores::Gerenciador_Grafico::getInstancia();
+        Gerenciadores::Gerenciador_Grafico* pGraf = Gerenciadores::Gerenciador_Grafico::getInstancia();
 
-    if (pGraf != nullptr && pGraf->getWindow() != nullptr){
-        pGraf->getWindow()->draw(spriteFundo);
+        if (pGraf != nullptr && pGraf->getWindow() != nullptr)
+            pGraf->getWindow()->draw(spriteFundo);
     }
-}
 
     void FasePrimeira::criarObstaculo() {
         // Criamos o chão em um laço de repetição para forrar o cenário
@@ -85,6 +84,14 @@ namespace Fases {
             lista_ents.incluir(inimigo);
             GC.incluirInimigo(inimigo);
         }
+    Personagens::Pekka* pekka = new Personagens::Pekka();
+
+    //Posição DEVE ser alterada quando colocarmos as plataformas
+    //e implementarmos a logística do nível
+    pekka->setPosicao(650, 400);
+    pekka->setJogador(pJogador);
+    lista_ents.incluir(pekka);
+    GC.incluirInimigo(pekka);
     }
 
     void FasePrimeira::criarObstMedios() {

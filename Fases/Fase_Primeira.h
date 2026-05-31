@@ -1,5 +1,6 @@
 #pragma once
 #include "Fase.h"
+#include "../Entidades/Personagens/Pekka.h"
 
 namespace Fases {
 

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Ente.h"
-class Jogo;
+#include "Jogo.h"
+#include <iostream>
 
 class Menu : public Ente {
 private:

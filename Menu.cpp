@@ -1,6 +1,4 @@
 #include "Menu.h"
-#include "Jogo.h"
-#include <iostream>
 
 Menu::Menu() :
     pJog(nullptr),
