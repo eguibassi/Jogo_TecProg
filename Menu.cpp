@@ -11,35 +11,27 @@ Menu::Menu() :
     inicializarTextos();
 }
 
-Menu::Menu(Jogo* pJogo) :
-    pJog(pJogo),
-    ativo(true),
-    mouseClick(false)
-{
+Menu::Menu(Jogo* pJogo) : pJog(pJogo), ativo(true), mouseClick(false){
     inicializarFonte();
     inicializarTextos();
 }
 
-Menu::~Menu()
-{
+Menu::~Menu(){
     limparTextos();
 }
 
-void Menu::setJogo(Jogo* pJogo)
-{
+void Menu::setJogo(Jogo* pJogo){
     pJog = pJogo;
 }
 
-void Menu::inicializarFonte()
-{
+void Menu::inicializarFonte(){
     if (!fonte.loadFromFile("assets/fontes/arial.ttf"))
     {
         std::cout << "Erro ao carregar fonte do Menu." << std::endl;
     }
 }
 
-void Menu::inicializarTextos()
-{
+void Menu::inicializarTextos(){
     opcaoJogar.setFont(fonte);
     opcaoJogar.setString("FASE 1");
     opcaoJogar.setCharacterSize(50);
@@ -49,8 +41,7 @@ void Menu::inicializarTextos()
     adicionarTexto(&opcaoJogar);
 }
 
-void Menu::executar()
-{
+void Menu::executar(){
     if (!ativo)
     {
         return;
@@ -62,8 +53,7 @@ void Menu::executar()
     desenhar();
 }
 
-void Menu::atualizarMouse()
-{
+void Menu::atualizarMouse(){
     if (mouseEmCima(opcaoJogar))
     {
         opcaoJogar.setFillColor(sf::Color::Yellow);
@@ -74,8 +64,7 @@ void Menu::atualizarMouse()
     }
 }
 
-void Menu::verificarClique()
-{
+void Menu::verificarClique(){
     bool clicouAgora = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
     if (clicouAgora && !mouseClick)
@@ -89,8 +78,7 @@ void Menu::verificarClique()
     mouseClick = clicouAgora;
 }
 
-bool Menu::mouseEmCima(const sf::Text& texto) const
-{
+bool Menu::mouseEmCima(const sf::Text& texto) const{
     if (pGG == nullptr || pGG->getWindow() == nullptr)
     {
         return false;
@@ -102,40 +90,28 @@ bool Menu::mouseEmCima(const sf::Text& texto) const
     return texto.getGlobalBounds().contains(posMouse);
 }
 
-void Menu::executarJogar()
-{
+void Menu::executarJogar(){
     if (pJog != nullptr)
     {
         pJog->entrarFase1();
     }
 }
 
-void Menu::executarRanking()
-{
-}
+void Menu::executarRanking(){}
+void Menu::executarSalvar(){}
+void Menu::executarRecuperar(){}
 
-void Menu::executarSalvar()
-{
-}
-
-void Menu::executarRecuperar()
-{
-}
-
-void Menu::executarSair()
-{
+void Menu::executarSair(){
     if (pGG != nullptr)
     {
         pGG->fecharJanela();
     }
 }
 
-void Menu::setAtivo(const bool estado)
-{
+void Menu::setAtivo(const bool estado){
     ativo = estado;
 }
 
-bool Menu::getAtivo() const
-{
+bool Menu::getAtivo() const{
     return ativo;
 }

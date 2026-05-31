@@ -30,6 +30,8 @@ namespace Fases {
     
         virtual void criarInimigos() = 0;
         virtual void criarObstaculo() = 0;
+        virtual void criarFundo() = 0;
+        virtual void desenharFundo() = 0;
         
         
         void criarInimFaceis();

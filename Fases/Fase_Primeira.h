@@ -6,6 +6,8 @@ namespace Fases {
     class FasePrimeira : public Fase {
     private:
         const int maxInimMedios;
+        sf::Texture texturaFundo;
+        sf::Sprite spriteFundo;
 
     public:
         
@@ -17,6 +19,8 @@ namespace Fases {
         void criarObstaculo();
         void criarInimMedios();
         void criarObstMedios();
+        void criarFundo();
+        void desenharFundo();
     };
 
 }

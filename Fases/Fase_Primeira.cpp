@@ -35,8 +35,26 @@ namespace Fases {
         criarCenario(); 
     }
 
-    FasePrimeira::~FasePrimeira() {
+    FasePrimeira::~FasePrimeira() {}
+
+    void FasePrimeira::criarFundo(){
+        if(!texturaFundo.loadFromFile("Assets/Fundo fase 1.png"))
+            return;
+        spriteFundo.setTexture(texturaFundo);
+        spriteFundo.setPosition(0.f, 0.f);
+        sf::Vector2u tam = texturaFundo.getSize();
+        if (tam.x > 0 && tam.y > 0){
+            //Dimensiona a imagem para o tamanho desejado
+            spriteFundo.setScale(800.f / tam.x, 600.f / tam.y);
+        }
     }
+    void FasePrimeira::desenharFundo(){
+    Gerenciadores::Gerenciador_Grafico* pGraf = Gerenciadores::Gerenciador_Grafico::getInstancia();
+
+    if (pGraf != nullptr && pGraf->getWindow() != nullptr){
+        pGraf->getWindow()->draw(spriteFundo);
+    }
+}
 
     void FasePrimeira::criarObstaculo() {
         // Criamos o chão em um laço de repetição para forrar o cenário

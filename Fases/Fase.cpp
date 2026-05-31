@@ -28,6 +28,8 @@ namespace Fases {
     //  Resolve colisões
     GC.executar();
 
+    desenharFundo();
+
     //  Desenha todo mundo
     lista_ents.desenhar();
 }
@@ -36,6 +38,7 @@ namespace Fases {
     void Fase::criarPlataformas() {}
 
     void Fase::criarCenario() {
+        criarFundo();
         criarPlataformas();
         criarObstaculo();
         criarInimigos();
