@@ -9,7 +9,7 @@ class Menu;
 class Jogo {
 private:
     enum EstadoJogo {
-        MENU = 0,
+        MENU,
         FASE1
     };
 

@@ -1,16 +1,14 @@
 #include "Menu.h"
 
-Menu::Menu() :
-    pJog(nullptr),
-    ativo(true),
-    mouseClick(false)
-{
+Menu::Menu() : pJog(nullptr), ativo(true), rankingAberto(false), mouseClick(false){
     inicializarFonte();
+    inicializarFundo();
     inicializarTextos();
 }
 
-Menu::Menu(Jogo* pJogo) : pJog(pJogo), ativo(true), mouseClick(false){
+Menu::Menu(Jogo* pJogo) : pJog(pJogo), ativo(true), rankingAberto(false), mouseClick(false){
     inicializarFonte();
+    inicializarFundo();
     inicializarTextos();
 }
 
@@ -25,18 +23,63 @@ void Menu::setJogo(Jogo* pJogo){
 void Menu::inicializarFonte(){
     if (!fonte.loadFromFile("assets/fontes/arial.ttf"))
     {
-        std::cout << "Erro ao carregar fonte do Menu." << std::endl;
+        std::cerr << "Erro ao carregar fonte do Menu." << std::endl;
     }
 }
 
-void Menu::inicializarTextos(){
-    opcaoJogar.setFont(fonte);
-    opcaoJogar.setString("FASE 1");
-    opcaoJogar.setCharacterSize(50);
-    opcaoJogar.setFillColor(sf::Color::White);
-    opcaoJogar.setPosition(250.f, 250.f);
+void Menu::inicializarFundo(){
+    if (!texturaFundo.loadFromFile("assets/fundo Menu.png"))
+    {
+        std::cerr << "Erro ao carregar fundo do Menu." << std::endl;
+    }
 
-    adicionarTexto(&opcaoJogar);
+    fundo.setTexture(texturaFundo);
+    fundo.setPosition(0.f, 0.f);
+}
+
+void Menu::inicializarTextos(){
+    titulo.setFont(fonte);
+    titulo.setString("Clash++");
+    titulo.setCharacterSize(70);
+    titulo.setFillColor(sf::Color::White);
+    titulo.setPosition(280.f, 80.f);
+
+    opcaoFase1.setFont(fonte);
+    opcaoFase1.setString("FASE 1: Parquinho da P.E.K.K.A");
+    opcaoFase1.setCharacterSize(30);
+    opcaoFase1.setFillColor(sf::Color::White);
+    opcaoFase1.setPosition(150.f, 250.f);
+
+    opcaoFase2.setFont(fonte);
+    opcaoFase2.setString("FASE 2: Pico congelado");
+    opcaoFase2.setCharacterSize(30);
+    opcaoFase2.setFillColor(sf::Color::White);
+    opcaoFase2.setPosition(150.f, 320.f);
+
+    opcaoRanking.setFont(fonte);
+    opcaoRanking.setString("Ranking");
+    opcaoRanking.setCharacterSize(30);
+    opcaoRanking.setFillColor(sf::Color::White);
+    opcaoRanking.setPosition(300.f, 390.f);
+
+    textoRanking.setFont(fonte);
+    textoRanking.setString("Ranking");
+    textoRanking.setCharacterSize(70);
+    textoRanking.setFillColor(sf::Color::Transparent);
+    textoRanking.setPosition(300.f, 120.f);
+
+    textoVoltar.setFont(fonte);
+    textoVoltar.setString("Pressione ESC para voltar ao menu");
+    textoVoltar.setCharacterSize(35);
+    textoVoltar.setFillColor(sf::Color::Transparent);
+    textoVoltar.setPosition(180.f, 300.f);
+
+    adicionarTexto(&titulo);
+    adicionarTexto(&opcaoFase1);
+    adicionarTexto(&opcaoFase2);
+    adicionarTexto(&opcaoRanking);
+    adicionarTexto(&textoRanking);
+    adicionarTexto(&textoVoltar);
 }
 
 void Menu::executar(){
@@ -45,20 +88,54 @@ void Menu::executar(){
         return;
     }
 
-    atualizarMouse();
-    verificarClique();
+    if (rankingAberto)
+    {
+        verificarRanking();
+    }
+    else
+    {
+        atualizarMouse();
+        verificarClique();
+    }
+
+    if (pGG != nullptr && pGG->getWindow() != nullptr)
+    {
+        pGG->getWindow()->draw(fundo);
+    }
 
     desenhar();
 }
 
 void Menu::atualizarMouse(){
-    if (mouseEmCima(opcaoJogar))
+    titulo.setFillColor(sf::Color::White);
+    textoRanking.setFillColor(sf::Color::Transparent);
+    textoVoltar.setFillColor(sf::Color::Transparent);
+
+    if (mouseEmCima(opcaoFase1))
     {
-        opcaoJogar.setFillColor(sf::Color::Yellow);
+        opcaoFase1.setFillColor(sf::Color::Yellow);
     }
     else
     {
-        opcaoJogar.setFillColor(sf::Color::White);
+        opcaoFase1.setFillColor(sf::Color::White);
+    }
+
+    if (mouseEmCima(opcaoFase2))
+    {
+        opcaoFase2.setFillColor(sf::Color::Yellow);
+    }
+    else
+    {
+        opcaoFase2.setFillColor(sf::Color::White);
+    }
+
+    if (mouseEmCima(opcaoRanking))
+    {
+        opcaoRanking.setFillColor(sf::Color::Yellow);
+    }
+    else
+    {
+        opcaoRanking.setFillColor(sf::Color::White);
     }
 }
 
@@ -67,13 +144,36 @@ void Menu::verificarClique(){
 
     if (clicouAgora && !mouseClick)
     {
-        if (mouseEmCima(opcaoJogar))
+        if (mouseEmCima(opcaoFase1))
         {
             executarJogar();
+        }
+        else if (mouseEmCima(opcaoFase2))
+        {
+            executarFase2();
+        }
+        else if (mouseEmCima(opcaoRanking))
+        {
+            executarRanking();
         }
     }
 
     mouseClick = clicouAgora;
+}
+
+void Menu::verificarRanking(){
+    titulo.setFillColor(sf::Color::Transparent);
+    opcaoFase1.setFillColor(sf::Color::Transparent);
+    opcaoFase2.setFillColor(sf::Color::Transparent);
+    opcaoRanking.setFillColor(sf::Color::Transparent);
+
+    textoRanking.setFillColor(sf::Color::White);
+    textoVoltar.setFillColor(sf::Color::White);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+        rankingAberto = false;
+    }
 }
 
 bool Menu::mouseEmCima(const sf::Text& texto) const{
@@ -95,7 +195,14 @@ void Menu::executarJogar(){
     }
 }
 
-void Menu::executarRanking(){}
+void Menu::executarFase2(){
+    //Quando a fase 2 for criada no Jogo, chamar a função entrarFase2 aqui
+}
+
+void Menu::executarRanking(){
+    rankingAberto = true;
+}
+
 void Menu::executarSalvar(){}
 void Menu::executarRecuperar(){}
 
