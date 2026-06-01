@@ -17,8 +17,6 @@ namespace Personagens{
 
         void executar();
         void danificar(Jogador* pJogador);
-        //ver com simão se não foi erro de digitação no UML
-        void salva();
         void salvar();
     };
 }

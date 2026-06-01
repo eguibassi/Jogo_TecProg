@@ -83,15 +83,16 @@ namespace Fases {
             
             lista_ents.incluir(inimigo);
             GC.incluirInimigo(inimigo);
-        }
-    Personagens::Pekka* pekka = new Personagens::Pekka();
+            Personagens::Pekka* pekka = new Personagens::Pekka();
 
-    //Posição DEVE ser alterada quando colocarmos as plataformas
-    //e implementarmos a logística do nível
-    pekka->setPosicao(650, 400);
-    pekka->setJogador(pJogador);
-    lista_ents.incluir(pekka);
-    GC.incluirInimigo(pekka);
+            //Posição DEVE ser alterada quando colocarmos as plataformas
+            //e implementarmos a logística do nível
+            pekka->setPosicao(150.0f +(i*150.0f), 400.0f);
+            pekka->setJogador(pJogador);
+            lista_ents.incluir(pekka);
+            GC.incluirInimigo(pekka);
+        }
+
     }
 
     void FasePrimeira::criarObstMedios() {

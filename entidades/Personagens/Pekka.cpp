@@ -35,7 +35,4 @@ void Pekka::danificar(Jogador* pJogador){
     }
 }
 
-void Pekka::salva(){
-    salvar();
-}
 void Pekka::salvar(){}

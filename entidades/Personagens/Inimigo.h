@@ -17,7 +17,7 @@ namespace Personagens {
         virtual ~Inimigo();
         virtual void executar() = 0;
         virtual void danificar(Jogador* p) = 0;
-        virtual void salva() = 0; 
+        virtual void salvar() = 0; 
         
         void setJogador(Jogador* j) { pJogador = j; }
         void mover(); 

@@ -34,6 +34,8 @@ void Menu::inicializarFundo(){
     }
 
     fundo.setTexture(texturaFundo);
+    sf::Vector2u tamanhoOriginal = texturaFundo.getSize();
+    fundo.setScale(800.0f / tamanhoOriginal.x, 600.0f / tamanhoOriginal.y);
     fundo.setPosition(0.f, 0.f);
 }
 
@@ -45,19 +47,19 @@ void Menu::inicializarTextos(){
     titulo.setPosition(280.f, 80.f);
 
     opcaoFase1.setFont(fonte);
-    opcaoFase1.setString("FASE 1: Parquinho da P.E.K.K.A");
+    opcaoFase1.setString("FASE 1: PARQUINHO DA P.E.K.K.A");
     opcaoFase1.setCharacterSize(30);
     opcaoFase1.setFillColor(sf::Color::White);
     opcaoFase1.setPosition(150.f, 250.f);
 
     opcaoFase2.setFont(fonte);
-    opcaoFase2.setString("FASE 2: Pico congelado");
+    opcaoFase2.setString("FASE 2: PICO CONGELADO");
     opcaoFase2.setCharacterSize(30);
     opcaoFase2.setFillColor(sf::Color::White);
     opcaoFase2.setPosition(150.f, 320.f);
 
     opcaoRanking.setFont(fonte);
-    opcaoRanking.setString("Ranking");
+    opcaoRanking.setString("RANKING");
     opcaoRanking.setCharacterSize(30);
     opcaoRanking.setFillColor(sf::Color::White);
     opcaoRanking.setPosition(300.f, 390.f);
@@ -83,23 +85,16 @@ void Menu::inicializarTextos(){
 }
 
 void Menu::executar(){
-    if (!ativo)
-    {
-        return;
-    }
-
-    if (rankingAberto)
-    {
+    if (!ativo){return;}
+    if (rankingAberto){
         verificarRanking();
     }
-    else
-    {
+    else{
         atualizarMouse();
         verificarClique();
     }
 
-    if (pGG != nullptr && pGG->getWindow() != nullptr)
-    {
+    if (pGG != nullptr && pGG->getWindow() != nullptr){
         pGG->getWindow()->draw(fundo);
     }
 
@@ -117,6 +112,7 @@ void Menu::atualizarMouse(){
     }
     else
     {
+        opcaoFase1.setStyle(sf::Text::Bold);
         opcaoFase1.setFillColor(sf::Color::White);
     }
 
@@ -126,6 +122,7 @@ void Menu::atualizarMouse(){
     }
     else
     {
+        opcaoFase2.setStyle(sf::Text::Bold);
         opcaoFase2.setFillColor(sf::Color::White);
     }
 
@@ -135,6 +132,7 @@ void Menu::atualizarMouse(){
     }
     else
     {
+        opcaoRanking.setStyle(sf::Text::Bold);
         opcaoRanking.setFillColor(sf::Color::White);
     }
 }
@@ -189,8 +187,7 @@ bool Menu::mouseEmCima(const sf::Text& texto) const{
 }
 
 void Menu::executarJogar(){
-    if (pJog != nullptr)
-    {
+    if (pJog != nullptr){
         pJog->entrarFase1();
     }
 }
