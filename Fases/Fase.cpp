@@ -4,8 +4,7 @@
 
 namespace Fases {
 
-    Fase::Fase() : pJogador(nullptr) {
-    }
+    Fase::Fase() : pJogador(nullptr), pJogador2(nullptr) {}
 
     Fase::~Fase() {
     }
@@ -14,23 +13,28 @@ namespace Fases {
 
     if (pJogador != nullptr) {
         Entidades::Projetil* tiro = pJogador->atirar();
-        
-        
+
         if (tiro != nullptr) {
-            lista_ents.incluir(tiro); //atualizado e desenhado
-            GC.incluirProjetil(tiro); //colidir com os inimigos
+            lista_ents.incluir(tiro);
+            GC.incluirProjetil(tiro);
         }
     }
 
-    //  Atualiza a lógica de TODAS as entidades (
+    if (pJogador2 != nullptr) {
+        Entidades::Projetil* tiro2 = pJogador2->atirar();
+
+        if (tiro2 != nullptr) {
+            lista_ents.incluir(tiro2);
+            GC.incluirProjetil(tiro2);
+        }
+    }
+    //Atualiza a lógica de todas as entidades
     lista_ents.percorrer();
 
-    //  Resolve colisões
     GC.executar();
 
     desenharFundo();
 
-    //  Desenha todo mundo
     lista_ents.desenhar();
 }
 

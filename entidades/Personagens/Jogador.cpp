@@ -9,23 +9,28 @@
 
 namespace Personagens {
 
-    Jogador::Jogador() : pontos(0), lento(false), pProjetil(nullptr), podeAtirar(true) {/*lento só é true quando estiver em contato com o ObstaculoLento*/
+    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), pProjetil(nullptr), podeAtirar(true), jogador2(segundo_jogador)
+     {/*lento só é true quando estiver em contato com o ObstaculoLento*/
         num_vidas = 5; 
-        x = 100; /*posicoes iniciais*/
-        y = 100; 
-
         corpo.setSize(sf::Vector2f(50.f, 50.f)); 
-        corpo.setPosition((float)x, (float)y); 
-        corpo.setFillColor(sf::Color::Transparent); 
-
-        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Rei Azul.png");
-
-        if (textura != nullptr) {
-            sprite.setTexture(*textura);
-            // Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
-            sprite.setScale(0.102f, 0.102f); 
-            sprite.setPosition((float)x, (float)y);
+        corpo.setFillColor(sf::Color::Transparent);
+        if(!jogador2){ 
+            x = 100; /*posicoes iniciais*/
+            y = 100;    
+            textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Rei Azul.png");
         }
+        else{
+            x = 200; /*posicoes iniciais*/
+            y = 100; 
+        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Rei Vermelho.png");
+        }
+        corpo.setPosition((float)x, (float)y);     
+        if (textura != nullptr) {
+                sprite.setTexture(*textura);
+                // Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
+                sprite.setScale(0.102f, 0.102f); 
+                sprite.setPosition((float)x, (float)y);
+            }
     }
 
     Jogador::~Jogador() {
@@ -42,12 +47,23 @@ namespace Personagens {
         float velAtualX = VELOCIDADE_X_JOGADOR;
         if (lento) velAtualX = VELOCIDADE_X_JOGADOR * 0.3f; /*se tiver no obstaculo lento vai devagar*/
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocidade.x = -velAtualX; /*esquerda*/
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocidade.x = velAtualX;  /*direita*/
+        if(!jogador2){
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocidade.x = -velAtualX; /*esquerda*/
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocidade.x = velAtualX;  /*direita*/
 
-        /* aqui o que comentei em cima da classe*/
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && velocidade.y == 0.f) {
+            /* aqui o que comentei em cima da classe*/
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && velocidade.y == 0.f) {
             velocidade.y = FORCA_PULO; 
+            }
+        }
+        else{
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) velocidade.x = -velAtualX; /*esquerda*/
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) velocidade.x = velAtualX;  /*direita*/
+
+            /* aqui o que comentei em cima da classe*/
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && velocidade.y == 0.f) {
+            velocidade.y = FORCA_PULO;     
+            }
         }
 
         velocidade.y += GRAVIDADE; /*sempre atualizando Vy para puxar ele*/
@@ -60,17 +76,27 @@ namespace Personagens {
         sprite.setPosition((float)x, (float)y); /*atualiza posiçao da imagem*/
 
         lento = false;
-    }
+    }   
 
     Entidades::Projetil* Jogador::atirar() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+    bool apertouTecla = false;
+
+    if (!jogador2) {apertouTecla = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);}
+    else {apertouTecla = sf::Keyboard::isKeyPressed(sf::Keyboard::M);}
+
+    if (apertouTecla) {
         if (podeAtirar) {
             // Criamos o projétil
             Entidades::Projetil* novoProjetil = new Entidades::Projetil();
 
             sf::Vector2f posJogador = getPosicao();
+
             // Posiciona na frente do jogador
-            novoProjetil->setPosicao((int)(posJogador.x + 50.0f), (int)(posJogador.y + 20.0f));
+            novoProjetil->setPosicao(
+                (int)(posJogador.x + 50.0f),
+                (int)(posJogador.y + 20.0f)
+            );
+
             novoProjetil->setAtivo(true);
 
             podeAtirar = false;
@@ -79,10 +105,8 @@ namespace Personagens {
             return novoProjetil; 
         }
     }
-    else {
-        podeAtirar = true;
-    }
-    
+    else {podeAtirar = true;}
+
     // Se não apertou Z ou não podia atirar, retorna nada
     return nullptr; 
 }
@@ -106,6 +130,11 @@ namespace Personagens {
     void Jogador::tomarDano(int dano) {
         num_vidas -= dano;
         std::cout << "Tomou dano ! Vidas restantes: " << num_vidas << std::endl;
+    }
+
+    void Jogador::setJogador2(bool a){setJogador2(a);}
+    const bool Jogador::getJogador2()const{
+        return jogador2;
     }
 
 

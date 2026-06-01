@@ -142,22 +142,24 @@ void Menu::verificarClique(){
 
     if (clicouAgora && !mouseClick)
     {
-        if (mouseEmCima(opcaoFase1))
+        if (mouseEmCima(opcaoFase1)&& pJog!=nullptr)
         {
-            executarJogar();
+                pJog->entrarFase1();
         }
+    
         else if (mouseEmCima(opcaoFase2))
         {
-            executarFase2();
+            //implementar no futuro
         }
         else if (mouseEmCima(opcaoRanking))
         {
-            executarRanking();
+            rankingAberto = true;
         }
     }
 
     mouseClick = clicouAgora;
 }
+
 
 void Menu::verificarRanking(){
     titulo.setFillColor(sf::Color::Transparent);
@@ -185,24 +187,6 @@ bool Menu::mouseEmCima(const sf::Text& texto) const{
 
     return texto.getGlobalBounds().contains(posMouse);
 }
-
-void Menu::executarJogar(){
-    if (pJog != nullptr){
-        pJog->entrarFase1();
-    }
-}
-
-void Menu::executarFase2(){
-    //Quando a fase 2 for criada no Jogo, chamar a função entrarFase2 aqui
-}
-
-void Menu::executarRanking(){
-    rankingAberto = true;
-}
-
-void Menu::executarSalvar(){}
-void Menu::executarRecuperar(){}
-
 void Menu::executarSair(){
     if (pGG != nullptr)
     {

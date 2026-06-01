@@ -22,14 +22,19 @@ public:
 namespace Fases {
 
 
-    FasePrimeira::FasePrimeira(Personagens::Jogador* pJog) : Fase(), maxInimMedios(5) {
+    FasePrimeira::FasePrimeira(bool segundo_jogador) : Fase(), maxInimMedios(5) {
         
         srand(time(NULL)); 
 
         //Vinculamos o Jogador recebido do Jogo
-        pJogador = pJog;
+        pJogador = new Personagens::Jogador(false);
         lista_ents.incluir(pJogador);
         GC.setJogador(pJogador);
+        if(segundo_jogador){
+            pJogador2 = new Personagens::Jogador(true);
+            lista_ents.incluir(pJogador2);
+            GC.setJogador2(pJogador2);
+        }
 
         // Criamos o cenário
         criarCenario(); 
