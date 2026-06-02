@@ -14,7 +14,7 @@ private:
     sf::Text titulo;
     sf::Text opcaoFase1;
     sf::Text opcaoFase2;
-    //opçãoranking = clicar no ranking
+
     sf::Text opcaoRanking;
     sf::Text opcaoSalvar;
     sf::Text opcaoRecuperar;
@@ -44,11 +44,7 @@ private:
 
 
 
-    void executarJogar();
-    void executarFase2();
-    void executarRanking();
-    void executarSalvar();
-    void executarRecuperar();
+
     void executarSair();
 
 public:

@@ -15,7 +15,7 @@ namespace Fases {
 
     public:
         
-        FasePrimeira(Personagens::Jogador* pJog);
+        FasePrimeira(bool segundo_Jogador);
         ~FasePrimeira();
 
     protected:

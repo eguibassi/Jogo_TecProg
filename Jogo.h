@@ -17,6 +17,7 @@ private:
 
     Gerenciadores::Gerenciador_Grafico GG;
     Personagens::Jogador pJog1;
+    Personagens::Jogador pJog2;
 
     Fases::FasePrimeira* fasePrimeira;
     Menu* menu;
