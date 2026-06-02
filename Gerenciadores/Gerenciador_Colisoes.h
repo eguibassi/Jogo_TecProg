@@ -6,7 +6,7 @@
 #include "../Entidades/Personagens/Inimigo.h"
 #include "../Entidades/Obstaculos/Obstaculo.h"
 #include "../Entidades/Projetil.h" 
-
+/*remover a seta em cima e deixar so a linha sem seta*/
 namespace Gerenciadores {
 
     class Gerenciador_Colisoes {
