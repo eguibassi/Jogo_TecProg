@@ -5,8 +5,12 @@ namespace Fases {
 
     
     Fase::Fase() : Ente(), pJogador(nullptr), pJogador2(nullptr) {
-        chaoFase.setSize(sf::Vector2f(2000.f, 100.f));
-        chaoFase.setPosition(0.f, 500.f);
+        
+        chaoFase.setSize(sf::Vector2f(2000.f, 50.f));
+        
+
+        chaoFase.setPosition(0.f, 550.f);
+        
         chaoFase.setFillColor(sf::Color(139, 69, 19)); 
 
         GC.setChao(&chaoFase);
