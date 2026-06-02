@@ -7,7 +7,7 @@
 namespace Fases {
 
 
-    FasePrimeira::FasePrimeira(Personagens::Jogador* pJog) : Fase(), maxInimMedios(5) {
+    FasePrimeira::FasePrimeira(bool segundo_jogador) : Fase(), maxInimMedios(3),maxInimFaceis(5) {
         
         srand(time(NULL)); 
 
@@ -65,7 +65,8 @@ namespace Fases {
     }
 
     void FasePrimeira::criarInimFaceis() {
-        int quantidade = (rand() % maxInimFaceis) + 1; 
+        
+        int quantidade = (rand() % 3) + 2; 
 
         for (int i = 0; i < quantidade; i++) {
             
@@ -76,7 +77,6 @@ namespace Fases {
             GC.incluirInimigo(goblin);
         }
     }
-
 
     void FasePrimeira::criarInimMedios() {
         int quantidade = (rand() % maxInimMedios) + 1; 

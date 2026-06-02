@@ -911,6 +911,7 @@
 <XPD:REF name="Views[3]">ZhNOdfy3wkeoWU8It9f8lwAA</XPD:REF>
 <XPD:ATTR name="#Connections" type="integer">2</XPD:ATTR>
 <XPD:OBJ name="Connections[0]" type="UMLAssociationEnd" guid="yb2oA33U6Eic/ZYzCm8znwAA">
+<XPD:ATTR name="IsNavigable" type="boolean">False</XPD:ATTR>
 <XPD:ATTR name="Multiplicity" type="string">1</XPD:ATTR>
 <XPD:REF name="Association">6bwWMW4Bg0W/YrLtKvzPEQAA</XPD:REF>
 <XPD:REF name="Participant">dPwA/0a44ECqH3st+2zcFwAA</XPD:REF>
