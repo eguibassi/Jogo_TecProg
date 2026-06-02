@@ -9,7 +9,7 @@ https://github.com/Giovanenero/JogoPlataforma2D-Jungle/blob/main/Jungle%2B%2B/sr
 
 namespace Gerenciadores {
 
-    Gerenciador_Colisoes::Gerenciador_Colisoes() : pJog1(nullptr), pJog2(nullptr){}
+    Gerenciador_Colisoes::Gerenciador_Colisoes() : pJog1(nullptr), pJog2(nullptr),chaoFase(nullptr){}
 
     Gerenciador_Colisoes::~Gerenciador_Colisoes() {}
 
@@ -275,12 +275,68 @@ namespace Gerenciadores {
             Lps.insert(pj);
         }
     }
+    
+    void Gerenciador_Colisoes::setChao(sf::RectangleShape* chao) {
+        chaoFase = chao;
+    }
+
+    void Gerenciador_Colisoes::tratarColisoesChao() {
+        if (!chaoFase) return;
+
+        sf::FloatRect boundsChao = chaoFase->getGlobalBounds();
+
+        
+        if (pJog1) {
+            sf::FloatRect boundsJog = pJog1->getCorpo().getGlobalBounds();
+            if (boundsJog.intersects(boundsChao)) {
+                sf::Vector2f pos = pJog1->getPosicao();
+                pos.y = boundsChao.top - boundsJog.height; // Coloca exatamente em cima do chão
+                pJog1->setPosicao(pos.x, pos.y);
+                
+                sf::Vector2f vel = pJog1->getVelocidade();
+                vel.y = 0.0f; 
+                pJog1->setVelocidade(vel);
+            }
+        }
+
+        
+        if (pJog2) {
+            sf::FloatRect boundsJog2 = pJog2->getCorpo().getGlobalBounds();
+            if (boundsJog2.intersects(boundsChao)) {
+                sf::Vector2f pos = pJog2->getPosicao();
+                pos.y = boundsChao.top - boundsJog2.height; // Coloca em cima do chão
+                pJog2->setPosicao(pos.x, pos.y);
+                
+                sf::Vector2f vel = pJog2->getVelocidade();
+                vel.y = 0.0f; 
+                pJog2->setVelocidade(vel);
+            }
+        }
+
+        
+        for (auto it = LIs.begin(); it != LIs.end(); ++it) {
+            Personagens::Inimigo* ini = *it; // Pega o inimigo apontado pelo iterador
+            
+            if (ini) {
+                sf::FloatRect boundsIni = ini->getCorpo().getGlobalBounds();
+                if (boundsIni.intersects(boundsChao)) {
+                    sf::Vector2f pos = ini->getPosicao();
+                    pos.y = boundsChao.top - boundsIni.height;
+                    ini->setPosicao(pos.x, pos.y);
+                    
+                    sf::Vector2f vel = ini->getVelocidade();
+                    vel.y = 0.0f; 
+                    ini->setVelocidade(vel);
+                }
+            }
+        }
+    }
 
     void Gerenciador_Colisoes::executar() {
+        tratarColisoesChao(); 
         tratarColisoesJogsObstacs();     
         tratarColisoesInimigsObstacs(); 
         tratarColisoesJogsInimgs();      
         tratarColisoesJogsProjeteis();
     }
-
 }

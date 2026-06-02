@@ -18,6 +18,8 @@ namespace Gerenciadores {
         std::list<Entidades::Obstaculo*> LOs;
         std::set<Entidades::Projetil*> Lps;
 
+        sf::RectangleShape* chaoFase;
+
     private:
         bool verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2) const;
 
@@ -25,6 +27,7 @@ namespace Gerenciadores {
         void tratarColisoesInimigsObstacs();
         void tratarColisoesJogsInimgs();
         void tratarColisoesJogsProjeteis();
+        void tratarColisoesChao();
 
     public:
         Gerenciador_Colisoes();
@@ -36,6 +39,7 @@ namespace Gerenciadores {
         void incluirProjetil(Entidades::Projetil* pj);
         void incluirInimigo(Personagens::Inimigo* pi);
         void incluirObstaculo(Entidades::Obstaculo* po);
+        void setChao(sf::RectangleShape* chao);
 
         void executar();
     };

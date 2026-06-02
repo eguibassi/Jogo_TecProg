@@ -81,4 +81,10 @@ namespace Gerenciadores {
         return novaTextura;
     }
 
+    void Gerenciador_Grafico::desenharForma(sf::RectangleShape& forma) {
+    if (window) {
+        window->draw(forma);
+    }
+}
+
 }

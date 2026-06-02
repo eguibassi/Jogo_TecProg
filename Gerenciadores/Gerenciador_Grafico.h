@@ -33,7 +33,7 @@ namespace Gerenciadores {
         void fecharJanela();
         bool verificaJanelaAberta();
 
-        
+        void desenharForma(sf::RectangleShape& forma);
         
 
         

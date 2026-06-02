@@ -46,14 +46,7 @@ namespace Fases {
     }
 
     void FasePrimeira::criarObstaculo() {
-        // Criamos o chão em um laço de repetição para forrar o cenário
-        for (int i = 0; i < 8; i++) {
-            Entidades::Plataforma* chao = new Entidades::Plataforma();
-            
-            chao->setPosicao(i * 200, 500); 
-            lista_ents.incluir(chao);
-            GC.incluirObstaculo(chao);
-        }
+    
 
         
         criarObstMedios();
