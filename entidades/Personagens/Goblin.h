@@ -5,11 +5,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-//inimigo médio
+//inimigo fácil/médio
 namespace Personagens{
     class Goblin: public Inimigo{
     private:
-        int tamanho;
+        float raio; 
 
     public:
         Goblin();
@@ -17,7 +17,6 @@ namespace Personagens{
 
         void executar();
         void danificar(Jogador* pJogador);
-        
         
         void salvar(); 
     };
