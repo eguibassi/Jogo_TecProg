@@ -47,8 +47,7 @@ namespace Fases {
 
     void FasePrimeira::criarObstaculo() {
     
-
-        
+        criarPlataformas();
         criarObstMedios();
     }
 
@@ -102,6 +101,48 @@ namespace Fases {
             lista_ents.incluir(espinho);
             GC.incluirObstaculo(espinho);
             
+        }
+    }
+
+   void FasePrimeira::criarPlataformas() {
+        
+  
+        float alturaPrimeiroAndar = 430.0f; 
+        
+        
+        float posicoesFixasX[3] = {87.0f, 325.0f, 563.0f};
+
+        for (int i = 0; i < 3; i++) {
+            Entidades::Plataforma* platFixa = new Entidades::Plataforma();
+            platFixa->setPosicao(posicoesFixasX[i], alturaPrimeiroAndar);
+            
+            lista_ents.incluir(platFixa);
+            GC.incluirObstaculo(platFixa);
+        }
+
+
+        float alturaSegundoAndar = 300.0f;
+
+        
+        std::vector<float> posicoesAleatoriasX = {
+            1.0f,   
+            206.0f,  
+            444.0f,  
+            635.0f   
+        };
+
+        for (size_t i = 0; i < posicoesAleatoriasX.size(); i++) {
+            
+            int chance = rand() % 100;
+
+         
+            if (chance < 65) {
+                Entidades::Plataforma* platAleatoria = new Entidades::Plataforma();
+                platAleatoria->setPosicao(posicoesAleatoriasX[i], alturaSegundoAndar);
+                
+                lista_ents.incluir(platAleatoria);
+                GC.incluirObstaculo(platAleatoria);
+            }
         }
     }
 

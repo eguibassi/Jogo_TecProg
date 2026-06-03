@@ -26,6 +26,7 @@ namespace Fases {
         void criarObstMedios();
         void criarFundo();
         void desenharFundo();
+        void criarPlataformas();
     };
 
 }

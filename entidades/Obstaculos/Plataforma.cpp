@@ -2,11 +2,12 @@
 
 namespace Entidades {
 
-    Plataforma::Plataforma() : altura(50) {
+   Plataforma::Plataforma() : altura(15) {
         x = 0;   
         y = 500; 
         
-        corpo.setSize(sf::Vector2f(800.f, (float)altura)); 
+       
+        corpo.setSize(sf::Vector2f(150.f, (float)altura)); 
         corpo.setPosition((float)x, (float)y);
         corpo.setFillColor(sf::Color(150, 150, 150)); 
     }
