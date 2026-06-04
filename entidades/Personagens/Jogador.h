@@ -10,6 +10,7 @@ namespace Personagens {
         Entidades::Projetil* pProjetil;
         bool podeAtirar;
         bool jogador2;
+        bool vivo;
 
     protected:
         int pontos;
@@ -33,6 +34,7 @@ namespace Personagens {
         bool getLento() const { return lento; }
         void setJogador2(bool a);
         const bool getJogador2()const;
+        bool getVivo() const;
 
     };
 

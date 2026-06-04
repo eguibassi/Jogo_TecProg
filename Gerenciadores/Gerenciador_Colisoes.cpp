@@ -29,7 +29,8 @@ namespace Gerenciadores {
 
     void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 
-        if (pJog1 != nullptr) {
+        // Adicionada a verificação pJog1->getVivo()
+        if (pJog1 != nullptr && pJog1->getVivo()) {
             for (auto it = LOs.begin(); it != LOs.end(); ++it) {
                 Entidades::Obstaculo* obs = *it;
 
@@ -93,7 +94,8 @@ namespace Gerenciadores {
             }
         }
 
-        if (pJog2 != nullptr) {
+        // Adicionada a verificação pJog2->getVivo()
+        if (pJog2 != nullptr && pJog2->getVivo()) {
             for (auto it = LOs.begin(); it != LOs.end(); ++it) {
                 Entidades::Obstaculo* obs = *it;
 
@@ -234,7 +236,7 @@ namespace Gerenciadores {
         }
     }
 
-    void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
+   void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
         for (auto itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
             Personagens::Inimigo* ini = *itIni;
 
@@ -242,20 +244,73 @@ namespace Gerenciadores {
                 continue;
             }
 
-            if (pJog1 != nullptr && verificarColisao(pJog1, ini)) {
+            // Adicionada a verificação pJog1->getVivo() e Lógica Geral
+            if (pJog1 != nullptr && pJog1->getVivo() && verificarColisao(pJog1, ini)) {
                 
+                ini->danificar(pJog1);
+
+                sf::FloatRect rectJog = pJog1->getCorpo().getGlobalBounds();
+                sf::FloatRect rectIni = ini->getCorpo().getGlobalBounds();
+
+                float centroJogX = rectJog.left + rectJog.width / 2.0f;
+                float centroIniX = rectIni.left + rectIni.width / 2.0f;
+
+                sf::Vector2f posJog = pJog1->getPosicao();
+                sf::Vector2f velJog = pJog1->getVelocidade();
+
+                // Se o jogador estiver à esquerda do Inimigo, é empurrado para a esquerda
+                if (centroJogX < centroIniX) {
+                    posJog.x -= 25.0f; 
+                    velJog.x = -5.0f;  
+                } 
+                // Se estiver à direita, é empurrado para a direita
+                else {
+                    posJog.x += 25.0f; 
+                    velJog.x = 5.0f;
+                }
+
+                velJog.y = -3.0f; 
+
+                pJog1->setPosicao(posJog.x, posJog.y);
+                pJog1->setVelocidade(velJog);
             }
 
-            if (pJog2 != nullptr && verificarColisao(pJog2, ini)) {
+            // Adicionada a verificação pJog2->getVivo() e Lógica Geral
+            if (pJog2 != nullptr && pJog2->getVivo() && verificarColisao(pJog2, ini)) {
                 
+                ini->danificar(pJog2);
+
+                sf::FloatRect rectJog = pJog2->getCorpo().getGlobalBounds();
+                sf::FloatRect rectIni = ini->getCorpo().getGlobalBounds();
+
+                float centroJogX = rectJog.left + rectJog.width / 2.0f;
+                float centroIniX = rectIni.left + rectIni.width / 2.0f;
+
+                sf::Vector2f posJog = pJog2->getPosicao();
+                sf::Vector2f velJog = pJog2->getVelocidade();
+
+                if (centroJogX < centroIniX) {
+                    posJog.x -= 25.0f; 
+                    velJog.x = -5.0f;
+                } else {
+                    posJog.x += 25.0f; 
+                    velJog.x = 5.0f;
+                }
+
+                velJog.y = -3.0f; 
+
+                pJog2->setPosicao(posJog.x, posJog.y);
+                pJog2->setVelocidade(velJog);
             }
         }
     }
 
     void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
-        if (pJog1 == nullptr && pJog2 == nullptr) {
+        // Verifica se ambos estão mortos ou nulos
+        if ((pJog1 == nullptr || !pJog1->getVivo()) && (pJog2 == nullptr || !pJog2->getVivo())) {
             return;
         }
+        // ... Lógica dos projéteis ...
     }
 
     void Gerenciador_Colisoes::incluirInimigo(Personagens::Inimigo* pi) {
@@ -285,8 +340,8 @@ namespace Gerenciadores {
 
         sf::FloatRect boundsChao = chaoFase->getGlobalBounds();
 
-        
-        if (pJog1) {
+        // Adicionada a verificação pJog1->getVivo()
+        if (pJog1 && pJog1->getVivo()) {
             sf::FloatRect boundsJog = pJog1->getCorpo().getGlobalBounds();
             if (boundsJog.intersects(boundsChao)) {
                 sf::Vector2f pos = pJog1->getPosicao();
@@ -299,8 +354,8 @@ namespace Gerenciadores {
             }
         }
 
-        
-        if (pJog2) {
+        // Adicionada a verificação pJog2->getVivo()
+        if (pJog2 && pJog2->getVivo()) {
             sf::FloatRect boundsJog2 = pJog2->getCorpo().getGlobalBounds();
             if (boundsJog2.intersects(boundsChao)) {
                 sf::Vector2f pos = pJog2->getPosicao();
@@ -313,7 +368,6 @@ namespace Gerenciadores {
             }
         }
 
-        
         for (auto it = LIs.begin(); it != LIs.end(); ++it) {
             Personagens::Inimigo* ini = *it; // Pega o inimigo apontado pelo iterador
             
