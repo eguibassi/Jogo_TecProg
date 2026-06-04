@@ -4,7 +4,7 @@ using namespace Personagens;
 
 
 Goblin::Goblin() : Inimigo(), raio(15.0f){
-    nivel_maldade = 3; 
+    nivel_maldade = 1; 
     num_vidas = 3;     
 
     
