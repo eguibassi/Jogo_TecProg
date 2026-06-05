@@ -10,12 +10,14 @@ namespace Entidades {
         corpo.setSize(sf::Vector2f(largura, 10.f)); 
         corpo.setPosition((float)x, (float)y);
         
-        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Gelo.png");
+        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Pilha de ossos.png");
         
         if (textura != nullptr) {
             sprite.setTexture(*textura);
-            // Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
-            sprite.setScale(0.102f, 0.102f); 
+            // Recorta a pilha de ossos para remover a margem transparente da imagem
+            sprite.setTextureRect(sf::IntRect(18, 186, 466, 123));
+            // Ajustando a escala para manter a pilha de ossos próxima da largura do obstáculo
+            sprite.setScale(largura / 466.f, largura / 466.f); 
             sprite.setPosition((float)x, (float)y);
         }
         
@@ -41,4 +43,4 @@ namespace Entidades {
     }
 
 
-} 
+}

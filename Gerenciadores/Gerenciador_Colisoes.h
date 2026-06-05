@@ -1,7 +1,11 @@
 #pragma once
+#define LARGURA_TELA 800.0f
+#define ALTURA_TELA 600.0f
+
 #include <list>
 #include <set>
 
+#include "../Entidades/Entidade.h"
 #include "../Entidades/Personagens/Jogador.h"
 #include "../Entidades/Personagens/Inimigo.h"
 #include "../Entidades/Obstaculos/Obstaculo.h"
@@ -28,6 +32,8 @@ namespace Gerenciadores {
         void tratarColisoesJogsInimgs();
         void tratarColisoesJogsProjeteis();
         void tratarColisoesChao();
+        //Limitar inimigo e jogador tela foi condensada em uma pois ambos são personagens e servem o mesmo propósito
+        void tratarColisaoBorda();
 
     public:
         Gerenciador_Colisoes();

@@ -386,11 +386,62 @@ namespace Gerenciadores {
         }
     }
 
+        void Gerenciador_Colisoes::tratarColisaoBorda() {
+        std::list<Personagens::Personagem*> personagens;
+
+        if (pJog1 != nullptr && pJog1->getVivo()) {
+            personagens.push_back(pJog1);
+        }
+
+        if (pJog2 != nullptr && pJog2->getVivo()) {
+            personagens.push_back(pJog2);
+        }
+
+        for (std::list<Personagens::Inimigo*>::iterator it = LIs.begin(); it != LIs.end(); ++it) {
+            if (*it != nullptr) {
+                personagens.push_back(*it);
+            }
+        }
+
+        for (std::list<Personagens::Personagem*>::iterator it = personagens.begin(); it != personagens.end(); ++it) {
+            Personagens::Personagem* pPers = *it;
+
+            sf::FloatRect bounds = pPers->getCorpo().getGlobalBounds();
+            sf::Vector2f pos = pPers->getPosicao();
+            sf::Vector2f vel = pPers->getVelocidade();
+
+            if (bounds.left < 0.0f) {
+                pos.x -= bounds.left;
+                vel.x = 0.0f;
+            }
+
+            if (bounds.left + bounds.width > LARGURA_TELA) {
+                pos.x -= (bounds.left + bounds.width) - LARGURA_TELA;
+                vel.x = 0.0f;
+            }
+
+            if (bounds.top < 0.0f) {
+                pos.y -= bounds.top;
+                vel.y = 0.0f;
+            }
+
+            pPers->setPosicao(
+                static_cast<int>(pos.x),
+                static_cast<int>(pos.y)
+            );
+
+            pPers->setVelocidade(vel);
+        }
+    }
+
     void Gerenciador_Colisoes::executar() {
         tratarColisoesChao(); 
+        tratarColisaoBorda();
         tratarColisoesJogsObstacs();     
         tratarColisoesInimigsObstacs(); 
         tratarColisoesJogsInimgs();      
         tratarColisoesJogsProjeteis();
+        tratarColisaoBorda();
     }
+
 }

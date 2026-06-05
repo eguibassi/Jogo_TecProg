@@ -38,6 +38,7 @@ namespace Fases {
             spriteFundo.setScale(800.f / tam.x, 600.f / tam.y);
         }
     }
+
     void FasePrimeira::desenharFundo(){
         Gerenciadores::Gerenciador_Grafico* pGraf = Gerenciadores::Gerenciador_Grafico::getInstancia();
 
@@ -92,14 +93,9 @@ namespace Fases {
         for (int i = 0; i < 3; i++) {
             
             Entidades::ObstaculoLento* lama = new Entidades::ObstaculoLento();
-            lama->setPosicao(250 + (i * 350), 480);
+            lama->setPosicao(250 + (i * 350), 500);
             lista_ents.incluir(lama);
             GC.incluirObstaculo(lama);
-
-            Entidades::ObstaculoDano* espinho = new Entidades::ObstaculoDano();
-            espinho->setPosicao(400 + (i * 350), 470);
-            lista_ents.incluir(espinho);
-            GC.incluirObstaculo(espinho);
             
         }
     }
