@@ -21,6 +21,7 @@ namespace Personagens {
         
         void setJogador(Jogador* j) { pJogador = j; }
         void mover(); 
+        void tomarDano(int dano);
        
     };
 

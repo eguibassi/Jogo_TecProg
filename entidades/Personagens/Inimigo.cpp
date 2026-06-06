@@ -54,5 +54,13 @@ namespace Personagens {
         
       
     }
+    void Inimigo::tomarDano(int dano) {
+        num_vidas -= dano;
+
+        if (num_vidas <= 0) {
+            ativo = false;
+            setPosicao(-9999, -9999);
+    }
+}
 
 } 

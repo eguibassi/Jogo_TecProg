@@ -306,11 +306,61 @@ namespace Gerenciadores {
     }
 
     void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
-        // Verifica se ambos estão mortos ou nulos
-        if ((pJog1 == nullptr || !pJog1->getVivo()) && (pJog2 == nullptr || !pJog2->getVivo())) {
-            return;
+        std::set<Entidades::Projetil*>::iterator itProj;
+
+        for (itProj = Lps.begin(); itProj != Lps.end(); ++itProj) {
+            Entidades::Projetil* proj = *itProj;
+
+            if (proj == nullptr || !proj->getAtivo()) {
+                continue;
+            }
+
+            // Colisão do projétil com inimigo:
+            // causa dano no inimigo e desativa o projétil
+            std::list<Personagens::Inimigo*>::iterator itIni;
+
+            for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
+                Personagens::Inimigo* ini = *itIni;
+
+                if (ini == nullptr || !ini->getAtivo()) {
+                    continue;
+                }
+
+                if (verificarColisao(proj, ini)) {
+                    ini->tomarDano(proj->getDano());
+                    proj->setAtivo(false);
+                    break;
+                }
         }
-        // ... Lógica dos projéteis ...
+
+        // Se o projétil já bateu no inimigo, não precisa testar plataforma
+        if (!proj->getAtivo()) {
+            continue;
+        }
+
+        // Colisão do projétil com plataforma:
+        // apenas desativa o projétil
+        std::list<Entidades::Obstaculo*>::iterator itObs;
+
+        for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs) {
+            Entidades::Obstaculo* obs = *itObs;
+
+            if (obs == nullptr) {
+                continue;
+            }
+
+            Entidades::Plataforma* plat = dynamic_cast<Entidades::Plataforma*>(obs);
+
+            if (plat == nullptr) {
+                continue;
+            }
+
+            if (verificarColisao(proj, plat)) {
+                proj->setAtivo(false);
+                break;
+            }
+        }
+    }
     }
 
     void Gerenciador_Colisoes::incluirInimigo(Personagens::Inimigo* pi) {

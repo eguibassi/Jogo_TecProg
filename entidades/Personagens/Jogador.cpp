@@ -89,7 +89,7 @@ namespace Personagens {
     if (apertouTecla) {
         if (podeAtirar) {
             // Criamos o projétil
-            Entidades::Projetil* novoProjetil = new Entidades::Projetil();
+            Entidades::Projetil* novoProjetil = new Entidades::Projetil("Assets/Projetil Rei.png");
 
             sf::Vector2f posJogador = getPosicao();
 

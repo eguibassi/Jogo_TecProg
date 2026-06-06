@@ -1,15 +1,16 @@
 #pragma once
 #include "Entidade.h"
+#include <string>
 
 namespace Entidades {
 
     class Projetil : public Entidade {
-    protected:
+    private:
         int vx;
         int dano;
 
     public:
-        Projetil();
+        Projetil(const std::string& caminhoTextura);
         ~Projetil();
 
         void setVx(int n);
