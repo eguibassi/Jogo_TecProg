@@ -22,29 +22,35 @@ private:
     sf::Text textoRanking;
     sf::Text textoVoltar;
 
+    sf::RectangleShape caixa1P;
+    sf::RectangleShape caixa2P;
+
+    sf::Text texto1P;
+    sf::Text texto2P;
+
     Jogo* pJog;
     bool ativo;
     bool rankingAberto;
     //mouseClick:bool que evita problema ao segurar o click
     bool mouseClick;
 
+    bool segundoJogador;
+
 private:
     //Carrega a fonte dos textos
     void inicializarFonte();
     //Carrega o fundo do menu
     void inicializarFundo();
+    
     //Configura o texto na página do menu
     void inicializarTextos();
     bool mouseEmCima(const sf::Text& texto) const;
+    bool mouseEmCimaCaixa(const sf::RectangleShape& caixa) const;
+
     //Atualiza cor do mouse se em cima para amarelo
     void atualizarMouse();
     void verificarClique();
-
     void verificarRanking();
-
-
-
-
     void executarSair();
 
 public:

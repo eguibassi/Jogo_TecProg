@@ -28,5 +28,5 @@ public:
 
     void executar();
 
-    void entrarFase1();
+    void entrarFase1(bool segundoJogador);
 };

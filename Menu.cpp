@@ -1,12 +1,6 @@
 #include "Menu.h"
 
-Menu::Menu() : pJog(nullptr), ativo(true), rankingAberto(false), mouseClick(false){
-    inicializarFonte();
-    inicializarFundo();
-    inicializarTextos();
-}
-
-Menu::Menu(Jogo* pJogo) : pJog(pJogo), ativo(true), rankingAberto(false), mouseClick(false){
+Menu::Menu() : pJog(nullptr), ativo(true), rankingAberto(false), mouseClick(false), segundoJogador(false){
     inicializarFonte();
     inicializarFundo();
     inicializarTextos();
@@ -76,12 +70,38 @@ void Menu::inicializarTextos(){
     textoVoltar.setFillColor(sf::Color::Transparent);
     textoVoltar.setPosition(180.f, 300.f);
 
+    caixa1P.setSize(sf::Vector2f(90.f, 50.f));
+    caixa1P.setPosition(300.f, 500.f);
+    caixa1P.setFillColor(sf::Color::Yellow);
+    caixa1P.setOutlineColor(sf::Color::White);
+    caixa1P.setOutlineThickness(3.f);
+
+    caixa2P.setSize(sf::Vector2f(90.f, 50.f));
+    caixa2P.setPosition(410.f, 500.f);
+    caixa2P.setFillColor(sf::Color::Transparent);
+    caixa2P.setOutlineColor(sf::Color::White);
+    caixa2P.setOutlineThickness(3.f);
+
+    texto1P.setFont(fonte);
+    texto1P.setString("1P");
+    texto1P.setCharacterSize(30);
+    texto1P.setFillColor(sf::Color::Black);
+    texto1P.setPosition(325.f, 508.f);
+
+    texto2P.setFont(fonte);
+    texto2P.setString("2P");
+    texto2P.setCharacterSize(30);
+    texto2P.setFillColor(sf::Color::White);
+    texto2P.setPosition(435.f, 508.f);
+
     adicionarTexto(&titulo);
     adicionarTexto(&opcaoFase1);
     adicionarTexto(&opcaoFase2);
     adicionarTexto(&opcaoRanking);
     adicionarTexto(&textoRanking);
     adicionarTexto(&textoVoltar);
+    adicionarTexto(&texto1P);
+    adicionarTexto(&texto2P);
 }
 
 void Menu::executar(){
@@ -96,6 +116,12 @@ void Menu::executar(){
 
     if (pGG != nullptr && pGG->getWindow() != nullptr){
         pGG->getWindow()->draw(fundo);
+
+        if (!rankingAberto)
+        {
+            pGG->getWindow()->draw(caixa1P);
+            pGG->getWindow()->draw(caixa2P);
+        }
     }
 
     desenhar();
@@ -105,6 +131,24 @@ void Menu::atualizarMouse(){
     titulo.setFillColor(sf::Color::White);
     textoRanking.setFillColor(sf::Color::Transparent);
     textoVoltar.setFillColor(sf::Color::Transparent);
+
+    texto1P.setFillColor(sf::Color::White);
+    texto2P.setFillColor(sf::Color::White);
+
+    if (!segundoJogador)
+    {
+        caixa1P.setFillColor(sf::Color::Yellow);
+        caixa2P.setFillColor(sf::Color::Transparent);
+        texto1P.setFillColor(sf::Color::Black);
+        texto2P.setFillColor(sf::Color::White);
+    }
+    else
+    {
+        caixa1P.setFillColor(sf::Color::Transparent);
+        caixa2P.setFillColor(sf::Color::Yellow);
+        texto1P.setFillColor(sf::Color::White);
+        texto2P.setFillColor(sf::Color::Black);
+    }
 
     if (mouseEmCima(opcaoFase1))
     {
@@ -144,7 +188,7 @@ void Menu::verificarClique(){
     {
         if (mouseEmCima(opcaoFase1)&& pJog!=nullptr)
         {
-                pJog->entrarFase1();
+                pJog->entrarFase1(segundoJogador);
         }
     
         else if (mouseEmCima(opcaoFase2))
@@ -155,17 +199,26 @@ void Menu::verificarClique(){
         {
             rankingAberto = true;
         }
+        else if (mouseEmCimaCaixa(caixa1P))
+        {
+            segundoJogador = false;
+        }
+        else if (mouseEmCimaCaixa(caixa2P))
+        {
+            segundoJogador = true;
+        }
     }
 
     mouseClick = clicouAgora;
 }
-
 
 void Menu::verificarRanking(){
     titulo.setFillColor(sf::Color::Transparent);
     opcaoFase1.setFillColor(sf::Color::Transparent);
     opcaoFase2.setFillColor(sf::Color::Transparent);
     opcaoRanking.setFillColor(sf::Color::Transparent);
+    texto1P.setFillColor(sf::Color::Transparent);
+    texto2P.setFillColor(sf::Color::Transparent);
 
     textoRanking.setFillColor(sf::Color::White);
     textoVoltar.setFillColor(sf::Color::White);
@@ -187,6 +240,19 @@ bool Menu::mouseEmCima(const sf::Text& texto) const{
 
     return texto.getGlobalBounds().contains(posMouse);
 }
+
+bool Menu::mouseEmCimaCaixa(const sf::RectangleShape& caixa) const{
+    if (pGG == nullptr || pGG->getWindow() == nullptr)
+    {
+        return false;
+    }
+
+    sf::Vector2i posPixel = sf::Mouse::getPosition(*pGG->getWindow());
+    sf::Vector2f posMouse = pGG->getWindow()->mapPixelToCoords(posPixel);
+
+    return caixa.getGlobalBounds().contains(posMouse);
+}
+
 void Menu::executarSair(){
     if (pGG != nullptr)
     {

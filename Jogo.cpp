@@ -9,8 +9,8 @@ Jogo::Jogo() :
 {
     Ente::setGG(&GG);
 
-    fasePrimeira = new Fases::FasePrimeira(&pJog1);
-    menu = new Menu(this);
+    menu = new Menu();
+    menu->setJogo(this);
 }
 
 Jogo::~Jogo()
@@ -65,7 +65,15 @@ void Jogo::executar()
     }
 }
 
-void Jogo::entrarFase1()
+void Jogo::entrarFase1(bool segundoJogador)
 {
+    if (fasePrimeira != nullptr)
+    {
+        delete fasePrimeira;
+        fasePrimeira = nullptr;
+    }
+
+    fasePrimeira = new Fases::FasePrimeira(segundoJogador);
+
     estadoAtual = FASE1;
 }
