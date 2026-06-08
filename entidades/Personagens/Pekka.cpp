@@ -2,11 +2,11 @@
 
 using namespace Personagens;
 
-Pekka::Pekka() : Inimigo(), tamanho(2){
+Pekka::Pekka() : Inimigo(), tamanho(35){
     nivel_maldade = 8;
     num_vidas = 6;
 
-    corpo.setSize(sf::Vector2f(70.f, 90.f));
+    corpo.setSize(sf::Vector2f(tamanho * 2.0f, tamanho * 2.5f));
     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/PEKKA.png");
 
     if (textura != nullptr)

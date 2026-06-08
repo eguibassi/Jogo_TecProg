@@ -9,7 +9,7 @@ namespace Entidades {
 
      
         x = 400; 
-        y = 480; 
+        y = 550; 
         
       
         corpo.setSize(sf::Vector2f(20.f, 20.f)); 
@@ -19,8 +19,8 @@ namespace Entidades {
         
         if (textura != nullptr) {
             sprite.setTexture(*textura);
-            // Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
-            sprite.setScale(0.102f, 0.102f); 
+            sprite.setScale(0.1f, 0.1f); 
+            sprite.setOrigin(0.f, -200.f);/*fazendo ele parar de flutuar*/
             sprite.setPosition((float)x, (float)y);
         }
         
@@ -38,7 +38,7 @@ namespace Entidades {
     }
 
     void ObstaculoDano::salvar() {
-        // Implementação obrigatória para salvar as posições
+        
     }
 
     void ObstaculoDano::obstaculizar(Personagens::Jogador* p) {

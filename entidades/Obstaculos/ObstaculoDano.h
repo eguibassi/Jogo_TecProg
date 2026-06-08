@@ -16,12 +16,12 @@ namespace Entidades {
         ~ObstaculoDano();
         
         
-        void salvarDataBuffer();
+        void salvarDataBuffer();/*fazer*/
         void executar();
         void obstaculizar(Personagens::Jogador* p);
         
       
-        void salvar();
+        void salvar();/*fazer*/
       
     };
 

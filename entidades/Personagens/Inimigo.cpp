@@ -7,26 +7,18 @@
 
 namespace Personagens {
 
-    Inimigo::Inimigo() : nivel_maldade(1), pJogador(nullptr) {
+   Inimigo::Inimigo() : nivel_maldade(1), pJogador(nullptr) {
         num_vidas = 3; 
         
         x = 600; 
         y = 100; 
         
+       
         corpo.setSize(sf::Vector2f(50.f, 50.f));
         corpo.setPosition((float)x, (float)y);
         corpo.setFillColor(sf::Color::Transparent);  
         
-
-        /*passando a imagem e desenhando ela*/
-        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Goblin.png");
-        if(textura!=nullptr)
-        {
-            sprite.setTexture(*textura);
-            sprite.setScale(0.102f,0.102f);// Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
-            sprite.setPosition((float)x, (float)y);
-
-        }
+        
     }
 
     Inimigo::~Inimigo() {
@@ -54,13 +46,7 @@ namespace Personagens {
         
       
     }
-    void Inimigo::tomarDano(int dano) {
-        num_vidas -= dano;
+    
 
-        if (num_vidas <= 0) {
-            ativo = false;
-            setPosicao(-9999, -9999);
-    }
-}
 
 } 

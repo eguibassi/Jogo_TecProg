@@ -13,9 +13,9 @@ namespace Personagens {
 
     public:
         Personagem();
-        virtual ~Personagem();
+        ~Personagem();
 
-        void salvarDataBuffer();
+        /*duvida salvarDataBuffer na entidade*/
         
         virtual void executar() = 0;
         virtual void salvar() = 0;
@@ -23,6 +23,7 @@ namespace Personagens {
         
         void setVelocidade(sf::Vector2f vel) { velocidade = vel; }
         sf::Vector2f getVelocidade() const { return velocidade; }
+        void tomarDano(int dano);
     };
 
 } 

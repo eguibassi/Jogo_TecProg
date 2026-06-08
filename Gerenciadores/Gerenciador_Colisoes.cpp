@@ -30,7 +30,7 @@ namespace Gerenciadores {
     void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 
         // Adicionada a verificação pJog1->getVivo()
-        if (pJog1 != nullptr && pJog1->getVivo()) {
+        if (pJog1 != nullptr && pJog1->getAtivo()) {
             for (auto it = LOs.begin(); it != LOs.end(); ++it) {
                 Entidades::Obstaculo* obs = *it;
 
@@ -95,7 +95,7 @@ namespace Gerenciadores {
         }
 
         // Adicionada a verificação pJog2->getVivo()
-        if (pJog2 != nullptr && pJog2->getVivo()) {
+        if (pJog2 != nullptr && pJog2->getAtivo()) {
             for (auto it = LOs.begin(); it != LOs.end(); ++it) {
                 Entidades::Obstaculo* obs = *it;
 
@@ -245,7 +245,7 @@ namespace Gerenciadores {
             }
 
             // Adicionada a verificação pJog1->getVivo() e Lógica Geral
-            if (pJog1 != nullptr && pJog1->getVivo() && verificarColisao(pJog1, ini)) {
+            if (pJog1 != nullptr && pJog1->getAtivo() && verificarColisao(pJog1, ini)) {
                 
                 ini->danificar(pJog1);
 
@@ -276,7 +276,7 @@ namespace Gerenciadores {
             }
 
             // Adicionada a verificação pJog2->getVivo() e Lógica Geral
-            if (pJog2 != nullptr && pJog2->getVivo() && verificarColisao(pJog2, ini)) {
+            if (pJog2 != nullptr && pJog2->getAtivo() && verificarColisao(pJog2, ini)) {
                 
                 ini->danificar(pJog2);
 
@@ -390,8 +390,8 @@ namespace Gerenciadores {
 
         sf::FloatRect boundsChao = chaoFase->getGlobalBounds();
 
-        // Adicionada a verificação pJog1->getVivo()
-        if (pJog1 && pJog1->getVivo()) {
+        // Adicionada a verificação 
+        if (pJog1 && pJog1->getAtivo()) {
             sf::FloatRect boundsJog = pJog1->getCorpo().getGlobalBounds();
             if (boundsJog.intersects(boundsChao)) {
                 sf::Vector2f pos = pJog1->getPosicao();
@@ -404,8 +404,8 @@ namespace Gerenciadores {
             }
         }
 
-        // Adicionada a verificação pJog2->getVivo()
-        if (pJog2 && pJog2->getVivo()) {
+        // Adicionada a verificação 
+        if (pJog2 && pJog2->getAtivo()) {
             sf::FloatRect boundsJog2 = pJog2->getCorpo().getGlobalBounds();
             if (boundsJog2.intersects(boundsChao)) {
                 sf::Vector2f pos = pJog2->getPosicao();
@@ -439,11 +439,11 @@ namespace Gerenciadores {
         void Gerenciador_Colisoes::tratarColisaoBorda() {
         std::list<Personagens::Personagem*> personagens;
 
-        if (pJog1 != nullptr && pJog1->getVivo()) {
+        if (pJog1 != nullptr && pJog1->getAtivo()) {
             personagens.push_back(pJog1);
         }
 
-        if (pJog2 != nullptr && pJog2->getVivo()) {
+        if (pJog2 != nullptr && pJog2->getAtivo()) {
             personagens.push_back(pJog2);
         }
 

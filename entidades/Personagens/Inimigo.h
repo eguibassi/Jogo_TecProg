@@ -14,14 +14,15 @@ namespace Personagens {
 
     public:
         Inimigo();
-        virtual ~Inimigo();
+        ~Inimigo();
+        
         virtual void executar() = 0;
         virtual void danificar(Jogador* p) = 0;
         virtual void salvar() = 0; 
         
         void setJogador(Jogador* j) { pJogador = j; }
-        void mover(); 
-        void tomarDano(int dano);
+        void mover(); /*arrumar*/
+        
        
     };
 

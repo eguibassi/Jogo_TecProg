@@ -9,10 +9,10 @@
 
 namespace Personagens {
 
-    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), pProjetil(nullptr), podeAtirar(true), jogador2(segundo_jogador),vivo(true)
+    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), pProjetil(nullptr), podeAtirar(true), jogador2(segundo_jogador)
      {/*lento só é true quando estiver em contato com o ObstaculoLento*/
         num_vidas = 5; 
-        corpo.setSize(sf::Vector2f(50.f, 50.f)); 
+        corpo.setSize(sf::Vector2f(25.f, 50.f)); 
         corpo.setFillColor(sf::Color::Transparent);
         if(!jogador2){ 
             x = 100; /*posicoes iniciais*/
@@ -27,9 +27,10 @@ namespace Personagens {
         corpo.setPosition((float)x, (float)y);     
         if (textura != nullptr) {
                 sprite.setTexture(*textura);
-                // Ajustando a escala de 1254 para aprox 128 pixels (128 / 1254 = ~0.102)
-                sprite.setScale(0.102f, 0.102f); 
+                sprite.setScale(0.1f, 0.1f); 
+                sprite.setOrigin(200.f, -200.f);/*fazendo ele parar de flutuar*/
                 sprite.setPosition((float)x, (float)y);
+
             }
     }
 
@@ -39,9 +40,7 @@ namespace Personagens {
             pProjetil = nullptr;
         }
     }
-    bool Jogador::getVivo() const {
-        return vivo;
-    }
+   
     /* sempre adiciono a gravidade ao jogador para que fique puxando ele pra baixo, se a velocidadeY for zero(está pisando em algo) pula no W adicionando um impulso negativo (pra cima)*/
     void Jogador::mover() {
         velocidade.x = 0.f;
@@ -117,7 +116,7 @@ namespace Personagens {
     }
 
     void Jogador::executar() {
-        if (!vivo) return;
+        if (!ativo) return;
         mover();
         atirar();
 
@@ -128,28 +127,12 @@ namespace Personagens {
 
     void Jogador::salvar() {}
 
-    void Jogador::colidir() {}
-
-    void Jogador::tomarDano(int dano) {
-    if (!vivo) return; 
-
-    num_vidas -= dano;
-    std::cout << "Vidas restantes: " << num_vidas << std::endl;
-
-    if (num_vidas <= 0) {
-        vivo = false;
-        
-        setPosicao(-9999.0f, -9999.0f);
-        
-        std::cout << "O Jogador foi eliminado!" << std::endl;
-    }
-    }
+    
 
 
     void Jogador::setJogador2(bool a){setJogador2(a);}
     const bool Jogador::getJogador2()const{
         return jogador2;
     }
-
 
 } 

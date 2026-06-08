@@ -6,7 +6,7 @@ namespace Entidades {
         
         
         x = 300; 
-        y = 450; 
+        y = 550; 
         
         
         corpo.setSize(sf::Vector2f(200.f, 50.f));

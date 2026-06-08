@@ -10,7 +10,7 @@ namespace Entidades {
         corpo.setPosition((float)x, (float)y);
 
         // Pode deixar transparente depois que o sprite estiver certo
-        corpo.setFillColor(sf::Color::Transparent); 
+        corpo.setFillColor(sf::Color(255, 0, 0, 128));
 
         textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Plataforma.png");
 

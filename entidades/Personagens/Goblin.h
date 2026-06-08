@@ -18,6 +18,6 @@ namespace Personagens{
         void executar();
         void danificar(Jogador* pJogador);
         
-        void salvar(); 
+        void salvar(); /*fazer*/
     };
 }

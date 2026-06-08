@@ -8,6 +8,7 @@ namespace Entidades {
     private:
         int vx;
         int dano;
+        /*usar o bool ativo */
 
     public:
         Projetil(const std::string& caminhoTextura);
@@ -20,7 +21,7 @@ namespace Entidades {
         int getDano() const;
 
         void executar();
-        void salvar();
+        void salvar();/*fazer*/
     };
 
 }

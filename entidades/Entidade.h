@@ -16,7 +16,7 @@ namespace Entidades {
 
         bool ativo;
     protected:
-        void salvarDataBuffer();
+        void salvarDataBuffer();/*fazer,tirar duvida se passa pras outras*/
     public:
         Entidade();
         virtual ~Entidade();

@@ -9,9 +9,9 @@ Goblin::Goblin() : Inimigo(), raio(15.0f){
 
     
     corpo.setSize(sf::Vector2f(raio * 2.0f, raio * 2.0f));
-    
+    /*carregar a imagem do goblin, e transforma o png em texture*/
     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Goblin.png");
-
+    /*textura vai guardar o endereco de memoria onde a imagem do goblin ficou armazenada*/
     if (textura != nullptr)
     {
         sprite.setTexture(*textura);
