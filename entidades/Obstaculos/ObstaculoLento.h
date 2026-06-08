@@ -16,6 +16,7 @@ namespace Entidades {
 
         void executar();
         void obstaculizar(Personagens::Jogador* p);
+        void setPosicao(float novoX, float novoY);
         void salvar() ; /*fazer*/
   
     };

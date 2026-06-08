@@ -38,6 +38,10 @@ namespace Gerenciadores {
                 }
 
                 if (verificarColisao(pJog1, obs)) {
+                    if (dynamic_cast<Entidades::ObstaculoLento*>(obs) != nullptr) {
+                        obs->obstaculizar(pJog1);
+                            continue;
+                    }
                     sf::FloatRect rectJogador = pJog1->getCorpo().getGlobalBounds();/*pega hitbox*/
                     sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();
 
@@ -102,6 +106,9 @@ namespace Gerenciadores {
                 }
 
                 if (verificarColisao(pJog2, obs)) {
+                    if (dynamic_cast<Entidades::ObstaculoLento*>(obs) != nullptr) {
+                        obs->obstaculizar(pJog2);
+                        continue;}
                     sf::FloatRect rectJogador = pJog2->getCorpo().getGlobalBounds();
                     sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();
 
