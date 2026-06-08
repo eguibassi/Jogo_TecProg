@@ -39,7 +39,7 @@ private:
     //Configura o texto na página do menu
     void inicializarTextos();
     bool mouseEmCima(const sf::Text& texto) const;
-    bool mouseEmCimaCaixa(const sf::RectangleShape& caixa) const;
+    bool mCaixa(const sf::RectangleShape& caixa) const;
 
     //Atualiza cor do mouse se em cima para amarelo
     void atualizarMouse();

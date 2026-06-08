@@ -194,11 +194,11 @@ void Menu::verificarClique(){
             }
         }
 
-        if (mouseEmCimaCaixa(caixa1P))
+        if (mCaixa(caixa1P))
         {
             segundoJogador = false;
         }
-        else if (mouseEmCimaCaixa(caixa2P))
+        else if (mCaixa(caixa2P))
         {
             segundoJogador = true;
         }
@@ -240,7 +240,7 @@ bool Menu::mouseEmCima(const sf::Text& texto) const{
     return texto.getGlobalBounds().contains(posMouse);
 }
 
-bool Menu::mouseEmCimaCaixa(const sf::RectangleShape& caixa) const{
+bool Menu::mCaixa(const sf::RectangleShape& caixa) const{
     if (pGG == nullptr || pGG->getWindow() == nullptr)
     {
         return false;
