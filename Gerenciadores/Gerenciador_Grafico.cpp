@@ -1,7 +1,7 @@
 #include "Gerenciador_Grafico.h"
 #include "../Ente.h"
 #include "../Entidades/Entidade.h"
-/*implementar singleton*/
+/*singleton implementado, as classes nao criam gerenciadores_graficos novos, usam o mesmo através da instancia,isso permite que personagens consigam carregar suas imagens sem que eu precise passar o ponteiro do gerenciador por parâmetro em todas as classes*/
 namespace Gerenciadores {
 
     Gerenciador_Grafico* Gerenciador_Grafico::instancia = nullptr;
@@ -10,8 +10,8 @@ namespace Gerenciadores {
         window = new sf::RenderWindow(sf::VideoMode(800, 600), "Clash++");
         window->setFramerateLimit(60);
         
-        instancia = this; 
-        Ente::setGG(this);
+        instancia = this; /*avisa a todos que esse eh o gerenciador grafico oficial*/
+        Ente::setGG(this);/*passa o ponteiro do gerenciador para ela, para todos saberem que o gerenciador gráfico eh o responsavel por desenhar na tela*/
     }
 
     Gerenciador_Grafico* Gerenciador_Grafico::getInstancia() {
@@ -20,7 +20,7 @@ namespace Gerenciadores {
 
     Gerenciador_Grafico::~Gerenciador_Grafico() {
         for (auto it = texturas.begin(); it != texturas.end(); ++it) {
-            delete it->second;
+            delete it->second; /*deleta o segundo(ponteiro da textura)*/
         }
         texturas.clear();
 
@@ -46,13 +46,13 @@ namespace Gerenciadores {
 
         
         Entidades::Entidade* pEntidade = dynamic_cast<Entidades::Entidade*>(pE);
-        
+        /*converte para entidade*/
     
         if (pEntidade && pEntidade->getAtivo()) {
             if (pEntidade->getSprite().getTexture() != nullptr) {
                 window->draw(pEntidade->getSprite());
             } 
-            else {
+            else {/*se nao tiver imagem*/
                 window->draw(pEntidade->getCorpo());
             }
         }
@@ -67,18 +67,18 @@ namespace Gerenciadores {
         textos.clear();
     }
 
-    sf::Texture* Gerenciador_Grafico::carregarTextura(const char* caminho) {
-        if (texturas.find(caminho) != texturas.end()) {
-            return texturas[caminho];
+    sf::Texture* Gerenciador_Grafico::carregarTextura(const char* caminho) {/*recebe o texto do endereco da imagem*/
+        if (texturas.find(caminho) != texturas.end()) {/*ve se ja achou a imagem*/
+            return texturas[caminho]; /*devolve o ponteiro de texturas*/
         }
-        sf::Texture* novaTextura = new sf::Texture();
-        if (!novaTextura->loadFromFile(caminho)) {
+        sf::Texture* novaTextura = new sf::Texture(); /*se falhou o if de cima a imagem é nova*/
+        if (!novaTextura->loadFromFile(caminho)) {/*se digitou errado ou nao existe*/
             std::cout << "ERRO::Nao foi possivel carregar a textura: " << caminho << std::endl;
-            delete novaTextura;
+            delete novaTextura; /*se nao encontrou deleta*/
             return nullptr;
         }
-        texturas[caminho] = novaTextura;
-        return novaTextura;
+        texturas[caminho] = novaTextura; /*se deu certo pega o map comeca a guardar o nome do caminho  e guarda o ponteiro nova textura*/
+        return novaTextura; /*devolve a textura */
     }
 
     void Gerenciador_Grafico::desenharForma(sf::RectangleShape& forma) {
