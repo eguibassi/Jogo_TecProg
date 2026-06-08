@@ -3,7 +3,7 @@
 
 Gerenciadores::Gerenciador_Grafico* Ente::pGG = nullptr;
 
-Ente::Ente() : id(0), pFig(nullptr), textos() {}
+Ente::Ente() : id(0),textos() {}
 
 Ente::~Ente() {
     textos.clear();

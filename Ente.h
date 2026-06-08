@@ -8,8 +8,8 @@ class Figura;
 class Ente {
 protected:
     int id;
-    static Gerenciadores::Gerenciador_Grafico* pGG;
-    Figura* pFig; 
+    static Gerenciadores::Gerenciador_Grafico* pGG;/*ponteiro que todos olham*/
+  
     //Vector para textos no menu
     std::vector<sf::Text*> textos;
 

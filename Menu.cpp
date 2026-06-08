@@ -40,36 +40,42 @@ void Menu::inicializarTextos(){
     titulo.setFillColor(sf::Color::White);
     titulo.setPosition(280.f, 80.f);
 
-    opcaoFase1.setFont(fonte);
-    opcaoFase1.setString("FASE 1: PARQUINHO DA P.E.K.K.A");
-    opcaoFase1.setCharacterSize(30);
-    opcaoFase1.setFillColor(sf::Color::White);
-    opcaoFase1.setPosition(150.f, 250.f);
+   
+    std::vector<std::string> nomesOpcoes = {
+        "FASE 1: PARQUINHO DA P.E.K.K.A",
+        "FASE 2: PICO CONGELADO",
+        "RANKING",
+        "SAIR"
+    };
 
-    opcaoFase2.setFont(fonte);
-    opcaoFase2.setString("FASE 2: PICO CONGELADO");
-    opcaoFase2.setCharacterSize(30);
-    opcaoFase2.setFillColor(sf::Color::White);
-    opcaoFase2.setPosition(150.f, 320.f);
+    for (size_t i = 0; i < nomesOpcoes.size(); i++) {
+        sf::Text texto;
+        texto.setFont(fonte);
+        texto.setString(nomesOpcoes[i]);
+        texto.setCharacterSize(30);
+        texto.setFillColor(sf::Color::White);
+        texto.setPosition(150.f, 250.f + (i * 70.f)); 
+        opcoesMenu.push_back(texto);
+    }
 
-    opcaoRanking.setFont(fonte);
-    opcaoRanking.setString("RANKING");
-    opcaoRanking.setCharacterSize(30);
-    opcaoRanking.setFillColor(sf::Color::White);
-    opcaoRanking.setPosition(300.f, 390.f);
+    /*textos ranking*/
+    sf::Text txtTituloRanking;
+    txtTituloRanking.setFont(fonte);
+    txtTituloRanking.setString("Ranking");
+    txtTituloRanking.setCharacterSize(70);
+    txtTituloRanking.setFillColor(sf::Color::Transparent);
+    txtTituloRanking.setPosition(300.f, 120.f);
+    textosRanking.push_back(txtTituloRanking);
 
-    textoRanking.setFont(fonte);
-    textoRanking.setString("Ranking");
-    textoRanking.setCharacterSize(70);
-    textoRanking.setFillColor(sf::Color::Transparent);
-    textoRanking.setPosition(300.f, 120.f);
+    sf::Text txtVoltar;
+    txtVoltar.setFont(fonte);
+    txtVoltar.setString("Pressione ESC para voltar ao menu");
+    txtVoltar.setCharacterSize(35);
+    txtVoltar.setFillColor(sf::Color::Transparent);
+    txtVoltar.setPosition(180.f, 300.f);
+    textosRanking.push_back(txtVoltar);
 
-    textoVoltar.setFont(fonte);
-    textoVoltar.setString("Pressione ESC para voltar ao menu");
-    textoVoltar.setCharacterSize(35);
-    textoVoltar.setFillColor(sf::Color::Transparent);
-    textoVoltar.setPosition(180.f, 300.f);
-
+   
     caixa1P.setSize(sf::Vector2f(90.f, 50.f));
     caixa1P.setPosition(300.f, 500.f);
     caixa1P.setFillColor(sf::Color::Yellow);
@@ -94,14 +100,18 @@ void Menu::inicializarTextos(){
     texto2P.setFillColor(sf::Color::White);
     texto2P.setPosition(435.f, 508.f);
 
+  
     adicionarTexto(&titulo);
-    adicionarTexto(&opcaoFase1);
-    adicionarTexto(&opcaoFase2);
-    adicionarTexto(&opcaoRanking);
-    adicionarTexto(&textoRanking);
-    adicionarTexto(&textoVoltar);
     adicionarTexto(&texto1P);
     adicionarTexto(&texto2P);
+    
+    for (size_t i = 0; i < opcoesMenu.size(); i++) {
+        adicionarTexto(&opcoesMenu[i]);
+    }
+    
+    for (size_t i = 0; i < textosRanking.size(); i++) {
+        adicionarTexto(&textosRanking[i]);
+    }
 }
 
 void Menu::executar(){
@@ -129,11 +139,13 @@ void Menu::executar(){
 
 void Menu::atualizarMouse(){
     titulo.setFillColor(sf::Color::White);
-    textoRanking.setFillColor(sf::Color::Transparent);
-    textoVoltar.setFillColor(sf::Color::Transparent);
-
     texto1P.setFillColor(sf::Color::White);
     texto2P.setFillColor(sf::Color::White);
+
+    // Esconde a tela de ranking
+    for (size_t i = 0; i < textosRanking.size(); i++) {
+        textosRanking[i].setFillColor(sf::Color::Transparent);
+    }
 
     if (!segundoJogador)
     {
@@ -150,34 +162,13 @@ void Menu::atualizarMouse(){
         texto2P.setFillColor(sf::Color::Black);
     }
 
-    if (mouseEmCima(opcaoFase1))
-    {
-        opcaoFase1.setFillColor(sf::Color::Yellow);
-    }
-    else
-    {
-        opcaoFase1.setStyle(sf::Text::Bold);
-        opcaoFase1.setFillColor(sf::Color::White);
-    }
-
-    if (mouseEmCima(opcaoFase2))
-    {
-        opcaoFase2.setFillColor(sf::Color::Yellow);
-    }
-    else
-    {
-        opcaoFase2.setStyle(sf::Text::Bold);
-        opcaoFase2.setFillColor(sf::Color::White);
-    }
-
-    if (mouseEmCima(opcaoRanking))
-    {
-        opcaoRanking.setFillColor(sf::Color::Yellow);
-    }
-    else
-    {
-        opcaoRanking.setStyle(sf::Text::Bold);
-        opcaoRanking.setFillColor(sf::Color::White);
+    for (size_t i = 0; i < opcoesMenu.size(); i++) {
+        if (mouseEmCima(opcoesMenu[i])) {
+            opcoesMenu[i].setFillColor(sf::Color::Yellow);
+        } else {
+            opcoesMenu[i].setStyle(sf::Text::Bold);
+            opcoesMenu[i].setFillColor(sf::Color::White);
+        }
     }
 }
 
@@ -186,20 +177,24 @@ void Menu::verificarClique(){
 
     if (clicouAgora && !mouseClick)
     {
-        if (mouseEmCima(opcaoFase1)&& pJog!=nullptr)
-        {
-                pJog->entrarFase1(segundoJogador);
+        for (size_t i = 0; i < opcoesMenu.size(); i++) {
+            if (mouseEmCima(opcoesMenu[i])) {
+                if (i == 0 && pJog != nullptr) { // FASE 1
+                    pJog->entrarFase1(segundoJogador);
+                } 
+                else if (i == 1) { // FASE 2
+                    // pJog->entrarFase2(segundoJogador);
+                } 
+                else if (i == 2) { // RANKING
+                    rankingAberto = true;
+                } 
+                else if (i == 3) { // SAIR
+                    executarSair();
+                }
+            }
         }
-    
-        else if (mouseEmCima(opcaoFase2))
-        {
-            //implementar no futuro
-        }
-        else if (mouseEmCima(opcaoRanking))
-        {
-            rankingAberto = true;
-        }
-        else if (mouseEmCimaCaixa(caixa1P))
+
+        if (mouseEmCimaCaixa(caixa1P))
         {
             segundoJogador = false;
         }
@@ -214,14 +209,18 @@ void Menu::verificarClique(){
 
 void Menu::verificarRanking(){
     titulo.setFillColor(sf::Color::Transparent);
-    opcaoFase1.setFillColor(sf::Color::Transparent);
-    opcaoFase2.setFillColor(sf::Color::Transparent);
-    opcaoRanking.setFillColor(sf::Color::Transparent);
     texto1P.setFillColor(sf::Color::Transparent);
     texto2P.setFillColor(sf::Color::Transparent);
-
-    textoRanking.setFillColor(sf::Color::White);
-    textoVoltar.setFillColor(sf::Color::White);
+    
+    // Esconde os botões do menu
+    for (size_t i = 0; i < opcoesMenu.size(); i++) {
+        opcoesMenu[i].setFillColor(sf::Color::Transparent);
+    }
+    
+    // Mostra a tela de ranking
+    for (size_t i = 0; i < textosRanking.size(); i++) {
+        textosRanking[i].setFillColor(sf::Color::White);
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {

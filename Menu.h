@@ -3,6 +3,7 @@
 #include "Ente.h"
 #include "Jogo.h"
 #include <iostream>
+#include <vector>
 
 class Menu : public Ente {
 private:
@@ -12,15 +13,8 @@ private:
     sf::Sprite fundo;
 
     sf::Text titulo;
-    sf::Text opcaoFase1;
-    sf::Text opcaoFase2;
-
-    sf::Text opcaoRanking;
-    sf::Text opcaoSalvar;
-    sf::Text opcaoRecuperar;
-    sf::Text opcaoSair;
-    sf::Text textoRanking;
-    sf::Text textoVoltar;
+    std::vector<sf::Text> opcoesMenu;    // Vetor para os botões principais
+    std::vector<sf::Text> textosRanking; // Vetor para a tela de Ranking
 
     sf::RectangleShape caixa1P;
     sf::RectangleShape caixa2P;
@@ -31,7 +25,7 @@ private:
     Jogo* pJog;
     bool ativo;
     bool rankingAberto;
-    //mouseClick:bool que evita problema ao segurar o click
+    //mouseClick: bool que evita problema ao segurar o click
     bool mouseClick;
 
     bool segundoJogador;

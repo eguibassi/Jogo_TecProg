@@ -7,7 +7,7 @@
 namespace Fases {
 
 
-    FasePrimeira::FasePrimeira(bool segundo_jogador) : Fase(), maxInimMedios(3),maxInimFaceis(5) {
+    FasePrimeira::FasePrimeira(bool Jog2) : Fase(), maxInimMedios(3),maxInimFaceis(5) {
         
         srand(time(NULL)); 
 
@@ -15,7 +15,7 @@ namespace Fases {
         pJogador = new Personagens::Jogador(false);
         lista_ents.incluir(pJogador);
         GC.setJogador(pJogador);
-        if(segundo_jogador){
+        if(Jog2){
             pJogador2 = new Personagens::Jogador(true);
             lista_ents.incluir(pJogador2);
             GC.setJogador2(pJogador2);
@@ -49,7 +49,7 @@ namespace Fases {
     void FasePrimeira::criarObstaculo() {
     
         criarPlataformas();
-        criarObstMedios();
+        criarObstLento();
     }
 
     void FasePrimeira::criarInimigos() {
@@ -78,7 +78,7 @@ namespace Fases {
             
             Personagens::Pekka* pekka = new Personagens::Pekka();
 
-            //Posição DEVE ser alterada quando colocarmos as plataformas
+            //Posição deve ser alterada quando colocarmos as plataformas
             //e implementarmos a logística do nível
             pekka->setPosicao(150.0f +(i*150.0f), 400.0f);
             pekka->setJogador(pJogador);
@@ -88,7 +88,7 @@ namespace Fases {
 
     }
 
-    void FasePrimeira::criarObstMedios() {
+    void FasePrimeira::criarObstLento() {
         
         for (int i = 0; i < 3; i++) {
             

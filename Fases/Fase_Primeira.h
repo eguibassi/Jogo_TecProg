@@ -15,7 +15,7 @@ namespace Fases {
 
     public:
         
-        FasePrimeira(bool segundo_Jogador);
+        FasePrimeira(bool Jog2);
         ~FasePrimeira();
 
     protected:
@@ -23,7 +23,7 @@ namespace Fases {
         void criarObstaculo();
         void criarInimFaceis();
         void criarInimMedios();
-        void criarObstMedios();
+        void criarObstLento();
         void criarFundo();
         void desenharFundo();
         void criarPlataformas();
