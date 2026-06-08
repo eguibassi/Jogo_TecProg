@@ -127,12 +127,5 @@ namespace Personagens {
 
     void Jogador::salvar() {}
 
-    
-
-
-    void Jogador::setJogador2(bool a){setJogador2(a);}
-    const bool Jogador::getJogador2()const{
-        return jogador2;
-    }
 
 } 

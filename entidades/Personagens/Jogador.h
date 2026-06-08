@@ -32,8 +32,6 @@ namespace Personagens {
         
         void setLento(bool estado) { lento = estado; }
         bool getLento() const { return lento; }
-        void setJogador2(bool a);
-        const bool getJogador2()const;
      
 
     };
