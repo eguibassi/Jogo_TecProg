@@ -95,7 +95,7 @@ namespace Fases {
             Entidades::ObstaculoLento* lama = new Entidades::ObstaculoLento();
 
             if (i == 0) {
-                lama->setPosicao(120, 395); /*obstaculo lento na primeira plataforma*/
+                lama->setPosicao(120, 395); 
             }
             else {
                 lama->setPosicao(250 + (i * 350), 500);
