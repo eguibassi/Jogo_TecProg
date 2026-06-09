@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../../Gerenciadores/Gerenciador_Grafico.h" 
 
-#define VELOCIDADE_X_INIMIGO 2.0f
+#define VELOCIDADE_X_INIMIGO 1.0f
 #define GRAVIDADE 0.5f
 
 namespace Personagens {

@@ -49,7 +49,6 @@ private:
 
 public:
     Menu();
-    Menu(Jogo* pJogo);
     ~Menu();
 
     void setJogo(Jogo* pJogo);
