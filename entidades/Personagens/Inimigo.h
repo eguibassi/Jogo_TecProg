@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdlib>
+#include <ctime>
 #include <SFML/Graphics.hpp>
 #include "personagem.h"
 #include "Jogador.h"
