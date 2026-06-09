@@ -24,20 +24,31 @@ namespace Personagens {
 
     Inimigo::~Inimigo() {
     }
-void Inimigo::mover() {
-    velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
+    void Inimigo::mover() {
+        velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
+        static bool sorteioIniciado = false;
+        static int direcaoAleatoria = 1;
+        static int tempoMovimentoAleatorio = 0;
 
-    if (pJogador != nullptr) {
-        sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
-        sf::Vector2f posInimigo = corpo.getPosition();
+        if (!sorteioIniciado) {
+            srand(static_cast<unsigned int>(time(nullptr)));
+            sorteioIniciado = true;
+    }
 
-        float distanciaX = posJogador.x - posInimigo.x;
+        bool seguirJogador = false;
 
-        if (distanciaX < 0.0f) {
-            distanciaX = -distanciaX;
+        if (pJogador != nullptr) {
+            sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
+            sf::Vector2f posInimigo = corpo.getPosition();
+
+            float distanciaX = posJogador.x - posInimigo.x;
+
+            if (distanciaX < 0.0f) {
+                distanciaX = -distanciaX;
         }
 
         if (distanciaX <= DISTANCIA_SEGUIR_X && posJogador.y >= posInimigo.y) {
+            seguirJogador = true;
 
             if (posJogador.x < posInimigo.x) { /*se o jogador está na esquerda vai para esquerda*/
                 velocidade.x = -VELOCIDADE_X_INIMIGO; 
@@ -46,6 +57,24 @@ void Inimigo::mover() {
                 velocidade.x = VELOCIDADE_X_INIMIGO;
             }
         }
+    }
+
+    if (!seguirJogador) {
+        if (tempoMovimentoAleatorio <= 0) {
+            int sorteio = rand() % 2;
+
+            if (sorteio == 0) {
+                direcaoAleatoria = -1;
+            }
+            else {
+                direcaoAleatoria = 1;
+            }
+
+            tempoMovimentoAleatorio = 120;
+        }
+
+        velocidade.x = VELOCIDADE_X_INIMIGO * direcaoAleatoria;
+        tempoMovimentoAleatorio--;
     }
 
     velocidade.y += GRAVIDADE; /*fica puxando ele para baixo*/

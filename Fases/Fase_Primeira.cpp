@@ -89,14 +89,21 @@ namespace Fases {
     }
 
     void FasePrimeira::criarObstLento() {
-        
+    
         for (int i = 0; i < 3; i++) {
-            
+        
             Entidades::ObstaculoLento* lama = new Entidades::ObstaculoLento();
-            lama->setPosicao(250 + (i * 350), 500);
+
+            if (i == 0) {
+                lama->setPosicao(120, 395); 
+            }
+            else {
+                lama->setPosicao(250 + (i * 350), 500);
+            }
+
             lista_ents.incluir(lama);
             GC.incluirObstaculo(lama);
-            
+        
         }
     }
 
