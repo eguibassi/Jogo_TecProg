@@ -8,8 +8,8 @@ namespace Fases {
 
     class FasePrimeira : public Fase {
     private:
-        const int maxInimMedios;
-        const int maxInimFaceis;
+        const int maxPekka;
+        const int maxGoblin;
         sf::Texture texturaFundo;
         sf::Sprite spriteFundo;
 
@@ -21,9 +21,9 @@ namespace Fases {
     protected:
         void criarInimigos();
         void criarObstaculo();
-        void criarInimFaceis();
-        void criarInimMedios();
-        void criarObstLento();
+        void criarGoblin();
+        void criarPekka();
+        void criarPilha();
         void criarFundo();
         void desenharFundo();
         void criarPlataformas();

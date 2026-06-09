@@ -7231,7 +7231,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:REF name="Associations[1]">B3tWvX0rvUiNlt2a9M5uAwAA</XPD:REF>
 <XPD:REF name="Associations[2]">4MAppLBcoEmU2myG/bbNUwAA</XPD:REF>
 <XPD:REF name="Associations[3]">9O1FWcm8i02zVS8spGhS9QAA</XPD:REF>
-<XPD:ATTR name="#Attributes" type="integer">3</XPD:ATTR>
+<XPD:ATTR name="#Attributes" type="integer">2</XPD:ATTR>
 <XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="oCA/YaxiH0eXIIdDkeCV/gAA">
 <XPD:ATTR name="Name" type="string">vx</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
@@ -7242,12 +7242,6 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:ATTR name="Name" type="string">dano</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">int</XPD:ATTR>
-<XPD:REF name="Owner">82LAi2UIo02RgIoh3hOn0gAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="cSAHtPzBz0C5CA9BNhnVmAAA">
-<XPD:ATTR name="Name" type="string">ativo</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">bool</XPD:ATTR>
 <XPD:REF name="Owner">82LAi2UIo02RgIoh3hOn0gAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>

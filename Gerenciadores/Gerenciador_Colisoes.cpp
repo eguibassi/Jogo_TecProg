@@ -5,7 +5,7 @@
 /*O método das colisões foi extraído majoritariamente do exemplo do monitor Giovanni
 https://github.com/Giovanenero/JogoPlataforma2D-Jungle/blob/main/Jungle%2B%2B/src/Gerenciador/GerenciadorColisao.cpp */
 
-/*implementar singleton*/
+
 
 namespace Gerenciadores {
 
@@ -347,24 +347,7 @@ namespace Gerenciadores {
         // apenas desativa o projétil
         std::list<Entidades::Obstaculo*>::iterator itObs;
 
-        for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs) {
-            Entidades::Obstaculo* obs = *itObs;
-
-            if (obs == nullptr) {
-                continue;
-            }
-
-            Entidades::Plataforma* plat = dynamic_cast<Entidades::Plataforma*>(obs);
-
-            if (plat == nullptr) {
-                continue;
-            }
-
-            if (verificarColisao(proj, plat)) {
-                proj->setAtivo(false);
-                break;
-            }
-        }
+        
     }
     }
 

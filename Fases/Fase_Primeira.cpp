@@ -7,7 +7,7 @@
 namespace Fases {
 
 
-    FasePrimeira::FasePrimeira(bool Jog2) : Fase(), maxInimMedios(3),maxInimFaceis(5) {
+    FasePrimeira::FasePrimeira(bool Jog2) : Fase(), maxPekka(3),maxGoblin(5) {
         
         srand(time(NULL)); 
 
@@ -49,17 +49,17 @@ namespace Fases {
     void FasePrimeira::criarObstaculo() {
     
         criarPlataformas();
-        criarObstLento();
+        criarPilha();
     }
 
     void FasePrimeira::criarInimigos() {
-        criarInimMedios();
-        criarInimFaceis();
+        criarPekka();
+        criarGoblin();
     }
 
-    void FasePrimeira::criarInimFaceis() {
+    void FasePrimeira::criarGoblin() {
         
-        int quantidade = (rand() % 3) + 2; 
+        int quantidade = (rand() % maxGoblin) + 2; 
 
         for (int i = 0; i < quantidade; i++) {
             
@@ -71,8 +71,8 @@ namespace Fases {
         }
     }
 
-    void FasePrimeira::criarInimMedios() {
-        int quantidade = (rand() % maxInimMedios) + 1; 
+    void FasePrimeira::criarPekka() {
+        int quantidade = (rand() % maxPekka) + 1; 
 
         for (int i = 0; i < quantidade; i++) {
             
@@ -88,7 +88,7 @@ namespace Fases {
 
     }
 
-    void FasePrimeira::criarObstLento() {
+    void FasePrimeira::criarPilha() {
     
         for (int i = 0; i < 3; i++) {
         

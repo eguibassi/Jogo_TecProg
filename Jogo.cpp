@@ -34,7 +34,7 @@ void Jogo::executar()
     {
         sf::Event evento;
 
-        while (GG.getWindow()->pollEvent(evento))
+        while (GG.getWindow()->pollEvent(evento))/*poolEvent pega as mensagens da fila do window    */
         {
             if (evento.type == sf::Event::Closed)
             {
