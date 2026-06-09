@@ -3,26 +3,28 @@
 
 namespace Entidades {
 
-    ObstaculoLento::ObstaculoLento() : largura(50.f) {
+    ObstaculoLento::ObstaculoLento() : largura(90.f) {
         danoso = false; 
         x = 150; 
-        y = 550; 
-        corpo.setSize(sf::Vector2f(largura, 10.f)); 
+        y = 500; 
+
+        corpo.setSize(sf::Vector2f(largura, 8.f)); 
         corpo.setPosition((float)x, (float)y);
         
         textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Pilha de ossos.png");
         
         if (textura != nullptr) {
             sprite.setTexture(*textura);
+
             // Recorta a pilha de ossos para remover a margem transparente da imagem
             sprite.setTextureRect(sf::IntRect(18, 186, 466, 123));
+
             // Ajustando a escala para manter a pilha de ossos próxima da largura do obstáculo
             sprite.setScale(largura / 466.f, largura / 466.f); 
-            sprite.setOrigin(0.f, -300.f);/*fazendo ele parar de flutuar*/
+
+            sprite.setOrigin(0.f, -50.f); /*fazendo ele parar de flutuar*/
             sprite.setPosition((float)x, (float)y);
         }
-        
-        
     }
 
     ObstaculoLento::~ObstaculoLento() {
@@ -38,10 +40,17 @@ namespace Entidades {
 
     void ObstaculoLento::obstaculizar(Personagens::Jogador* p) {
         if (p != nullptr) {
-           
             p->setLento(true);
         }
     }
+    void ObstaculoLento::setPosicao(float novoX, float novoY) {
+        x = static_cast<int>(novoX);
+        y = static_cast<int>(novoY);
 
+        corpo.setPosition(novoX, novoY);
 
+        if (textura != nullptr) {
+            sprite.setPosition(novoX, novoY+20.0f);
+        }
+}
 }

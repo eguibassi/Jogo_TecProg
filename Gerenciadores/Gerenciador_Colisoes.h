@@ -10,6 +10,7 @@
 #include "../Entidades/Personagens/Inimigo.h"
 #include "../Entidades/Obstaculos/Obstaculo.h"
 #include "../Entidades/Projetil.h" 
+#include "../Entidades/Obstaculos/ObstaculoLento.h"
 
 namespace Gerenciadores {
 

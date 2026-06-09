@@ -4,6 +4,7 @@
 
 #define VELOCIDADE_X_INIMIGO 1.0f
 #define GRAVIDADE 0.5f
+#define DISTANCIA_SEGUIR_X 250.0f
 
 namespace Personagens {
 
@@ -23,30 +24,35 @@ namespace Personagens {
 
     Inimigo::~Inimigo() {
     }
+void Inimigo::mover() {
+    velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
 
-    void Inimigo::mover() {
-        velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
+    if (pJogador != nullptr) {
+        sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
+        sf::Vector2f posInimigo = corpo.getPosition();
 
-        if (pJogador != nullptr) {
-            sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
-            
-            if (posJogador.x < x) { /*se o jogador está na esquerda vai para esquerda*/
+        float distanciaX = posJogador.x - posInimigo.x;
+
+        if (distanciaX < 0.0f) {
+            distanciaX = -distanciaX;
+        }
+
+        if (distanciaX <= DISTANCIA_SEGUIR_X && posJogador.y >= posInimigo.y) {
+
+            if (posJogador.x < posInimigo.x) { /*se o jogador está na esquerda vai para esquerda*/
                 velocidade.x = -VELOCIDADE_X_INIMIGO; 
-            } else if (posJogador.x > x) { /*se está na direita vai para direita*/
+            } 
+            else if (posJogador.x > posInimigo.x) { /*se está na direita vai para direita*/
                 velocidade.x = VELOCIDADE_X_INIMIGO;
             }
         }
-
-        velocidade.y += GRAVIDADE; /*fica puxando ele para baixo*/
-        
-        corpo.move(velocidade); /*aplica as velocidades no corpo*/
-
-        x = static_cast<int>(corpo.getPosition().x);  /*atualizando as variaveis*/
-        y = static_cast<int>(corpo.getPosition().y);
-        
-      
     }
+
+    velocidade.y += GRAVIDADE; /*fica puxando ele para baixo*/
     
+    corpo.move(velocidade); /*aplica as velocidades no corpo*/
 
-
-} 
+    x = static_cast<int>(corpo.getPosition().x);  /*atualizando as variaveis*/
+    y = static_cast<int>(corpo.getPosition().y);
+}
+}
