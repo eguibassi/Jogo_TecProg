@@ -92,7 +92,7 @@ namespace Fases {
     
         for (int i = 0; i < 3; i++) {
         
-            Entidades::ObstaculoLento* lama = new Entidades::ObstaculoLento();
+            Entidades::Pilha* lama = new Entidades::Pilha();
 
             if (i == 0) {
                 lama->setPosicao(120, 395); 

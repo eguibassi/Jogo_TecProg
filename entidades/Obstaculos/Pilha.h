@@ -5,14 +5,14 @@
 
 namespace Entidades {
 
-    class ObstaculoLento : public Obstaculo {
+    class Pilha : public Obstaculo {
     private:
         
         float largura;
 
     public:
-        ObstaculoLento();
-        ~ObstaculoLento();
+        Pilha();
+        ~Pilha();
 
         void executar();
         void obstaculizar(Personagens::Jogador* p);

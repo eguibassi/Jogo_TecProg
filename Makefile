@@ -19,8 +19,8 @@ SRCS = main.cpp \
        Entidades/Personagens/Pekka.cpp \
        Entidades/Obstaculos/Obstaculo.cpp \
        Entidades/Obstaculos/Plataforma.cpp \
-       Entidades/Obstaculos/ObstaculoDano.cpp \
-       Entidades/Obstaculos/ObstaculoLento.cpp \
+       Entidades/Obstaculos/Jaula.cpp \
+       Entidades/Obstaculos/Pilha.cpp \
        Gerenciadores/Gerenciador_Colisoes.cpp \
        Gerenciadores/Gerenciador_Grafico.cpp
 

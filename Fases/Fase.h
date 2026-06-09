@@ -1,5 +1,5 @@
 #pragma once
-#include "../Ente.h" // <-- 1. INCLUIR A CLASSE MÃE
+#include "../Ente.h" 
 #include "../Listas/ListaEntidades.h"
 #include "../Gerenciadores/Gerenciador_Colisoes.h"
 #include "../Gerenciadores/Gerenciador_Grafico.h"
@@ -7,8 +7,8 @@
 #include "../Entidades/Personagens/Jogador.h"
 #include "../Entidades/Personagens/Inimigo.h"
 #include "../Entidades/Obstaculos/Plataforma.h"
-#include "../Entidades/Obstaculos/ObstaculoDano.h"
-#include "../Entidades/Obstaculos/ObstaculoLento.h"
+#include "../Entidades/Obstaculos/Jaula.h"
+#include "../Entidades/Obstaculos/Pilha.h"
 
 namespace Fases {
 

@@ -1,9 +1,9 @@
-#include "ObstaculoLento.h"
+#include "Pilha.h"
 #include "../../Gerenciadores/Gerenciador_Grafico.h" 
 
 namespace Entidades {
 
-    ObstaculoLento::ObstaculoLento() : largura(90.f) {
+    Pilha::Pilha() : largura(90.f) {
         danoso = false; 
         x = 150; 
         y = 500; 
@@ -27,23 +27,23 @@ namespace Entidades {
         }
     }
 
-    ObstaculoLento::~ObstaculoLento() {
+    Pilha::~Pilha() {
     }
 
-    void ObstaculoLento::executar() {
+    void Pilha::executar() {
        
     }
 
-    void ObstaculoLento::salvar() {
+    void Pilha::salvar() {
      
     }
 
-    void ObstaculoLento::obstaculizar(Personagens::Jogador* p) {
+    void Pilha::obstaculizar(Personagens::Jogador* p) {
         if (p != nullptr) {
             p->setLento(true);
         }
     }
-    void ObstaculoLento::setPosicao(float novoX, float novoY) {
+    void Pilha::setPosicao(float novoX, float novoY) {
         x = static_cast<int>(novoX);
         y = static_cast<int>(novoY);
 

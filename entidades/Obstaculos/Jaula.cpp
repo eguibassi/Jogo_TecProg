@@ -1,9 +1,9 @@
-#include "ObstaculoDano.h"
+#include "Jaula.h"
 #include "../../Gerenciadores/Gerenciador_Grafico.h" 
 
 namespace Entidades {
 
-    ObstaculoDano::ObstaculoDano() {
+    Jaula::Jaula() {
         danosidade = 1; // Tira 1 ponto de vida
         danoso = true;  
 
@@ -26,22 +26,22 @@ namespace Entidades {
         
     }
 
-    ObstaculoDano::~ObstaculoDano() {
+    Jaula::~Jaula() {
     }
 
-    void ObstaculoDano::salvarDataBuffer() {
+    void Jaula::salvarDataBuffer() {
         
     }
 
-    void ObstaculoDano::executar() {
+    void Jaula::executar() {
         
     }
 
-    void ObstaculoDano::salvar() {
+    void Jaula::salvar() {
         
     }
 
-    void ObstaculoDano::obstaculizar(Personagens::Jogador* p) {
+    void Jaula::obstaculizar(Personagens::Jogador* p) {
         if (p != nullptr) {
             
             

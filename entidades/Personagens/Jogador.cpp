@@ -10,7 +10,7 @@
 namespace Personagens {
 
     Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), pProjetil(nullptr), podeAtirar(true), jogador2(segundo_jogador)
-     {/*lento só é true quando estiver em contato com o ObstaculoLento*/
+     {/*lento só é true quando estiver em contato com o Pilha*/
         num_vidas = 5; 
         corpo.setSize(sf::Vector2f(25.f, 50.f)); 
         corpo.setFillColor(sf::Color::Transparent);

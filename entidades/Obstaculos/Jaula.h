@@ -6,14 +6,14 @@
 namespace Entidades {
 
     // HerdandoObstaculo
-    class ObstaculoDano : public Obstaculo {
+    class Jaula : public Obstaculo {
     private:
         
         short int danosidade;
         
     public:
-        ObstaculoDano();
-        ~ObstaculoDano();
+        Jaula();
+        ~Jaula();
         
         
         void salvarDataBuffer();/*fazer*/
