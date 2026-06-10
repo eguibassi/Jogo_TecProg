@@ -1,13 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "personagem.h"
-#include "../Projetil.h"
 
 namespace Personagens {
 
     class Jogador : public Personagem { 
     private:
-        Entidades::Projetil* pProjetil;
         bool podeAtirar;
         bool jogador2;
         
@@ -23,11 +21,9 @@ namespace Personagens {
         void executar();
         void salvar();/*fazer*/
         void mover();/*arruumar bug do pulo*/
-        Entidades::Projetil* atirar();
 
          
         int getPontos() const { return pontos; }
-        Entidades::Projetil* getProjetil() const;
 
         
         void setLento(bool estado) { lento = estado; }

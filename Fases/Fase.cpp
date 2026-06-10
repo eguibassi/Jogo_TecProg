@@ -16,25 +16,6 @@ namespace Fases {
     }
 
     void Fase::executar() {
-
-        if (pJogador != nullptr) {
-            Entidades::Projetil* tiro = pJogador->atirar();
-
-            if (tiro != nullptr) {
-                lista_ents.incluir(tiro);
-                GC.incluirProjetil(tiro);
-            }
-        }
-
-        if (pJogador2 != nullptr) {
-            Entidades::Projetil* tiro2 = pJogador2->atirar();
-
-            if (tiro2 != nullptr) {
-                lista_ents.incluir(tiro2);
-                GC.incluirProjetil(tiro2);
-            }
-        }
-        
         
         lista_ents.percorrer();
 

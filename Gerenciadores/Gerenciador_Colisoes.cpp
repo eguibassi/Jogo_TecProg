@@ -242,28 +242,55 @@ namespace Gerenciadores {
     }
 
    void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
-        for (auto itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
-            Personagens::Inimigo* ini = *itIni;
+    std::list<Personagens::Inimigo*>::iterator itIni;
 
-            if (ini == nullptr) {
-                continue;
+    for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
+        Personagens::Inimigo* ini = *itIni;
+
+        if (ini == nullptr || !ini->getAtivo()) {
+            continue;
+        }
+
+        if (pJog1 != nullptr && pJog1->getAtivo() && verificarColisao(pJog1, ini)) {
+            sf::FloatRect rectJog = pJog1->getCorpo().getGlobalBounds();
+            sf::FloatRect rectIni = ini->getCorpo().getGlobalBounds();
+
+            float centroJogX = rectJog.left + rectJog.width / 2.0f;
+            float centroIniX = rectIni.left + rectIni.width / 2.0f;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+                ini->tomarDano(1.0f);
+
+                sf::Vector2f posIni = ini->getPosicao();
+                sf::Vector2f velIni = ini->getVelocidade();
+
+                // Se o jogador estiver à esquerda do inimigo, empurra o inimigo para a direita
+                if (centroJogX < centroIniX) {
+                    posIni.x += 25.0f;
+                    velIni.x = 7.0f;
+                }
+                // Se o jogador estiver à direita do inimigo, empurra o inimigo para a esquerda
+                else {
+                    posIni.x -= 25.0f;
+                    velIni.x = -7.0f;
+                }
+
+                velIni.y = -3.0f;
+
+                ini->setPosicao(
+                    static_cast<int>(posIni.x),
+                    static_cast<int>(posIni.y)
+                );
+
+                ini->setVelocidade(velIni);
             }
-
-           
-            if (pJog1 != nullptr && pJog1->getAtivo() && verificarColisao(pJog1, ini)) {
-                
+            else {
                 ini->danificar(pJog1);
-
-                sf::FloatRect rectJog = pJog1->getCorpo().getGlobalBounds();
-                sf::FloatRect rectIni = ini->getCorpo().getGlobalBounds();
-
-                float centroJogX = rectJog.left + rectJog.width / 2.0f;
-                float centroIniX = rectIni.left + rectIni.width / 2.0f;
 
                 sf::Vector2f posJog = pJog1->getPosicao();
                 sf::Vector2f velJog = pJog1->getVelocidade();
 
-                // Se o jogador estiver à esquerda do Inimigo, é empurrado para a esquerda
+                // Se o jogador estiver à esquerda do inimigo, é empurrado para a esquerda
                 if (centroJogX < centroIniX) {
                     posJog.x -= 25.0f; 
                     velJog.x = -5.0f;  
@@ -276,20 +303,48 @@ namespace Gerenciadores {
 
                 velJog.y = -3.0f; 
 
-                pJog1->setPosicao(posJog.x, posJog.y);
+                pJog1->setPosicao(
+                    static_cast<int>(posJog.x),
+                    static_cast<int>(posJog.y)
+                );
+
                 pJog1->setVelocidade(velJog);
             }
+        }
 
-           
-            if (pJog2 != nullptr && pJog2->getAtivo() && verificarColisao(pJog2, ini)) {
-                
+        if (pJog2 != nullptr && pJog2->getAtivo() && verificarColisao(pJog2, ini)) {
+            sf::FloatRect rectJog = pJog2->getCorpo().getGlobalBounds();
+            sf::FloatRect rectIni = ini->getCorpo().getGlobalBounds();
+
+            float centroJogX = rectJog.left + rectJog.width / 2.0f;
+            float centroIniX = rectIni.left + rectIni.width / 2.0f;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
+                ini->tomarDano(1.0f);
+
+                sf::Vector2f posIni = ini->getPosicao();
+                sf::Vector2f velIni = ini->getVelocidade();
+
+                if (centroJogX < centroIniX) {
+                    posIni.x += 25.0f;
+                    velIni.x = 7.0f;
+                }
+                else {
+                    posIni.x -= 25.0f;
+                    velIni.x = -7.0f;
+                }
+
+                velIni.y = -3.0f;
+
+                ini->setPosicao(
+                    static_cast<int>(posIni.x),
+                    static_cast<int>(posIni.y)
+                );
+
+                ini->setVelocidade(velIni);
+            }
+            else {
                 ini->danificar(pJog2);
-
-                sf::FloatRect rectJog = pJog2->getCorpo().getGlobalBounds();
-                sf::FloatRect rectIni = ini->getCorpo().getGlobalBounds();
-
-                float centroJogX = rectJog.left + rectJog.width / 2.0f;
-                float centroIniX = rectIni.left + rectIni.width / 2.0f;
 
                 sf::Vector2f posJog = pJog2->getPosicao();
                 sf::Vector2f velJog = pJog2->getVelocidade();
@@ -297,18 +352,24 @@ namespace Gerenciadores {
                 if (centroJogX < centroIniX) {
                     posJog.x -= 25.0f; 
                     velJog.x = -5.0f;
-                } else {
+                } 
+                else {
                     posJog.x += 25.0f; 
                     velJog.x = 5.0f;
                 }
 
                 velJog.y = -3.0f; 
 
-                pJog2->setPosicao(posJog.x, posJog.y);
+                pJog2->setPosicao(
+                    static_cast<int>(posJog.x),
+                    static_cast<int>(posJog.y)
+                );
+
                 pJog2->setVelocidade(velJog);
             }
         }
     }
+}
 
     void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
         std::set<Entidades::Projetil*>::iterator itProj;
