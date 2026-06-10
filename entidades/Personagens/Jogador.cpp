@@ -28,7 +28,7 @@ namespace Personagens {
         if (textura != nullptr) {
                 sprite.setTexture(*textura);
                 sprite.setScale(0.1f, 0.1f); 
-                sprite.setOrigin(200.f, -200.f);/*fazendo ele parar de flutuar*/
+               
                 sprite.setPosition((float)x, (float)y);
 
             }

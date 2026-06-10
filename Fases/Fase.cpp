@@ -16,8 +16,10 @@ namespace Fases {
     }
 
     void Fase::executar() {
+
         
-        lista_ents.percorrer();
+        
+        lista_ents.percorrer();/*faz todos se moverem*/
 
         GC.executar();
 

@@ -2,35 +2,16 @@
 
 namespace Entidades {
 
-   Plataforma::Plataforma() : altura(30) {
+   Plataforma::Plataforma() : altura(15) {
         x = 0;   
         y = 500; 
         
         corpo.setSize(sf::Vector2f(150.f, (float)altura)); 
         corpo.setPosition((float)x, (float)y);
 
-        // Pode deixar transparente depois que o sprite estiver certo
-        corpo.setFillColor(sf::Color(255, 0, 0, 128));
+        
+       corpo.setFillColor(sf::Color(139, 0, 0));
 
-        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Plataforma.png");
-
-        if (textura != nullptr) {
-            sprite.setTexture(*textura);
-
-            // NÃO use origin aqui
-            sprite.setOrigin(0.f, 0.f);
-
-            // Coloca o sprite no mesmo lugar do corpo
-            sprite.setPosition(corpo.getPosition());
-
-            // Faz o sprite ter exatamente o tamanho do corpo
-            sf::FloatRect tamanhoSprite = sprite.getLocalBounds();
-
-            sprite.setScale(
-                corpo.getSize().x / tamanhoSprite.width,
-                corpo.getSize().y / tamanhoSprite.height
-            );
-        }
     }
 
     Plataforma::~Plataforma() {
@@ -42,8 +23,26 @@ namespace Entidades {
     void Plataforma::salvar() {
     }
 
-    void Plataforma::obstaculizar(Personagens::Jogador* p) {
-        if (p == nullptr) return;
+    void Plataforma::obstaculizar(Personagens::Jogador* pJog) {
+        if (pJog == nullptr) {
+            return;
+        }
+
+       
+        sf::FloatRect rectJog = pJog->getCorpo().getGlobalBounds();
+        sf::FloatRect rectPlat = corpo.getGlobalBounds(); 
+
+        float centroJogY = rectJog.top + rectJog.height / 2.0f;
+        float centroPlatY = rectPlat.top + rectPlat.height / 2.0f;
+
+        /*ve se ta em baixo*/
+        if (centroJogY > centroPlatY) {
+            /*joga ele pra baixo*/
+            sf::Vector2f velJog = pJog->getVelocidade();
+            velJog.y = 4.0f; 
+        
+            pJog->setVelocidade(velJog);
     }
+}
 
 }
