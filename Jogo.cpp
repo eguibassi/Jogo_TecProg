@@ -4,6 +4,7 @@
 
 Jogo::Jogo() :
     estadoAtual(MENU),
+    pJog1(nullptr), pJog2(nullptr),
     fasePrimeira(nullptr),
     menu(nullptr)
 {
@@ -25,6 +26,16 @@ Jogo::~Jogo()
     {
         delete fasePrimeira;
         fasePrimeira = nullptr;
+    }
+    if (pJog1 != nullptr)
+    {
+        delete pJog1;
+        pJog1 = nullptr;
+    }
+
+    if (pJog2 != nullptr){
+        delete pJog2;
+        pJog2 = nullptr;
     }
 }
 
@@ -73,7 +84,38 @@ void Jogo::entrarFase1(bool segundoJogador)
         fasePrimeira = nullptr;
     }
 
-    fasePrimeira = new Fases::FasePrimeira(segundoJogador);
+    if (pJog1 != nullptr)
+    {
+        delete pJog1;
+        pJog1 = nullptr;
+    }
+
+    if (pJog2 != nullptr)
+    {
+        delete pJog2;
+        pJog2 = nullptr;
+    }
+
+    pJog1 = new Personagens::Jogador(false);
+
+    // Posiciona o jogador 1 em cima da primeira plataforma
+    pJog1->setPosicao(110.0f, 250.0f);
+
+    if (segundoJogador)
+    {
+        pJog2 = new Personagens::Jogador(true);
+
+        // Posiciona o jogador 2 em cima da primeira plataforma
+        pJog2->setPosicao(170.0f, 250.0f);
+
+        fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2);
+    }
+    else
+    {
+        pJog2 = nullptr;
+
+        fasePrimeira = new Fases::FasePrimeira(pJog1, nullptr);
+    }
 
     estadoAtual = FASE1;
 }

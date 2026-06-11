@@ -15,7 +15,7 @@ namespace Fases {
 
     public:
         
-        FasePrimeira(bool Jog2);
+        FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2);
         ~FasePrimeira();
 
     protected:
@@ -26,7 +26,6 @@ namespace Fases {
         void criarPilha();
         void criarFundo();
         void desenharFundo();
-        void criarPlataformas();
     };
 
 }
