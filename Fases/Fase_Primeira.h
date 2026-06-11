@@ -21,7 +21,7 @@ namespace Fases {
     protected:
         void criarInimigos();
         void criarObstaculo();
-        void criarGoblin();
+        
         void criarPekka();
         void criarPilha();
         void criarFundo();

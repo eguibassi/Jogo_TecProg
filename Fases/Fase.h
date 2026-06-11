@@ -37,7 +37,7 @@ namespace Fases {
         virtual void criarFundo() = 0;
         virtual void desenharFundo() = 0;
         
-        void criarInimFaceis();
+        void criarGoblins();
         void criarPlataformas();
         void criarCenario();
     };

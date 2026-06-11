@@ -4862,7 +4862,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="Operations[3]" type="UMLOperation" guid="EWGpu4wQBk2yDbaN9Ec7EwAA">
-<XPD:ATTR name="Name" type="string">criarInimFaceis</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">criarGoblins</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:REF name="Owner">ODk2x5mvlkqaWx4w1r8H2QAA</XPD:REF>
 </XPD:OBJ>
@@ -4980,7 +4980,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:REF name="Views[3]">lnPLyZKzBEGD+hnnpHUgwgAA</XPD:REF>
 <XPD:ATTR name="#Generalizations" type="integer">1</XPD:ATTR>
 <XPD:REF name="Generalizations[0]">5VKJKacjuE2dcuf5LRbpaAAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">10</XPD:ATTR>
+<XPD:ATTR name="#Operations" type="integer">9</XPD:ATTR>
 <XPD:OBJ name="Operations[0]" type="UMLOperation" guid="aps//9flVEiI9YpkJWvgHQAA">
 <XPD:ATTR name="Name" type="string">FasePrimeira</XPD:ATTR>
 <XPD:ATTR name="StereotypeProfile" type="string">UMLStandard</XPD:ATTR>
@@ -5021,18 +5021,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:REF name="BehavioralFeature">92S1+s6wxUeOK2ZEa+Px3AAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[4]" type="UMLOperation" guid="Ah3qUSXsk0O/cLbe4yhwjwAA">
-<XPD:ATTR name="Name" type="string">criarGoblin</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
-<XPD:REF name="Owner">I/enJjaCiE67U7s5KXV8qgAA</XPD:REF>
-<XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="P1fXyllQHkaXbqjVcqfKxAAA">
-<XPD:ATTR name="DirectionKind" type="UMLParameterDirectionKind">pdkReturn</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">void</XPD:ATTR>
-<XPD:REF name="BehavioralFeature">Ah3qUSXsk0O/cLbe4yhwjwAA</XPD:REF>
-</XPD:OBJ>
-</XPD:OBJ>
-<XPD:OBJ name="Operations[5]" type="UMLOperation" guid="hMJETDuzUUuLv+zxE5qr7wAA">
+<XPD:OBJ name="Operations[4]" type="UMLOperation" guid="hMJETDuzUUuLv+zxE5qr7wAA">
 <XPD:ATTR name="Name" type="string">criarPekka</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:REF name="Owner">I/enJjaCiE67U7s5KXV8qgAA</XPD:REF>
@@ -5043,7 +5032,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:REF name="BehavioralFeature">hMJETDuzUUuLv+zxE5qr7wAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[6]" type="UMLOperation" guid="zPe9j23b0kiZyWtvrkGpGAAA">
+<XPD:OBJ name="Operations[5]" type="UMLOperation" guid="zPe9j23b0kiZyWtvrkGpGAAA">
 <XPD:ATTR name="Name" type="string">criarPilha</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:REF name="Owner">I/enJjaCiE67U7s5KXV8qgAA</XPD:REF>
@@ -5054,7 +5043,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:REF name="BehavioralFeature">zPe9j23b0kiZyWtvrkGpGAAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[7]" type="UMLOperation" guid="sMU6rBePukekdI9oPZCSsQAA">
+<XPD:OBJ name="Operations[6]" type="UMLOperation" guid="sMU6rBePukekdI9oPZCSsQAA">
 <XPD:ATTR name="Name" type="string">criarFundo</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:REF name="Owner">I/enJjaCiE67U7s5KXV8qgAA</XPD:REF>
@@ -5065,7 +5054,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:REF name="BehavioralFeature">sMU6rBePukekdI9oPZCSsQAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[8]" type="UMLOperation" guid="k9TP40HtVUOyn62NaZZyygAA">
+<XPD:OBJ name="Operations[7]" type="UMLOperation" guid="k9TP40HtVUOyn62NaZZyygAA">
 <XPD:ATTR name="Name" type="string">desenharFundo</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:REF name="Owner">I/enJjaCiE67U7s5KXV8qgAA</XPD:REF>
@@ -5076,7 +5065,7 @@ Neste sentido, os atributos indicados também podem ser alterados, modificado et
 <XPD:REF name="BehavioralFeature">k9TP40HtVUOyn62NaZZyygAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[9]" type="UMLOperation" guid="tJQE+JkGFkeRQFHd99FcogAA">
+<XPD:OBJ name="Operations[8]" type="UMLOperation" guid="tJQE+JkGFkeRQFHd99FcogAA">
 <XPD:ATTR name="Name" type="string">criarPlataformas</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:REF name="Owner">I/enJjaCiE67U7s5KXV8qgAA</XPD:REF>

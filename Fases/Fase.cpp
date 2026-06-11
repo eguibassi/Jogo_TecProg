@@ -1,5 +1,6 @@
 #include "Fase.h"
 #include "../Entidades/Projetil.h" 
+#include "../Entidades/Personagens/Goblin.h"
 //Função retirada da resolução de provas do professor Jean Simão, 
 //https://pessoal.dainf.ct.utfpr.edu.br/jeansimao/Fundamentos2/Provas/Provas.htm
 static void sementear() {
@@ -42,7 +43,22 @@ namespace Fases {
         lista_ents.desenhar();
     }
 
-    void Fase::criarInimFaceis() {}
+    void Fase::criarGoblins() {
+        int quantidade = (rand() % 3) + 2; 
+
+        for (int i = 0; i < quantidade; i++) {
+            Personagens::Goblin* goblin = new Personagens::Goblin();
+            
+            // Dica: A posição X agora é relativa ao loop, como você já tinha feito
+            goblin->setPosicao(100.0f + (i * 200.0f), 400.0f);
+            
+            // O pJogador e GC já existem na classe Fase, então funciona direto!
+            goblin->setJogador(pJogador);
+            lista_ents.incluir(goblin);
+            GC.incluirInimigo(goblin);
+        }
+    }
+
     void Fase::criarPlataformas() {
     
         sementear();

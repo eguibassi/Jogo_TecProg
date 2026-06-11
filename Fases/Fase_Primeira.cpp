@@ -54,22 +54,9 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
 
     void FasePrimeira::criarInimigos() {
         criarPekka();
-        criarGoblin();
+        criarGoblins();
     }
 
-    void FasePrimeira::criarGoblin() {
-        
-        int quantidade = (rand() % maxGoblin) + 2; 
-
-        for (int i = 0; i < quantidade; i++) {
-            
-            Personagens::Goblin* goblin = new Personagens::Goblin();
-            goblin->setPosicao(100.0f + (i * 200.0f), 400.0f);
-            goblin->setJogador(pJogador);
-            lista_ents.incluir(goblin);
-            GC.incluirInimigo(goblin);
-        }
-    }
 
     void FasePrimeira::criarPekka() {
         int quantidade = (rand() % maxPekka) + 1; 
