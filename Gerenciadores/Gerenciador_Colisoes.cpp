@@ -29,141 +29,160 @@ namespace Gerenciadores {
 
     void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 
-        if (pJog1 != nullptr && pJog1->getAtivo()) {
-            for (auto it = LOs.begin(); it != LOs.end(); ++it) {
-                Entidades::Obstaculo* obs = *it;
+    if (pJog1 != nullptr && pJog1->getAtivo()) {
+        for (auto it = LOs.begin(); it != LOs.end(); ++it) {
+            Entidades::Obstaculo* obs = *it;
 
-                if (obs == nullptr) {
+            if (obs == nullptr) {
+                continue;
+            }
+
+            if (verificarColisao(pJog1, obs)) {
+                /*pilha tem tratamento proprio*/
+                if (dynamic_cast<Entidades::Pilha*>(obs) != nullptr) {
+                    obs->obstaculizar(pJog1);
                     continue;
                 }
 
-                if (verificarColisao(pJog1, obs)) {
-                    if (dynamic_cast<Entidades::Pilha*>(obs) != nullptr) {
-                        obs->obstaculizar(pJog1);
-                            continue;
-                    }
-                    sf::FloatRect rectJogador = pJog1->getCorpo().getGlobalBounds();/*pega hitbox*/
-                    sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();
+                sf::FloatRect rectJogador = pJog1->getCorpo().getGlobalBounds();/*pega hitbox*/
+                sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();
 
-                    float centroJogX = rectJogador.left + rectJogador.width / 2.0f; /*calacula o cenntro*/
-                    float centroJogY = rectJogador.top + rectJogador.height / 2.0f;
-                    float centroObsX = rectObs.left + rectObs.width / 2.0f;
-                    float centroObsY = rectObs.top + rectObs.height / 2.0f;
+                float centroJogX = rectJogador.left + rectJogador.width / 2.0f; /*calcula o centro*/
+                float centroJogY = rectJogador.top + rectJogador.height / 2.0f;
+                float centroObsX = rectObs.left + rectObs.width / 2.0f;
+                float centroObsY = rectObs.top + rectObs.height / 2.0f;
 
-                    float distX = centroJogX - centroObsX; /*distancia entre os centros*/
-                    float distY = centroJogY - centroObsY;
+                float distX = centroJogX - centroObsX; /*distancia entre os centros*/
+                float distY = centroJogY - centroObsY;
 
-                    float minDistX = (rectJogador.width / 2.0f) + (rectObs.width / 2.0f); /*distancia pra eles nao se sobreporem*/
-                    float minDistY = (rectJogador.height / 2.0f) + (rectObs.height / 2.0f);
+                float minDistX = (rectJogador.width / 2.0f) + (rectObs.width / 2.0f); /*distancia pra eles nao se sobreporem*/
+                float minDistY = (rectJogador.height / 2.0f) + (rectObs.height / 2.0f);
 
-                    float intersectX = std::abs(distX) - minDistX; /*vendo se um entrou no outro*/
-                    float intersectY = std::abs(distY) - minDistY;
+                float intersectX = std::abs(distX) - minDistX; /*vendo se um entrou no outro*/
+                float intersectY = std::abs(distY) - minDistY;
 
-                    if (intersectX < 0.0f && intersectY < 0.0f) { /*se for negativo entrou*/
-                        sf::Vector2f velJog = pJog1->getVelocidade();
-                        sf::Vector2f posJog = pJog1->getPosicao();
-                        /*empurrando ele pra fora*/
-                        if (intersectX > intersectY) {
-                            if (distX > 0.0f) {
-                                posJog.x -= intersectX;
-                            }
-                            else {
-                                posJog.x += intersectX;
-                            }
+                if (intersectX < 0.0f && intersectY < 0.0f) { /*se for negativo entrou*/
+                    sf::Vector2f velJog = pJog1->getVelocidade();
+                    sf::Vector2f posJog = pJog1->getPosicao();
 
-                            velJog.x = 0.0f;
-                        } 
-                        else {
-                            if (distY > 0.0f) {
-                                posJog.y -= intersectY;
-                            }
-                            else {
-                                posJog.y += intersectY;
-                            }
-
-                            velJog.y = 0.0f;
+                    if (intersectX > intersectY) {
+                        /*colisao lateral: empurra normalmente*/
+                        if (distX > 0.0f) {
+                            posJog.x -= intersectX;
                         }
-
-                        pJog1->setPosicao(
-                            static_cast<int>(posJog.x),
-                            static_cast<int>(posJog.y)
-                        );
-
+                        else {
+                            posJog.x += intersectX;
+                        }
+                        velJog.x = 0.0f;
+                        pJog1->setPosicao(static_cast<int>(posJog.x), static_cast<int>(posJog.y));
                         pJog1->setVelocidade(velJog);
                     }
-
-                    obs->obstaculizar(pJog1);
-                }
-            }
-        }
-
-        if (pJog2 != nullptr && pJog2->getAtivo()) {
-            for (auto it = LOs.begin(); it != LOs.end(); ++it) {
-                Entidades::Obstaculo* obs = *it;
-
-                if (obs == nullptr) {
-                    continue;
-                }
-
-                if (verificarColisao(pJog2, obs)) {
-                    if (dynamic_cast<Entidades::Pilha*>(obs) != nullptr) {
-                        obs->obstaculizar(pJog2);
-                        continue;}
-                    sf::FloatRect rectJogador = pJog2->getCorpo().getGlobalBounds();
-                    sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();
-
-                    float centroJogX = rectJogador.left + rectJogador.width / 2.0f;
-                    float centroJogY = rectJogador.top + rectJogador.height / 2.0f;
-                    float centroObsX = rectObs.left + rectObs.width / 2.0f;
-                    float centroObsY = rectObs.top + rectObs.height / 2.0f;
-
-                    float distX = centroJogX - centroObsX;
-                    float distY = centroJogY - centroObsY;
-
-                    float minDistX = (rectJogador.width / 2.0f) + (rectObs.width / 2.0f);
-                    float minDistY = (rectJogador.height / 2.0f) + (rectObs.height / 2.0f);
-
-                    float intersectX = std::abs(distX) - minDistX;
-                    float intersectY = std::abs(distY) - minDistY;
-
-                    if (intersectX < 0.0f && intersectY < 0.0f) {
-                        sf::Vector2f velJog = pJog2->getVelocidade();
-                        sf::Vector2f posJog = pJog2->getPosicao();
-
-                        if (intersectX > intersectY) {
-                            if (distX > 0.0f) {
-                                posJog.x -= intersectX;
-                            }
-                            else {
-                                posJog.x += intersectX;
-                            }
-
-                            velJog.x = 0.0f;
-                        } 
+                    else {
+                        Entidades::Plataforma* plat = dynamic_cast<Entidades::Plataforma*>(obs);
+                        if (plat != nullptr && distY < 0.0f) {
+                            /*jogador em cima da plataforma, so zera velocidade Y e avisa a plataforma*/
+                            /*nao reposiciona, a plataforma desce ate encontrar ele*/
+                            velJog.y = 0.0f;
+                            pJog1->setVelocidade(velJog);
+                            plat->setPisada();
+                        }
                         else {
+                            /*colisao vertical normal */
                             if (distY > 0.0f) {
                                 posJog.y -= intersectY;
                             }
                             else {
                                 posJog.y += intersectY;
                             }
-
                             velJog.y = 0.0f;
+                            pJog1->setPosicao(static_cast<int>(posJog.x), static_cast<int>(posJog.y));
+                            pJog1->setVelocidade(velJog);
                         }
-
-                        pJog2->setPosicao(
-                            static_cast<int>(posJog.x),
-                            static_cast<int>(posJog.y)
-                        );
-
-                        pJog2->setVelocidade(velJog);
                     }
-
-                    obs->obstaculizar(pJog2);
                 }
+
+                obs->obstaculizar(pJog1);
             }
         }
     }
+
+    if (pJog2 != nullptr && pJog2->getAtivo()) {
+        for (auto it = LOs.begin(); it != LOs.end(); ++it) {
+            Entidades::Obstaculo* obs = *it;
+
+            if (obs == nullptr) {
+                continue;
+            }
+
+            if (verificarColisao(pJog2, obs)) {
+                /*pilha tem tratamento proprio*/
+                if (dynamic_cast<Entidades::Pilha*>(obs) != nullptr) {
+                    obs->obstaculizar(pJog2);
+                    continue;
+                }
+
+                sf::FloatRect rectJogador = pJog2->getCorpo().getGlobalBounds();
+                sf::FloatRect rectObs = obs->getCorpo().getGlobalBounds();
+
+                float centroJogX = rectJogador.left + rectJogador.width / 2.0f;
+                float centroJogY = rectJogador.top + rectJogador.height / 2.0f;
+                float centroObsX = rectObs.left + rectObs.width / 2.0f;
+                float centroObsY = rectObs.top + rectObs.height / 2.0f;
+
+                float distX = centroJogX - centroObsX;
+                float distY = centroJogY - centroObsY;
+
+                float minDistX = (rectJogador.width / 2.0f) + (rectObs.width / 2.0f);
+                float minDistY = (rectJogador.height / 2.0f) + (rectObs.height / 2.0f);
+
+                float intersectX = std::abs(distX) - minDistX;
+                float intersectY = std::abs(distY) - minDistY;
+
+                if (intersectX < 0.0f && intersectY < 0.0f) {
+                    sf::Vector2f velJog = pJog2->getVelocidade();
+                    sf::Vector2f posJog = pJog2->getPosicao();
+
+                    if (intersectX > intersectY) {
+                        /*colisao lateral: empurra normalmente*/
+                        if (distX > 0.0f) {
+                            posJog.x -= intersectX;
+                        }
+                        else {
+                            posJog.x += intersectX;
+                        }
+                        velJog.x = 0.0f;
+                        pJog2->setPosicao(static_cast<int>(posJog.x), static_cast<int>(posJog.y));
+                        pJog2->setVelocidade(velJog);
+                    }
+                    else {
+                        Entidades::Plataforma* plat = dynamic_cast<Entidades::Plataforma*>(obs);
+                        if (plat != nullptr && distY < 0.0f) {
+                            /*jogador em cima da plataforma: so zera velocidade Y e avisa a plataforma*/
+                            /*nao reposiciona, a plataforma desce ate encontrar ele*/
+                            velJog.y = 0.0f;
+                            pJog2->setVelocidade(velJog);
+                            plat->setPisada();
+                        }
+                        else {
+                            /*colisao vertical normal (baixo, ou obstaculo nao-plataforma): empurra normalmente*/
+                            if (distY > 0.0f) {
+                                posJog.y -= intersectY;
+                            }
+                            else {
+                                posJog.y += intersectY;
+                            }
+                            velJog.y = 0.0f;
+                            pJog2->setPosicao(static_cast<int>(posJog.x), static_cast<int>(posJog.y));
+                            pJog2->setVelocidade(velJog);
+                        }
+                    }
+                }
+
+                obs->obstaculizar(pJog2);
+            }
+        }
+    }
+}
 
     void Gerenciador_Colisoes::tratarColisoesInimigsObstacs() {
         for (auto itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {

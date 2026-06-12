@@ -11,6 +11,9 @@ Jogo::Jogo() :
 {
     Ente::setGG(&GG);
 
+    if (GG.getWindow() != nullptr) /*30 fps*/
+        GG.getWindow()->setFramerateLimit(30);
+    
     menu = new Menu();
     menu->setJogo(this);
 }
