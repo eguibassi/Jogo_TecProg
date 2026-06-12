@@ -1,8 +1,5 @@
 #pragma once
-#include <vector>
-#include <cstdlib>
-#include <ctime>
-#include <windows.h>
+
 #include "../Ente.h" 
 #include "../Listas/ListaEntidades.h"
 #include "../Gerenciadores/Gerenciador_Colisoes.h"

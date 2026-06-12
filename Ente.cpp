@@ -1,5 +1,13 @@
 #include "Ente.h"
-
+//Função retirada da resolução de provas do professor Jean Simão, 
+//https://pessoal.dainf.ct.utfpr.edu.br/jeansimao/Fundamentos2/Provas/Provas.htm
+void Ente::sementear() {
+    rand(); 
+    Sleep(100); 
+    time_t t;
+    srand((unsigned) time(&t)); 
+    rand();
+}
 
 Gerenciadores::Gerenciador_Grafico* Ente::pGG = nullptr;
 

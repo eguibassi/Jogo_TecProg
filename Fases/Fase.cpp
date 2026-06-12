@@ -1,15 +1,6 @@
 #include "Fase.h"
 #include "../Entidades/Projetil.h" 
 #include "../Entidades/Personagens/Goblin.h"
-//Função retirada da resolução de provas do professor Jean Simão, 
-//https://pessoal.dainf.ct.utfpr.edu.br/jeansimao/Fundamentos2/Provas/Provas.htm
-static void sementear() {
-    rand(); 
-    Sleep(100); 
-    time_t t;
-    srand((unsigned) time(&t)); 
-    rand();
-}
 
 namespace Fases {
 

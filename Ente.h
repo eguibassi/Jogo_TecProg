@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <windows.h>
 #include "Gerenciadores/Gerenciador_Grafico.h"
 
 
@@ -12,6 +15,8 @@ protected:
   
     //Vector para textos no menu
     std::vector<sf::Text*> textos;
+protected:
+    static void sementear();
 
 public:
     Ente();

@@ -8,7 +8,12 @@
 
 namespace Personagens {
 
-   Inimigo::Inimigo() : nivel_maldade(1), seguindoJogador(false), pJogador(nullptr) {
+   Inimigo::Inimigo() : 
+        nivel_maldade(1), 
+        seguindoJogador(false), 
+        direcao(1),
+        pJogador(nullptr) 
+    {
         num_vidas = 3; 
         
         x = 600; 
@@ -24,65 +29,53 @@ namespace Personagens {
 
     Inimigo::~Inimigo() {
     }
+
     void Inimigo::mover() {
-    velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
-    static bool sorteioIniciado = false;
-    static int direcaoAleatoria = 1;
-    static int tempoMovimentoAleatorio = 0;
+        velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
 
-    if (!sorteioIniciado) {
-        srand(static_cast<unsigned int>(time(nullptr)));
-        sorteioIniciado = true;
-    }
+        seguindoJogador = false;
 
-    seguindoJogador = false;
+        if (pJogador != nullptr) {
+            sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
+            sf::Vector2f posInimigo = corpo.getPosition();
 
-    if (pJogador != nullptr) {
-        sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
-        sf::Vector2f posInimigo = corpo.getPosition();
+            float distanciaX = posJogador.x - posInimigo.x;
 
-        float distanciaX = posJogador.x - posInimigo.x;
-
-        if (distanciaX < 0.0f) {
-            distanciaX = -distanciaX;
-        }
-
-        if (distanciaX <= DISTANCIA_SEGUIR_X && posJogador.y >= posInimigo.y) {
-            seguindoJogador = true;
-
-            if (posJogador.x < posInimigo.x) { /*se o jogador está na esquerda vai para esquerda*/
-                velocidade.x = -VELOCIDADE_X_INIMIGO; 
-            } 
-            else if (posJogador.x > posInimigo.x) { /*se está na direita vai para direita*/
-                velocidade.x = VELOCIDADE_X_INIMIGO;
-            }
-        }
-    }
-
-    if (!seguindoJogador) {
-        if (tempoMovimentoAleatorio <= 0) {
-            int sorteio = rand() % 2;
-
-            if (sorteio == 0) {
-                direcaoAleatoria = -1;
-            }
-            else {
-                direcaoAleatoria = 1;
+            if (distanciaX < 0.0f) {
+                distanciaX = -distanciaX;
             }
 
-            tempoMovimentoAleatorio = 120;
+            if (distanciaX <= DISTANCIA_SEGUIR_X && posJogador.y >= posInimigo.y) {
+                seguindoJogador = true;
+
+                if (posJogador.x < posInimigo.x) { /*se o jogador está na esquerda vai para esquerda*/
+                    velocidade.x = -VELOCIDADE_X_INIMIGO; 
+                } 
+                else if (posJogador.x > posInimigo.x) { /*se está na direita vai para direita*/
+                    velocidade.x = VELOCIDADE_X_INIMIGO;
+                }
+            }
         }
 
-        velocidade.x = VELOCIDADE_X_INIMIGO * direcaoAleatoria;
-        tempoMovimentoAleatorio--;
+        if (!seguindoJogador) {
+            if (relogioDirecaoAleatoria.getElapsedTime().asSeconds() >= 0.5f) {
+                if (rand() % 10 > 5) {
+                    direcao *= -1;
+                }
+
+                relogioDirecaoAleatoria.restart();
+            }
+
+            velocidade.x = VELOCIDADE_X_INIMIGO * direcao;
+        }
+
+        velocidade.y += GRAVIDADE; /*fica puxando ele para baixo*/
+        
+        corpo.move(velocidade); /*aplica as velocidades no corpo*/
+
+        x = static_cast<int>(corpo.getPosition().x);  /*atualizando as variaveis*/
+        y = static_cast<int>(corpo.getPosition().y);
     }
 
-    velocidade.y += GRAVIDADE; /*fica puxando ele para baixo*/
-    
-    corpo.move(velocidade); /*aplica as velocidades no corpo*/
-
-    x = static_cast<int>(corpo.getPosition().x);  /*atualizando as variaveis*/
-    y = static_cast<int>(corpo.getPosition().y);
-}
     bool Inimigo::getSeguindoJogador() const {return seguindoJogador;}
 }

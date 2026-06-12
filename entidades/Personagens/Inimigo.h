@@ -11,6 +11,8 @@ namespace Personagens {
     protected:
         int nivel_maldade;
         bool seguindoJogador;
+        int direcao;
+        sf::Clock relogioDirecaoAleatoria;
 
     private:
         Jogador* pJogador; 
