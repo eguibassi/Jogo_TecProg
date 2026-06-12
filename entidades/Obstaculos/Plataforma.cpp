@@ -2,7 +2,7 @@
 
 namespace Entidades {
 
-    Plataforma::Plataforma() : altura(500), offset(0), pisadaNesteFrame(false) {
+    Plataforma::Plataforma() : altura(500), offset(0), pisadaFrame(false) {
         x = 0;   
         y = 500; 
         
@@ -24,13 +24,12 @@ namespace Entidades {
     }
 
     void Plataforma::setPisada() {
-        pisadaNesteFrame = true;
+        pisadaFrame = true;
     }
 
     void Plataforma::executar() {
-         std::cout << "pisada=" << pisadaNesteFrame << " y=" << y << " altura=" << altura << std::endl;
-
-        if (pisadaNesteFrame) {
+         
+        if (pisadaFrame) {
             /*acumula o offset ate o limite de 30 pixels*/
             if (offset < 30) offset += 1;
         } else {
@@ -38,7 +37,7 @@ namespace Entidades {
             if (offset > 0) offset -= 1;
         }
 
-        pisadaNesteFrame = false;
+        pisadaFrame = false;
 
         y = altura + offset;
         corpo.setPosition((float)x, (float)y);

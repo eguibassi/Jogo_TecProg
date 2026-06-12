@@ -9,7 +9,7 @@ namespace Entidades {
     private:
         int altura;        /*posicao original*/
         int offset;        /*quanto ja desceu*/
-        bool pisadaNesteFrame;
+        bool pisadaFrame;
 
     public:
         Plataforma();
