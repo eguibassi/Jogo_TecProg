@@ -8,7 +8,7 @@
 
 namespace Personagens {
 
-   Inimigo::Inimigo() : nivel_maldade(1), pJogador(nullptr) {
+   Inimigo::Inimigo() : nivel_maldade(1), seguindoJogador(false), pJogador(nullptr) {
         num_vidas = 3; 
         
         x = 600; 
@@ -25,30 +25,30 @@ namespace Personagens {
     Inimigo::~Inimigo() {
     }
     void Inimigo::mover() {
-        velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
-        static bool sorteioIniciado = false;
-        static int direcaoAleatoria = 1;
-        static int tempoMovimentoAleatorio = 0;
+    velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
+    static bool sorteioIniciado = false;
+    static int direcaoAleatoria = 1;
+    static int tempoMovimentoAleatorio = 0;
 
-        if (!sorteioIniciado) {
-            srand(static_cast<unsigned int>(time(nullptr)));
-            sorteioIniciado = true;
+    if (!sorteioIniciado) {
+        srand(static_cast<unsigned int>(time(nullptr)));
+        sorteioIniciado = true;
     }
 
-        bool seguirJogador = false;
+    seguindoJogador = false;
 
-        if (pJogador != nullptr) {
-            sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
-            sf::Vector2f posInimigo = corpo.getPosition();
+    if (pJogador != nullptr) {
+        sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
+        sf::Vector2f posInimigo = corpo.getPosition();
 
-            float distanciaX = posJogador.x - posInimigo.x;
+        float distanciaX = posJogador.x - posInimigo.x;
 
-            if (distanciaX < 0.0f) {
-                distanciaX = -distanciaX;
+        if (distanciaX < 0.0f) {
+            distanciaX = -distanciaX;
         }
 
         if (distanciaX <= DISTANCIA_SEGUIR_X && posJogador.y >= posInimigo.y) {
-            seguirJogador = true;
+            seguindoJogador = true;
 
             if (posJogador.x < posInimigo.x) { /*se o jogador está na esquerda vai para esquerda*/
                 velocidade.x = -VELOCIDADE_X_INIMIGO; 
@@ -59,7 +59,7 @@ namespace Personagens {
         }
     }
 
-    if (!seguirJogador) {
+    if (!seguindoJogador) {
         if (tempoMovimentoAleatorio <= 0) {
             int sorteio = rand() % 2;
 
@@ -84,4 +84,5 @@ namespace Personagens {
     x = static_cast<int>(corpo.getPosition().x);  /*atualizando as variaveis*/
     y = static_cast<int>(corpo.getPosition().y);
 }
+    bool Inimigo::getSeguindoJogador() const {return seguindoJogador;}
 }

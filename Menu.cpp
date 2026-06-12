@@ -40,7 +40,6 @@ void Menu::inicializarTextos(){
     titulo.setFillColor(sf::Color::White);
     titulo.setPosition(280.f, 80.f);
 
-   
     std::vector<std::string> nomesOpcoes = {
         "FASE 1: PARQUINHO DA P.E.K.K.A",
         "FASE 2: PICO CONGELADO",
@@ -75,7 +74,6 @@ void Menu::inicializarTextos(){
     txtVoltar.setPosition(180.f, 300.f);
     textosRanking.push_back(txtVoltar);
 
-   
     caixa1P.setSize(sf::Vector2f(90.f, 50.f));
     caixa1P.setPosition(300.f, 500.f);
     caixa1P.setFillColor(sf::Color::Yellow);
@@ -100,7 +98,6 @@ void Menu::inicializarTextos(){
     texto2P.setFillColor(sf::Color::White);
     texto2P.setPosition(435.f, 508.f);
 
-  
     adicionarTexto(&titulo);
     adicionarTexto(&texto1P);
     adicionarTexto(&texto2P);
@@ -116,6 +113,7 @@ void Menu::inicializarTextos(){
 
 void Menu::executar(){
     if (!ativo){return;}
+
     if (rankingAberto){
         verificarRanking();
     }
@@ -180,10 +178,10 @@ void Menu::verificarClique(){
         for (size_t i = 0; i < opcoesMenu.size(); i++) {
             if (mouseEmCima(opcoesMenu[i])) {
                 if (i == 0 && pJog != nullptr) { // FASE 1
-                    pJog->entrarFase1(segundoJogador);
+                    pJog->entrarFase(1, segundoJogador);
                 } 
-                else if (i == 1) { // FASE 2
-                    // pJog->entrarFase2(segundoJogador);
+                else if (i == 1 && pJog != nullptr) { // FASE 2
+                    pJog->entrarFase(2, segundoJogador);
                 } 
                 else if (i == 2) { // RANKING
                     rankingAberto = true;

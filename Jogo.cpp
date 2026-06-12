@@ -6,6 +6,7 @@ Jogo::Jogo() :
     estadoAtual(MENU),
     pJog1(nullptr), pJog2(nullptr),
     fasePrimeira(nullptr),
+    faseSegunda(nullptr),
     menu(nullptr)
 {
     Ente::setGG(&GG);
@@ -27,13 +28,21 @@ Jogo::~Jogo()
         delete fasePrimeira;
         fasePrimeira = nullptr;
     }
+
+    if (faseSegunda != nullptr)
+    {
+        delete faseSegunda;
+        faseSegunda = nullptr;
+    }
+
     if (pJog1 != nullptr)
     {
         delete pJog1;
         pJog1 = nullptr;
     }
 
-    if (pJog2 != nullptr){
+    if (pJog2 != nullptr)
+    {
         delete pJog2;
         pJog2 = nullptr;
     }
@@ -70,18 +79,31 @@ void Jogo::executar()
                     fasePrimeira->executar();
                 }
                 break;
+
+            case FASE2:
+                if (faseSegunda != nullptr)
+                {
+                    faseSegunda->executar();
+                }
+                break;
         }
 
         GG.mostrarElementos();
     }
 }
 
-void Jogo::entrarFase1(bool segundoJogador)
+void Jogo::entrarFase(int numeroFase, bool segundoJogador)
 {
     if (fasePrimeira != nullptr)
     {
         delete fasePrimeira;
         fasePrimeira = nullptr;
+    }
+
+    if (faseSegunda != nullptr)
+    {
+        delete faseSegunda;
+        faseSegunda = nullptr;
     }
 
     if (pJog1 != nullptr)
@@ -98,24 +120,29 @@ void Jogo::entrarFase1(bool segundoJogador)
 
     pJog1 = new Personagens::Jogador(false);
 
-    // Posiciona o jogador 1 em cima da primeira plataforma
+    // Posição inicial do jogador 1
     pJog1->setPosicao(110.0f, 250.0f);
 
     if (segundoJogador)
     {
         pJog2 = new Personagens::Jogador(true);
 
-        // Posiciona o jogador 2 em cima da primeira plataforma
+        // Posição inicial do jogador 2
         pJog2->setPosicao(170.0f, 250.0f);
-
-        fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2);
     }
     else
     {
         pJog2 = nullptr;
-
-        fasePrimeira = new Fases::FasePrimeira(pJog1, nullptr);
     }
 
-    estadoAtual = FASE1;
+    if (numeroFase == 1)
+    {
+        fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2);
+        estadoAtual = FASE1;
+    }
+    else if (numeroFase == 2)
+    {
+        faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
+        estadoAtual = FASE2;
+    }
 }

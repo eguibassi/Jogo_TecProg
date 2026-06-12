@@ -3,6 +3,7 @@
 #include "Gerenciadores/Gerenciador_Grafico.h"
 #include "Entidades/Personagens/Jogador.h"
 #include "Fases/Fase_Primeira.h"
+#include "Fases/Fase_Segunda.h"
 
 class Menu;
 
@@ -10,7 +11,8 @@ class Jogo {
 private:
     enum EstadoJogo {
         MENU,
-        FASE1
+        FASE1,
+        FASE2
     };
 
     EstadoJogo estadoAtual;
@@ -20,13 +22,14 @@ private:
     Personagens::Jogador* pJog2;
 
     Fases::FasePrimeira* fasePrimeira;
-    Menu* menu;
+    Fases::FaseSegunda* faseSegunda;
 
+    Menu* menu;
 public:
     Jogo();
     ~Jogo();
 
     void executar();
 
-    void entrarFase1(bool segundoJogador);
+    void entrarFase(int numeroFase, bool segundoJogador);
 };

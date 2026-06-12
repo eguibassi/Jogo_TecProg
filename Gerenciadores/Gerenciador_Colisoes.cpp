@@ -372,45 +372,31 @@ namespace Gerenciadores {
 }
 
     void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
-        std::set<Entidades::Projetil*>::iterator itProj;
+    std::set<Entidades::Projetil*>::iterator itProj;
 
-        for (itProj = Lps.begin(); itProj != Lps.end(); ++itProj) {
-            Entidades::Projetil* proj = *itProj;
+    for (itProj = Lps.begin(); itProj != Lps.end(); ++itProj) {
+        Entidades::Projetil* proj = *itProj;
 
-            if (proj == nullptr || !proj->getAtivo()) {
-                continue;
-            }
-
-            // Colisão do projétil com inimigo:
-            // causa dano no inimigo e desativa o projétil
-            std::list<Personagens::Inimigo*>::iterator itIni;
-
-            for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
-                Personagens::Inimigo* ini = *itIni;
-
-                if (ini == nullptr || !ini->getAtivo()) {
-                    continue;
-                }
-
-                if (verificarColisao(proj, ini)) {
-                    ini->tomarDano(proj->getDano());
-                    proj->setAtivo(false);
-                    break;
-                }
-        }
-
-        // Se o projétil já bateu no inimigo, não precisa testar plataforma
-        if (!proj->getAtivo()) {
+        if (proj == nullptr || !proj->getAtivo()) {
             continue;
         }
 
-        // Colisão do projétil com plataforma:
-        // apenas desativa o projétil
-        std::list<Entidades::Obstaculo*>::iterator itObs;
+        // Colisão do projétil com jogador 1:
+        // causa dano no jogador e desativa o projétil.
+        if (pJog1 != nullptr && pJog1->getAtivo() && verificarColisao(pJog1, proj)) {
+            pJog1->tomarDano(proj->getDano());
+            proj->setAtivo(false);
+            continue;
+        }
 
-        
+        // Colisão do projétil com jogador 2:
+        if (pJog2 != nullptr && pJog2->getAtivo() && verificarColisao(pJog2, proj)) {
+            pJog2->tomarDano(proj->getDano());
+            proj->setAtivo(false);
+            continue;
+        }
     }
-    }
+}
 
     void Gerenciador_Colisoes::incluirInimigo(Personagens::Inimigo* pi) {
         if (pi) {

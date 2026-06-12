@@ -10,6 +10,7 @@ namespace Personagens {
     class Inimigo : public Personagem {
     protected:
         int nivel_maldade;
+        bool seguindoJogador;
 
     private:
         Jogador* pJogador; 
@@ -24,6 +25,7 @@ namespace Personagens {
         
         void setJogador(Jogador* j) { pJogador = j; }
         void mover(); /*arrumar*/
+        bool getSeguindoJogador() const;
         
        
     };
