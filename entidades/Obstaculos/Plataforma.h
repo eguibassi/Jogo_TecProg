@@ -7,19 +7,19 @@ namespace Entidades {
 
     class Plataforma : public Obstaculo {
     private:
-        
-        int altura;
+        int altura;        /*posicao original*/
+        int offset;        /*quanto ja desceu*/
+        bool pisadaNesteFrame;
 
     public:
         Plataforma();
         ~Plataforma();
-        
-     
-        void executar() ;
-        void obstaculizar(Personagens::Jogador* p) ;/*fazer*/
-
-   
-        void salvar() ;/*fazer*/
+             
+        void executar();
+        void obstaculizar(Personagens::Jogador* p);
+        void salvar(); /*fazer*/
+        void setPosicao(int novoX, int novoY);
+        void setPisada();
     };
 
-} 
+}
