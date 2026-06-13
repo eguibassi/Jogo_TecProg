@@ -9,6 +9,7 @@ SRCS = main.cpp \
        Ente.cpp \
        Fases/Fase.cpp \
        Fases/Fase_Primeira.cpp \
+       Fases/Fase_Segunda.cpp \
        Listas/ListaEntidades.cpp \
        Entidades/Entidade.cpp \
        Entidades/Projetil.cpp \
@@ -17,6 +18,7 @@ SRCS = main.cpp \
        Entidades/Personagens/Inimigo.cpp \
        Entidades/Personagens/Goblin.cpp \
        Entidades/Personagens/Pekka.cpp \
+       Entidades/Personagens/Hog.cpp \
        Entidades/Obstaculos/Obstaculo.cpp \
        Entidades/Obstaculos/Plataforma.cpp \
        Entidades/Obstaculos/Jaula.cpp \

@@ -7,28 +7,28 @@
 
 class Menu : public Ente {
 private:
-    sf::Font fonte;
+    sf::Font fonte;//
 
-    sf::Texture texturaFundo;
-    sf::Sprite fundo;
+    sf::Texture texturaFundo;//
+    sf::Sprite fundo;//
 
     sf::Text titulo;
     std::vector<sf::Text> opcoesMenu;    // Vetor para os botões principais
     std::vector<sf::Text> textosRanking; // Vetor para a tela de Ranking
 
-    sf::RectangleShape caixa1P;
-    sf::RectangleShape caixa2P;
+    sf::RectangleShape caixa1P;//
+    sf::RectangleShape caixa2P;//
 
-    sf::Text texto1P;
-    sf::Text texto2P;
+    sf::Text texto1P;//
+    sf::Text texto2P;//
 
-    Jogo* pJog;
-    bool ativo;
-    bool rankingAberto;
+    Jogo* pJog;//
+    bool ativo;//
+    bool rankingAberto;//
     //mouseClick: bool que evita problema ao segurar o click
-    bool mouseClick;
+    bool mouseClick;//
 
-    bool segundoJogador;
+    bool segundoJogador;//
 
 private:
     //Carrega a fonte dos textos

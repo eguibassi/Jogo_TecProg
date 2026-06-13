@@ -107,7 +107,10 @@ namespace Fases {
                 plataformasCriadas++;
             }
         }
-}
+    }
+
+
+
     void Fase::criarCenario() {
         criarFundo();
         criarPlataformas();
