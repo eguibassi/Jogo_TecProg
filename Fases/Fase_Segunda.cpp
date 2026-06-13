@@ -6,7 +6,7 @@ namespace Fases {
 
     FaseSegunda::FaseSegunda(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2) : 
         Fase(), 
-        maxChefes(3)
+        maxChefoes(3)
     {
         for (int i = 0; i < 3; i++) {
             pHogs[i] = nullptr;
@@ -85,7 +85,7 @@ namespace Fases {
     }
 
     void FaseSegunda::criarChefes() {
-        for (int i = 0; i < maxChefes; i++) {
+        for (int i = 0; i < maxChefoes; i++) {
             
             Personagens::Hog* hog = new Personagens::Hog();
 
@@ -126,7 +126,7 @@ namespace Fases {
 
         relogioProjetil.restart();
 
-        for (int i = 0; i < maxChefes; i++) {
+        for (int i = 0; i < maxChefoes; i++) {
             if (pHogs[i] == nullptr) {
                 continue;
             }
