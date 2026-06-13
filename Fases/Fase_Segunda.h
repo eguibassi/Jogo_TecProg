@@ -5,8 +5,7 @@
 namespace Fases {
 
     class FaseSegunda : public Fase {
-        private:
-            const int maxChefoes;
+            const int maxHogs;
 
             sf::Texture texturaFundo;
             sf::Sprite spriteFundo;
