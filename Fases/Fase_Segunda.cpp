@@ -81,10 +81,10 @@ namespace Fases {
     }
 
     void FaseSegunda::criarInimigos() {
-        criarChefes();
+        criarHogs();
     }
 
-    void FaseSegunda::criarChefes() {
+    void FaseSegunda::criarHogs() {
         for (int i = 0; i < maxHogs; i++) {
             
             Personagens::Hog* hog = new Personagens::Hog();

@@ -23,7 +23,7 @@ namespace Fases {
         protected:
             void criarInimigos();
             void criarObstaculo();
-            void criarChefes();
+            void criarHogs();
             void criarJaulas();
             void criarProjetil();
 
