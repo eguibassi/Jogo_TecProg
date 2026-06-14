@@ -50,7 +50,13 @@ Jogo::~Jogo()
         pJog2 = nullptr;
     }
 }
+bool Jogo::jogadoresDerrotados() const{
+    if (pJog1 == nullptr){return true;}
 
+    if (pJog2 == nullptr){return !pJog1->getAtivo();}
+
+    return !pJog1->getAtivo() && !pJog2->getAtivo();
+}
 void Jogo::executar()
 {
     while (GG.verificaJanelaAberta())
@@ -77,12 +83,17 @@ void Jogo::executar()
                 break;
 
             case FASE1:
-                if (fasePrimeira != nullptr)
-                {
+                if (fasePrimeira != nullptr){
                     fasePrimeira->executar();
 
-                    if (fasePrimeira->getListaEntidades().todosInimigosDerrotados())
+                    if (jogadoresDerrotados()){
+                        voltarMenu();
+                        break;
+                    }
+
+                    if (fasePrimeira->getListaEntidades().todosInimigosDerrotados()){
                         trocarFase2();
+                    }
                 }
                 break;
 
@@ -90,8 +101,17 @@ void Jogo::executar()
                 if (faseSegunda != nullptr)
                 {
                     faseSegunda->executar();
-                    if (faseSegunda->getListaEntidades().todosInimigosDerrotados())
+
+                    if (jogadoresDerrotados())
+                    {
                         voltarMenu();
+                        break;
+                    }
+
+                    if (faseSegunda->getListaEntidades().todosInimigosDerrotados())
+                    {
+                        voltarMenu();
+                    }
                 }
                 break;
         }

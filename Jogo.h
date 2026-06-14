@@ -25,15 +25,16 @@ private:
     Fases::FaseSegunda* faseSegunda;
 
     Menu* menu;
-
+private:
     void trocarFase2();
+    bool jogadoresDerrotados() const;
     void voltarMenu();
+    
 
 public:
     Jogo();
     ~Jogo();
 
     void executar();
-
     void entrarFase(int numeroFase, bool segundoJogador);
 };
