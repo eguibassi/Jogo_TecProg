@@ -27,6 +27,7 @@ private:
     Menu* menu;
 
     void trocarFase2();
+    void voltarMenu();
 
 public:
     Jogo();
