@@ -50,7 +50,7 @@ void ListaEntidades::desenhar()
         pAux = pAux->getProximo();
     }
 }
-bool ListaEntidades::todosInimigosDerrotados() const{
+bool ListaEntidades::InimDerr() const{
     Listas::Lista<Entidades::Entidade>::Elemento<Entidades::Entidade>* pAux = LEs.getPrimeiro();
 
     bool encontrouInimigo = false;

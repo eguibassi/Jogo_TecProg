@@ -22,7 +22,7 @@ namespace Listas {
         //Chama o desenhar das entidades da lista
         void desenhar();
 
-        bool todosInimigosDerrotados() const;
+        bool InimDerr() const;
     };
 
 }
