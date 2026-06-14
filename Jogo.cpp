@@ -91,7 +91,7 @@ void Jogo::executar()
                         break;
                     }
 
-                    if (fasePrimeira->getListaEntidades().todosInimigosDerrotados()){
+                    if (fasePrimeira->getLisEnt().todosInimigosDerrotados()){
                         trocarFase2();
                     }
                 }
@@ -108,7 +108,7 @@ void Jogo::executar()
                         break;
                     }
 
-                    if (faseSegunda->getListaEntidades().todosInimigosDerrotados())
+                    if (faseSegunda->getLisEnt().todosInimigosDerrotados())
                     {
                         voltarMenu();
                     }

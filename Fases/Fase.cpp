@@ -34,7 +34,7 @@ namespace Fases {
         lista_ents.desenhar();
     }
 
-    const Listas::ListaEntidades& Fase::getListaEntidades() const
+    const Listas::ListaEntidades& Fase::getLisEnt() const
     {
         return lista_ents;
     }
