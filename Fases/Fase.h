@@ -26,7 +26,8 @@ namespace Fases {
         Fase();
         virtual ~Fase();
         
-        void executar() ; 
+        void executar();
+        const Listas::ListaEntidades& getListaEntidades() const;
 
     protected:
         virtual void criarInimigos() = 0;

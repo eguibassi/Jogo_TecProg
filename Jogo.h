@@ -25,6 +25,9 @@ private:
     Fases::FaseSegunda* faseSegunda;
 
     Menu* menu;
+
+    void trocarFase2();
+
 public:
     Jogo();
     ~Jogo();

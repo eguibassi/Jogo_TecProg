@@ -34,6 +34,19 @@ namespace Fases {
         lista_ents.desenhar();
     }
 
+    const Listas::ListaEntidades& Fase::getListaEntidades() const
+    {
+        return lista_ents;
+    }
+
+    void Fase::criarCenario()
+    {
+        criarFundo();
+        criarPlataformas();
+        criarObstaculo();
+        criarInimigos();
+    }
+
     void Fase::criarGoblins() {
         int quantidade = (rand() % 3) + 2; 
 
@@ -107,14 +120,5 @@ namespace Fases {
                 plataformasCriadas++;
             }
         }
-    }
-
-
-
-    void Fase::criarCenario() {
-        criarFundo();
-        criarPlataformas();
-        criarObstaculo();
-        criarInimigos();
     }
 }

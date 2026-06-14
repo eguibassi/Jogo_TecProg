@@ -1,6 +1,7 @@
 #pragma once
 #include "Lista.h"
 #include "../Entidades/Entidade.h"
+#include "../Entidades/Personagens/Inimigo.h"
 #include <SFML/Graphics.hpp>
 
 namespace Listas {
@@ -20,6 +21,8 @@ namespace Listas {
         
         //Chama o desenhar das entidades da lista
         void desenhar();
+
+        bool todosInimigosDerrotados() const;
     };
 
 }

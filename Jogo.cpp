@@ -80,6 +80,11 @@ void Jogo::executar()
                 if (fasePrimeira != nullptr)
                 {
                     fasePrimeira->executar();
+
+                    if (fasePrimeira->getListaEntidades().todosInimigosDerrotados())
+                    {
+                        trocarFase2();
+                    }
                 }
                 break;
 
@@ -97,14 +102,12 @@ void Jogo::executar()
 
 void Jogo::entrarFase(int numeroFase, bool segundoJogador)
 {
-    if (fasePrimeira != nullptr)
-    {
+    if (fasePrimeira != nullptr){
         delete fasePrimeira;
         fasePrimeira = nullptr;
     }
 
-    if (faseSegunda != nullptr)
-    {
+    if (faseSegunda != nullptr){
         delete faseSegunda;
         faseSegunda = nullptr;
     }
@@ -148,4 +151,37 @@ void Jogo::entrarFase(int numeroFase, bool segundoJogador)
         faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
         estadoAtual = FASE2;
     }
+}
+
+void Jogo::trocarFase2()
+{
+    if (estadoAtual != FASE1 || fasePrimeira == nullptr)
+    {
+        return;
+    }
+
+    if (fasePrimeira != nullptr)
+    {
+        delete fasePrimeira;
+        fasePrimeira = nullptr;
+    }
+
+    if (faseSegunda != nullptr)
+    {
+        delete faseSegunda;
+        faseSegunda = nullptr;
+    }
+
+    if (pJog1 != nullptr)
+    {
+        pJog1->setPosicao(110.0f, 250.0f);
+    }
+
+    if (pJog2 != nullptr)
+    {
+        pJog2->setPosicao(170.0f, 250.0f);
+    }
+
+    faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
+    estadoAtual = FASE2;
 }

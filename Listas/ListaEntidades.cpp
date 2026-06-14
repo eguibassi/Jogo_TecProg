@@ -50,3 +50,32 @@ void ListaEntidades::desenhar()
         pAux = pAux->getProximo();
     }
 }
+bool ListaEntidades::todosInimigosDerrotados() const{
+    Listas::Lista<Entidades::Entidade>::Elemento<Entidades::Entidade>* pAux = LEs.getPrimeiro();
+
+    bool encontrouInimigo = false;
+
+    while (pAux != nullptr)
+    {
+        Entidades::Entidade* pEntidade = pAux->getInfo();
+
+        if (pEntidade != nullptr)
+        {
+            Personagens::Inimigo* pInimigo = dynamic_cast<Personagens::Inimigo*>(pEntidade);
+
+            if (pInimigo != nullptr)
+            {
+                encontrouInimigo = true;
+
+                if (pInimigo->getAtivo())
+                {
+                    return false;
+                }
+            }
+        }
+
+        pAux = pAux->getProximo();
+    }
+
+    return encontrouInimigo;
+}
