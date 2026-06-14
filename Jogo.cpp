@@ -91,7 +91,7 @@ void Jogo::executar()
                         break;
                     }
 
-                    if (fasePrimeira->getLisEnt().InimDerr()){
+                    if (fasePrimeira->getLisEnt().InimsDerr()){
                         trocarFase2();
                     }
                 }
@@ -108,7 +108,7 @@ void Jogo::executar()
                         break;
                     }
 
-                    if (faseSegunda->getLisEnt().InimDerr())
+                    if (faseSegunda->getLisEnt().InimsDerr())
                     {
                         voltarMenu();
                     }
