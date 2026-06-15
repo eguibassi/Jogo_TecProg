@@ -9,13 +9,12 @@ class Menu;
 
 class Jogo {
 private:
-    enum EstadoJogo {
-        MENU,
-        FASE1,
-        FASE2
-    };
+    
+    const int TELA_MENU = 0;
+    const int TELA_FASE1 = 1;
+    const int TELA_FASE2 = 2;
 
-    EstadoJogo estadoAtual;
+    int estadoAtual; 
 
     Gerenciadores::Gerenciador_Grafico GG;
     Personagens::Jogador* pJog1;
@@ -25,11 +24,11 @@ private:
     Fases::FaseSegunda* faseSegunda;
 
     Menu* menu;
+
 private:
     void trocarFase2();
     bool jogadoresDerrotados() const;
     void voltarMenu();
-    
 
 public:
     Jogo();

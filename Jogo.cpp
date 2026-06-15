@@ -3,7 +3,7 @@
 #include "Ente.h"
 
 Jogo::Jogo() :
-    estadoAtual(MENU),
+    estadoAtual(TELA_MENU), // Inicializa apontando para a constante do Menu
     pJog1(nullptr), pJog2(nullptr),
     fasePrimeira(nullptr),
     faseSegunda(nullptr),
@@ -50,20 +50,20 @@ Jogo::~Jogo()
         pJog2 = nullptr;
     }
 }
-bool Jogo::jogadoresDerrotados() const{
-    if (pJog1 == nullptr){return true;}
 
-    if (pJog2 == nullptr){return !pJog1->getAtivo();}
-
+bool Jogo::jogadoresDerrotados() const {
+    if (pJog1 == nullptr) { return true; }
+    if (pJog2 == nullptr) { return !pJog1->getAtivo(); }
     return !pJog1->getAtivo() && !pJog2->getAtivo();
 }
+
 void Jogo::executar()
 {
     while (GG.verificaJanelaAberta())
     {
         sf::Event evento;
 
-        while (GG.getWindow()->pollEvent(evento))/*poolEvent pega as mensagens da fila do window    */
+        while (GG.getWindow()->pollEvent(evento))
         {
             if (evento.type == sf::Event::Closed)
             {
@@ -73,47 +73,43 @@ void Jogo::executar()
 
         GG.limparJanela();
 
-        switch (estadoAtual)
+        
+        if (estadoAtual == TELA_MENU) 
         {
-            case MENU:
-                if (menu != nullptr)
+            if (menu != nullptr)
+            {
+                menu->executar();
+            }
+        }
+        else if (estadoAtual == TELA_FASE1) 
+        {
+            if (fasePrimeira != nullptr) {
+                fasePrimeira->executar();
+
+                if (jogadoresDerrotados()) {
+                    voltarMenu();
+                }
+              
+                else if (fasePrimeira->getLisEnt().InimsDerr()) { 
+                    trocarFase2();
+                }
+            }
+        }
+        else if (estadoAtual == TELA_FASE2) 
+        {
+            if (faseSegunda != nullptr)
+            {
+                faseSegunda->executar();
+
+                if (jogadoresDerrotados())
                 {
-                    menu->executar();
+                    voltarMenu();
                 }
-                break;
-
-            case FASE1:
-                if (fasePrimeira != nullptr){
-                    fasePrimeira->executar();
-
-                    if (jogadoresDerrotados()){
-                        voltarMenu();
-                        break;
-                    }
-
-                    if (fasePrimeira->getLisEnt().InimsDerr()){
-                        trocarFase2();
-                    }
-                }
-                break;
-
-            case FASE2:
-                if (faseSegunda != nullptr)
+                else if (faseSegunda->getLisEnt().InimsDerr())
                 {
-                    faseSegunda->executar();
-
-                    if (jogadoresDerrotados())
-                    {
-                        voltarMenu();
-                        break;
-                    }
-
-                    if (faseSegunda->getLisEnt().InimsDerr())
-                    {
-                        voltarMenu();
-                    }
+                    voltarMenu();
                 }
-                break;
+            }
         }
 
         GG.mostrarElementos();
@@ -122,12 +118,12 @@ void Jogo::executar()
 
 void Jogo::entrarFase(int numeroFase, bool segundoJogador)
 {
-    if (fasePrimeira != nullptr){
+    if (fasePrimeira != nullptr) {
         delete fasePrimeira;
         fasePrimeira = nullptr;
     }
 
-    if (faseSegunda != nullptr){
+    if (faseSegunda != nullptr) {
         delete faseSegunda;
         faseSegunda = nullptr;
     }
@@ -145,15 +141,11 @@ void Jogo::entrarFase(int numeroFase, bool segundoJogador)
     }
 
     pJog1 = new Personagens::Jogador(false);
-
-    // Posição inicial do jogador 1
     pJog1->setPosicao(110.0f, 250.0f);
 
     if (segundoJogador)
     {
         pJog2 = new Personagens::Jogador(true);
-
-        // Posição inicial do jogador 2
         pJog2->setPosicao(170.0f, 250.0f);
     }
     else
@@ -164,18 +156,18 @@ void Jogo::entrarFase(int numeroFase, bool segundoJogador)
     if (numeroFase == 1)
     {
         fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2);
-        estadoAtual = FASE1;
+        estadoAtual = TELA_FASE1; 
     }
     else if (numeroFase == 2)
     {
         faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
-        estadoAtual = FASE2;
+        estadoAtual = TELA_FASE2; 
     }
 }
 
 void Jogo::trocarFase2()
 {
-    if (estadoAtual != FASE1 || fasePrimeira == nullptr)
+    if (estadoAtual != TELA_FASE1 || fasePrimeira == nullptr)
     {
         return;
     }
@@ -203,28 +195,29 @@ void Jogo::trocarFase2()
     }
 
     faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
-    estadoAtual = FASE2;
+    estadoAtual = TELA_FASE2; 
 }
-void Jogo::voltarMenu(){
-    if (fasePrimeira != nullptr){
+
+void Jogo::voltarMenu() {
+    if (fasePrimeira != nullptr) {
         delete fasePrimeira;
         fasePrimeira = nullptr;
     }
 
-    if (faseSegunda != nullptr){
+    if (faseSegunda != nullptr) {
         delete faseSegunda;
         faseSegunda = nullptr;
     }
 
-    if (pJog1 != nullptr){
+    if (pJog1 != nullptr) {
         delete pJog1;
         pJog1 = nullptr;
     }
 
-    if (pJog2 != nullptr){
+    if (pJog2 != nullptr) {
         delete pJog2;
         pJog2 = nullptr;
     }
 
-    estadoAtual = MENU;
+    estadoAtual = TELA_MENU; 
 }
