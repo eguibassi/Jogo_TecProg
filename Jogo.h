@@ -1,16 +1,18 @@
 #pragma once
+
 #include <fstream>
 #include <algorithm>
-//std::atoi, converte strings para ints https://stackoverflow.com/questions/7663709/how-can-i-convert-a-stdstring-to-int
 #include <cstdlib>
+#include <string>
+#include <vector>
+
 #include "Gerenciadores/Gerenciador_Grafico.h"
 #include "Entidades/Personagens/Jogador.h"
 #include "Fases/Fase_Primeira.h"
 #include "Fases/Fase_Segunda.h"
-#include <string>
-#include <vector>
 
 class Menu;
+class MenuPausa;
 
 struct RegistroRanking {
     std::string nome;
@@ -23,9 +25,10 @@ private:
     const int TELA_FASE1 = 1;
     const int TELA_FASE2 = 2;
 
-    int estadoAtual; 
+    int estadoAtual;
 
     Gerenciadores::Gerenciador_Grafico GG;
+
     Personagens::Jogador* pJog1;
     Personagens::Jogador* pJog2;
 
@@ -33,8 +36,11 @@ private:
     Fases::FaseSegunda* faseSegunda;
 
     Menu* menu;
+    MenuPausa* menuPausa;
 
     std::vector<RegistroRanking> ranking;
+
+    bool pausado;
 
 private:
     void trocarFase2();

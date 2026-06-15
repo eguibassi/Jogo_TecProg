@@ -1,23 +1,33 @@
 #include "Jogo.h"
 #include "Menu.h"
+#include "MenuPausa.h"
 #include "Ente.h"
 
 Jogo::Jogo() :
     estadoAtual(TELA_MENU),
-    pJog1(nullptr), pJog2(nullptr),
+    pJog1(nullptr),
+    pJog2(nullptr),
     fasePrimeira(nullptr),
     faseSegunda(nullptr),
-    menu(nullptr)
+    menu(nullptr),
+    menuPausa(nullptr),
+    pausado(false)
 {
     Ente::setGG(&GG);
 
-    if (GG.getWindow() != nullptr) /*30 fps*/
+    if (GG.getWindow() != nullptr)
+    {
         GG.getWindow()->setFramerateLimit(30);
+        GG.getWindow()->setKeyRepeatEnabled(false);
+    }
 
     salvarRanking();
-    
+
     menu = new Menu();
+    menu->setMenuPrincipal();
     menu->setJogo(this);
+
+    menuPausa = new MenuPausa();
 }
 
 Jogo::~Jogo()
@@ -28,6 +38,12 @@ Jogo::~Jogo()
     {
         delete menu;
         menu = nullptr;
+    }
+
+    if (menuPausa != nullptr)
+    {
+        delete menuPausa;
+        menuPausa = nullptr;
     }
 
     if (fasePrimeira != nullptr)
@@ -83,6 +99,14 @@ void Jogo::executar()
                 GG.fecharJanela();
             }
 
+            if (
+                evento.type == sf::Event::KeyPressed &&
+                evento.key.code == sf::Keyboard::Escape &&
+                estadoAtual != TELA_MENU
+            ){
+                pausado = !pausado;
+            }
+
             if (estadoAtual == TELA_MENU && menu != nullptr)
             {
                 menu->tratarEvento(evento);
@@ -93,6 +117,8 @@ void Jogo::executar()
 
         if (estadoAtual == TELA_MENU)
         {
+            pausado = false;
+
             if (menu != nullptr)
             {
                 menu->executar();
@@ -102,15 +128,34 @@ void Jogo::executar()
         {
             if (fasePrimeira != nullptr)
             {
-                fasePrimeira->executar();
+                if (pausado)
+                {
+                    fasePrimeira->pausaFase();
 
-                if (jogsDerr())
-                {
-                    voltarMenu();
+                    int opcao = menuPausa->executarPausa();
+
+                    if (opcao == 1)
+                    {
+                        pausado = false;
+                    }
+                    else if (opcao == 2)
+                    {
+                        pausado = false;
+                        voltarMenu();
+                    }
                 }
-                else if (fasePrimeira->getLisEnt().InimsDerr())
+                else
                 {
-                    trocarFase2();
+                    fasePrimeira->executar();
+
+                    if (jogsDerr())
+                    {
+                        voltarMenu();
+                    }
+                    else if (fasePrimeira->getLisEnt().InimsDerr())
+                    {
+                        trocarFase2();
+                    }
                 }
             }
         }
@@ -118,15 +163,34 @@ void Jogo::executar()
         {
             if (faseSegunda != nullptr)
             {
-                faseSegunda->executar();
+                if (pausado)
+                {
+                    faseSegunda->pausaFase();
 
-                if (jogsDerr())
-                {
-                    voltarMenu();
+                    int opcao = menuPausa->executarPausa();
+
+                    if (opcao == 1)
+                    {
+                        pausado = false;
+                    }
+                    else if (opcao == 2)
+                    {
+                        pausado = false;
+                        voltarMenu();
+                    }
                 }
-                else if (faseSegunda->getLisEnt().InimsDerr())
+                else
                 {
-                    voltarMenu();
+                    faseSegunda->executar();
+
+                    if (jogsDerr())
+                    {
+                        voltarMenu();
+                    }
+                    else if (faseSegunda->getLisEnt().InimsDerr())
+                    {
+                        voltarMenu();
+                    }
                 }
             }
         }
@@ -142,6 +206,8 @@ void Jogo::entrarFase(
     const std::string& nomeJogador2
 )
 {
+    pausado = false;
+
     if (numeroFase != 1 && numeroFase != 2)
     {
         return;
@@ -173,16 +239,12 @@ void Jogo::entrarFase(
 
     pJog1 = new Personagens::Jogador(false);
     pJog1->setNome(nomeJogador1);
-
-    // Posição inicial do jogador 1
     pJog1->setPosicao(110.0f, 250.0f);
 
     if (segundoJogador)
     {
         pJog2 = new Personagens::Jogador(true);
         pJog2->setNome(nomeJogador2);
-
-        // Posição inicial do jogador 2
         pJog2->setPosicao(170.0f, 250.0f);
     }
     else
@@ -193,17 +255,19 @@ void Jogo::entrarFase(
     if (numeroFase == 1)
     {
         fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2);
-        estadoAtual = TELA_FASE1; 
+        estadoAtual = TELA_FASE1;
     }
     else if (numeroFase == 2)
     {
         faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
-        estadoAtual = TELA_FASE2; 
+        estadoAtual = TELA_FASE2;
     }
 }
 
 void Jogo::trocarFase2()
 {
+    pausado = false;
+
     if (estadoAtual != TELA_FASE1 || fasePrimeira == nullptr)
     {
         return;
@@ -232,11 +296,13 @@ void Jogo::trocarFase2()
     }
 
     faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
-    estadoAtual = TELA_FASE2; 
+    estadoAtual = TELA_FASE2;
 }
 
 void Jogo::voltarMenu()
 {
+    pausado = false;
+
     salvarRanking();
 
     if (fasePrimeira != nullptr)
@@ -263,7 +329,7 @@ void Jogo::voltarMenu()
         pJog2 = nullptr;
     }
 
-    estadoAtual = TELA_MENU; 
+    estadoAtual = TELA_MENU;
 }
 
 void Jogo::salvarRanking()
@@ -316,9 +382,13 @@ void Jogo::salvarRanking()
         ranking.push_back(registro);
     }
 
-    std::sort(ranking.begin(), ranking.end(), [](const RegistroRanking& a, const RegistroRanking& b) {
-        return a.pontos > b.pontos;
-    });
+    std::sort(
+        ranking.begin(),
+        ranking.end(),
+        [](const RegistroRanking& a, const RegistroRanking& b) {
+            return a.pontos > b.pontos;
+        }
+    );
 
     if (ranking.size() > 10)
     {
