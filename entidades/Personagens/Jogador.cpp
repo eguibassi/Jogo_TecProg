@@ -73,7 +73,11 @@ namespace Personagens {
 
         lento = false;
     }   
+    void Jogador::setNome(const std::string& n) {nome = n;}
 
+    const std::string& Jogador::getNome() const {return nome;}
+
+    void Jogador::operator++() {pontos++;}
     
     void Jogador::executar() {
         if (!ativo) return;

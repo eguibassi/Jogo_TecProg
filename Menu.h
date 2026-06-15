@@ -4,6 +4,7 @@
 #include "Jogo.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
 class Menu : public Ente {
 private:
@@ -22,13 +23,22 @@ private:
     sf::Text texto1P;
     sf::Text texto2P;
 
+    sf::Text textoCadastroTitulo;
+    sf::Text textoCadastroNome;
+    sf::Text textoCadastroAjuda;
+
     Jogo* pJog;
     bool ativo;
     bool rankingAberto;
+    bool cadastroAberto;
+    bool digitandoJogador2;
     //mouseClick: bool que evita problema ao segurar o click
     bool mouseClick;
 
     bool segundoJogador;
+    int faseSelecionada;
+    std::string nomeJogador1;
+    std::string nomeJogador2;
 
 private:
     //Carrega a fonte dos textos
@@ -45,7 +55,19 @@ private:
     void atualizarMouse();
     void verificarClique();
     void verificarRanking();
+    void verificarCadastro();
     void executarSair();
+
+    void abrirCadastro(const int numeroFase);
+    void atualizarTextoCadastro();
+    void iniciarFaseSelecionada();
+    void atualizarTextosRanking();
+
+    std::string getNomeDigitadoAtual() const;
+    void setNomeDigitadoAtual(const std::string& nome);
+
+    void esconderTextosRanking();
+    void esconderTextosCadastro();
 
 public:
     Menu();
@@ -55,4 +77,6 @@ public:
     void setAtivo(const bool estado);
     bool getAtivo() const;
     void executar();
+
+    void tratarEvento(const sf::Event& evento);
 };

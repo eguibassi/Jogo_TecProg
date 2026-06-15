@@ -1,6 +1,15 @@
 #include "Menu.h"
 
-Menu::Menu() : pJog(nullptr), ativo(true), rankingAberto(false), mouseClick(false), segundoJogador(false){
+Menu::Menu() :
+    pJog(nullptr),
+    ativo(true),
+    rankingAberto(false),
+    cadastroAberto(false),
+    digitandoJogador2(false),
+    mouseClick(false),
+    segundoJogador(false),
+    faseSelecionada(1)
+{
     inicializarFonte();
     inicializarFundo();
     inicializarTextos();
@@ -61,17 +70,27 @@ void Menu::inicializarTextos(){
     sf::Text txtTituloRanking;
     txtTituloRanking.setFont(fonte);
     txtTituloRanking.setString("Ranking");
-    txtTituloRanking.setCharacterSize(70);
+    txtTituloRanking.setCharacterSize(55);
     txtTituloRanking.setFillColor(sf::Color::Transparent);
-    txtTituloRanking.setPosition(300.f, 120.f);
+    txtTituloRanking.setPosition(300.f, 60.f);
     textosRanking.push_back(txtTituloRanking);
+
+    for (int i = 0; i < 10; i++) {
+        sf::Text txtLinhaRanking;
+        txtLinhaRanking.setFont(fonte);
+        txtLinhaRanking.setString("");
+        txtLinhaRanking.setCharacterSize(24);
+        txtLinhaRanking.setFillColor(sf::Color::Transparent);
+        txtLinhaRanking.setPosition(210.f, 140.f + (i * 33.f));
+        textosRanking.push_back(txtLinhaRanking);
+    }
 
     sf::Text txtVoltar;
     txtVoltar.setFont(fonte);
     txtVoltar.setString("Pressione ESC para voltar ao menu");
-    txtVoltar.setCharacterSize(35);
+    txtVoltar.setCharacterSize(25);
     txtVoltar.setFillColor(sf::Color::Transparent);
-    txtVoltar.setPosition(180.f, 300.f);
+    txtVoltar.setPosition(190.f, 520.f);
     textosRanking.push_back(txtVoltar);
 
     caixa1P.setSize(sf::Vector2f(90.f, 50.f));
@@ -98,9 +117,30 @@ void Menu::inicializarTextos(){
     texto2P.setFillColor(sf::Color::White);
     texto2P.setPosition(435.f, 508.f);
 
+    textoCadastroTitulo.setFont(fonte);
+    textoCadastroTitulo.setString("Nome do jogador 1");
+    textoCadastroTitulo.setCharacterSize(45);
+    textoCadastroTitulo.setFillColor(sf::Color::Transparent);
+    textoCadastroTitulo.setPosition(210.f, 160.f);
+
+    textoCadastroNome.setFont(fonte);
+    textoCadastroNome.setString("Nome: _");
+    textoCadastroNome.setCharacterSize(35);
+    textoCadastroNome.setFillColor(sf::Color::Transparent);
+    textoCadastroNome.setPosition(220.f, 275.f);
+
+    textoCadastroAjuda.setFont(fonte);
+    textoCadastroAjuda.setString("Digite o nome e pressione ENTER");
+    textoCadastroAjuda.setCharacterSize(25);
+    textoCadastroAjuda.setFillColor(sf::Color::Transparent);
+    textoCadastroAjuda.setPosition(190.f, 370.f);
+
     adicionarTexto(&titulo);
     adicionarTexto(&texto1P);
     adicionarTexto(&texto2P);
+    adicionarTexto(&textoCadastroTitulo);
+    adicionarTexto(&textoCadastroNome);
+    adicionarTexto(&textoCadastroAjuda);
     
     for (size_t i = 0; i < opcoesMenu.size(); i++) {
         adicionarTexto(&opcoesMenu[i]);
@@ -117,6 +157,9 @@ void Menu::executar(){
     if (rankingAberto){
         verificarRanking();
     }
+    else if (cadastroAberto){
+        verificarCadastro();
+    }
     else{
         atualizarMouse();
         verificarClique();
@@ -125,7 +168,7 @@ void Menu::executar(){
     if (pGG != nullptr && pGG->getWindow() != nullptr){
         pGG->getWindow()->draw(fundo);
 
-        if (!rankingAberto)
+        if (!rankingAberto && !cadastroAberto)
         {
             pGG->getWindow()->draw(caixa1P);
             pGG->getWindow()->draw(caixa2P);
@@ -140,10 +183,8 @@ void Menu::atualizarMouse(){
     texto1P.setFillColor(sf::Color::White);
     texto2P.setFillColor(sf::Color::White);
 
-    // Esconde a tela de ranking
-    for (size_t i = 0; i < textosRanking.size(); i++) {
-        textosRanking[i].setFillColor(sf::Color::Transparent);
-    }
+    esconderTextosRanking();
+    esconderTextosCadastro();
 
     if (!segundoJogador)
     {
@@ -178,12 +219,13 @@ void Menu::verificarClique(){
         for (size_t i = 0; i < opcoesMenu.size(); i++) {
             if (mouseEmCima(opcoesMenu[i])) {
                 if (i == 0 && pJog != nullptr) { // FASE 1
-                    pJog->entrarFase(1, segundoJogador);
+                    abrirCadastro(1);
                 } 
                 else if (i == 1 && pJog != nullptr) { // FASE 2
-                    pJog->entrarFase(2, segundoJogador);
+                    abrirCadastro(2);
                 } 
                 else if (i == 2) { // RANKING
+                    atualizarTextosRanking();
                     rankingAberto = true;
                 } 
                 else if (i == 3) { // SAIR
@@ -209,6 +251,7 @@ void Menu::verificarRanking(){
     titulo.setFillColor(sf::Color::Transparent);
     texto1P.setFillColor(sf::Color::Transparent);
     texto2P.setFillColor(sf::Color::Transparent);
+    esconderTextosCadastro();
     
     // Esconde os botões do menu
     for (size_t i = 0; i < opcoesMenu.size(); i++) {
@@ -223,6 +266,169 @@ void Menu::verificarRanking(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
         rankingAberto = false;
+    }
+}
+
+void Menu::verificarCadastro(){
+    titulo.setFillColor(sf::Color::Transparent);
+    texto1P.setFillColor(sf::Color::Transparent);
+    texto2P.setFillColor(sf::Color::Transparent);
+    esconderTextosRanking();
+
+    for (size_t i = 0; i < opcoesMenu.size(); i++) {
+        opcoesMenu[i].setFillColor(sf::Color::Transparent);
+    }
+
+    textoCadastroTitulo.setFillColor(sf::Color::White);
+    textoCadastroNome.setFillColor(sf::Color::White);
+    textoCadastroAjuda.setFillColor(sf::Color::White);
+}
+
+void Menu::abrirCadastro(const int numeroFase){
+    faseSelecionada = numeroFase;
+    cadastroAberto = true;
+    rankingAberto = false;
+    digitandoJogador2 = false;
+    nomeJogador1.clear();
+    nomeJogador2.clear();
+    atualizarTextoCadastro();
+}
+
+void Menu::atualizarTextoCadastro(){
+    if (digitandoJogador2)
+    {
+        textoCadastroTitulo.setString("Nome do jogador 2");
+    }
+    else
+    {
+        textoCadastroTitulo.setString("Nome do jogador 1");
+    }
+
+    std::string nomeAtual = getNomeDigitadoAtual();
+
+    if (nomeAtual.empty())
+    {
+        textoCadastroNome.setString("Nome: _");
+    }
+    else
+    {
+        textoCadastroNome.setString("Nome: " + nomeAtual + "_");
+    }
+}
+
+void Menu::iniciarFaseSelecionada(){
+    if (pJog == nullptr)
+    {
+        return;
+    }
+
+    cadastroAberto = false;
+    pJog->entrarFase(faseSelecionada, segundoJogador, nomeJogador1, nomeJogador2);
+}
+
+void Menu::atualizarTextosRanking(){
+    if (pJog == nullptr)
+    {
+        return;
+    }
+
+    const std::vector<RegistroRanking>& ranking = pJog->getRanking();
+
+    for (int i = 0; i < 10; i++) {
+        if (i < (int)ranking.size()) {
+            textosRanking[i + 1].setString(
+                std::to_string(i + 1) + ". " +
+                ranking[i].nome + " - " +
+                std::to_string(ranking[i].pontos) + " pontos"
+            );
+        }
+        else if (i == 0) {
+            textosRanking[i + 1].setString("Ranking vazio");
+        }
+        else {
+            textosRanking[i + 1].setString("");
+        }
+    }
+}
+
+std::string Menu::getNomeDigitadoAtual() const{
+    if (digitandoJogador2)
+    {
+        return nomeJogador2;
+    }
+
+    return nomeJogador1;
+}
+
+void Menu::setNomeDigitadoAtual(const std::string& nome){
+    if (digitandoJogador2)
+    {
+        nomeJogador2 = nome;
+    }
+    else
+    {
+        nomeJogador1 = nome;
+    }
+}
+
+void Menu::esconderTextosRanking(){
+    for (size_t i = 0; i < textosRanking.size(); i++) {
+        textosRanking[i].setFillColor(sf::Color::Transparent);
+    }
+}
+
+void Menu::esconderTextosCadastro(){
+    textoCadastroTitulo.setFillColor(sf::Color::Transparent);
+    textoCadastroNome.setFillColor(sf::Color::Transparent);
+    textoCadastroAjuda.setFillColor(sf::Color::Transparent);
+}
+
+void Menu::tratarEvento(const sf::Event& evento){
+    if (!cadastroAberto)
+    {
+        return;
+    }
+
+    if (evento.type == sf::Event::TextEntered)
+    {
+        std::string nomeAtual = getNomeDigitadoAtual();
+
+        if (evento.text.unicode == 8)
+        {
+            if (!nomeAtual.empty())
+            {
+                nomeAtual.erase(nomeAtual.size() - 1, 1);
+            }
+        }
+        else if (evento.text.unicode >= 32 && evento.text.unicode < 128 && evento.text.unicode != ';')
+        {
+            if (nomeAtual.size() < 15)
+            {
+                nomeAtual += static_cast<char>(evento.text.unicode);
+            }
+        }
+
+        setNomeDigitadoAtual(nomeAtual);
+        atualizarTextoCadastro();
+    }
+    else if (evento.type == sf::Event::KeyPressed)
+    {
+        if (evento.key.code == sf::Keyboard::Enter)
+        {
+            if (segundoJogador && !digitandoJogador2)
+            {
+                digitandoJogador2 = true;
+                atualizarTextoCadastro();
+            }
+            else
+            {
+                iniciarFaseSelecionada();
+            }
+        }
+        else if (evento.key.code == sf::Keyboard::Escape)
+        {
+            cadastroAberto = false;
+        }
     }
 }
 

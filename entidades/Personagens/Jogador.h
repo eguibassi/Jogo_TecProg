@@ -6,10 +6,9 @@ namespace Personagens {
 
     class Jogador : public Personagem { 
     private:
-        bool podeAtirar;
         bool jogador2;
+        std::string nome;
         
-
     protected:
         int pontos;
         bool lento;
@@ -24,6 +23,9 @@ namespace Personagens {
 
          
         int getPontos() const { return pontos; }
+        void setNome(const std::string& n);
+        const std::string& getNome() const;
+        void operator++();
 
         
         void setLento(bool estado) { lento = estado; }

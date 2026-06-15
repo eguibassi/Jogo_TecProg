@@ -259,8 +259,7 @@ namespace Gerenciadores {
             }
         }
     }
-
-   void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
+void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
     std::list<Personagens::Inimigo*>::iterator itIni;
 
     for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
@@ -279,6 +278,11 @@ namespace Gerenciadores {
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
                 ini->tomarDano(1.0f);
+
+                if (!ini->getAtivo()) {
+                    pJog1->operator++();
+                    continue;
+                }
 
                 sf::Vector2f posIni = ini->getPosicao();
                 sf::Vector2f velIni = ini->getVelocidade();
@@ -331,6 +335,10 @@ namespace Gerenciadores {
             }
         }
 
+        if (ini == nullptr || !ini->getAtivo()) {
+            continue;
+        }
+
         if (pJog2 != nullptr && pJog2->getAtivo() && verificarColisao(pJog2, ini)) {
             sf::FloatRect rectJog = pJog2->getCorpo().getGlobalBounds();
             sf::FloatRect rectIni = ini->getCorpo().getGlobalBounds();
@@ -340,6 +348,11 @@ namespace Gerenciadores {
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
                 ini->tomarDano(1.0f);
+
+                if (!ini->getAtivo()) {
+                    pJog2->operator++();
+                    continue;
+                }
 
                 sf::Vector2f posIni = ini->getPosicao();
                 sf::Vector2f velIni = ini->getVelocidade();
