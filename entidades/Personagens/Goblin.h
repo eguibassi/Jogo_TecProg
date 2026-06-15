@@ -19,5 +19,7 @@ namespace Personagens{
         void danificar(Jogador* pJogador);
         
         void salvar(); /*fazer*/
+
+        
     };
 }

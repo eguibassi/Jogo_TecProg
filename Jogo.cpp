@@ -6,7 +6,7 @@
 #include <cstdlib>
 
 Jogo::Jogo() :
-    estadoAtual(MENU),
+    estadoAtual(TELA_MENU), // Inicializa apontando para a constante do Menu
     pJog1(nullptr), pJog2(nullptr),
     fasePrimeira(nullptr),
     faseSegunda(nullptr),
@@ -63,10 +63,9 @@ bool Jogo::jogadoresDerrotados() const {
         return true;
     }
 
-    if (pJog2 == nullptr) {
-        return !pJog1->getAtivo();
-    }
-
+bool Jogo::jogadoresDerrotados() const {
+    if (pJog1 == nullptr) { return true; }
+    if (pJog2 == nullptr) { return !pJog1->getAtivo(); }
     return !pJog1->getAtivo() && !pJog2->getAtivo();
 }
 
@@ -76,7 +75,7 @@ void Jogo::executar()
     {
         sf::Event evento;
 
-        while (GG.getWindow()->pollEvent(evento))/*poolEvent pega as mensagens da fila do window    */
+        while (GG.getWindow()->pollEvent(evento))
         {
             if (evento.type == sf::Event::Closed)
             {
@@ -91,7 +90,8 @@ void Jogo::executar()
 
         GG.limparJanela();
 
-        switch (estadoAtual)
+        
+        if (estadoAtual == TELA_MENU) 
         {
             case MENU:
                 if (menu != nullptr)
@@ -101,15 +101,15 @@ void Jogo::executar()
                 break;
 
             case FASE1:
-                if (fasePrimeira != nullptr) {
+                if (fasePrimeira != nullptr){
                     fasePrimeira->executar();
 
-                    if (jogadoresDerrotados()) {
+                    if (jogadoresDerrotados()){
                         voltarMenu();
                         break;
                     }
 
-                    if (fasePrimeira->getLisEnt().InimsDerr()) {
+                    if (fasePrimeira->getLisEnt().InimsDerr()){
                         trocarFase2();
                     }
                 }
@@ -120,18 +120,15 @@ void Jogo::executar()
                 {
                     faseSegunda->executar();
 
-                    if (jogadoresDerrotados())
-                    {
-                        voltarMenu();
-                        break;
-                    }
-
-                    if (faseSegunda->getLisEnt().InimsDerr())
-                    {
-                        voltarMenu();
-                    }
+                if (jogadoresDerrotados())
+                {
+                    voltarMenu();
                 }
-                break;
+                else if (faseSegunda->getLisEnt().InimsDerr())
+                {
+                    voltarMenu();
+                }
+            }
         }
 
         GG.mostrarElementos();
@@ -145,12 +142,7 @@ void Jogo::entrarFase(
     const std::string& nomeJogador2
 )
 {
-    if (numeroFase != 1 && numeroFase != 2)
-    {
-        return;
-    }
-
-    if (fasePrimeira != nullptr) {
+    if (fasePrimeira != nullptr){
         delete fasePrimeira;
         fasePrimeira = nullptr;
     }
@@ -173,7 +165,6 @@ void Jogo::entrarFase(
     }
 
     pJog1 = new Personagens::Jogador(false);
-    pJog1->setNome(nomeJogador1);
 
     // Posição inicial do jogador 1
     pJog1->setPosicao(110.0f, 250.0f);
@@ -194,18 +185,18 @@ void Jogo::entrarFase(
     if (numeroFase == 1)
     {
         fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2);
-        estadoAtual = FASE1;
+        estadoAtual = TELA_FASE1; 
     }
     else if (numeroFase == 2)
     {
         faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
-        estadoAtual = FASE2;
+        estadoAtual = TELA_FASE2; 
     }
 }
 
 void Jogo::trocarFase2()
 {
-    if (estadoAtual != FASE1 || fasePrimeira == nullptr)
+    if (estadoAtual != TELA_FASE1 || fasePrimeira == nullptr)
     {
         return;
     }
@@ -233,13 +224,10 @@ void Jogo::trocarFase2()
     }
 
     faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
-    estadoAtual = FASE2;
+    estadoAtual = TELA_FASE2; 
 }
-
-void Jogo::voltarMenu() {
-    salvarRanking();
-
-    if (fasePrimeira != nullptr) {
+void Jogo::voltarMenu(){
+    if (fasePrimeira != nullptr){
         delete fasePrimeira;
         fasePrimeira = nullptr;
     }
@@ -259,7 +247,86 @@ void Jogo::voltarMenu() {
         pJog2 = nullptr;
     }
 
-    estadoAtual = MENU;
+    estadoAtual = TELA_MENU; 
+}
+
+void Jogo::salvarRanking()
+{
+    ranking.clear();
+
+    std::ifstream arquivoEntrada("ranking.txt");
+
+    if (arquivoEntrada.is_open())
+    {
+        std::string linha;
+
+        while (std::getline(arquivoEntrada, linha))
+        {
+            size_t posicaoSeparador = linha.find_last_of(';');
+
+            if (posicaoSeparador == std::string::npos)
+            {
+                continue;
+            }
+
+            RegistroRanking registro;
+            registro.nome = linha.substr(0, posicaoSeparador);
+            registro.pontos = std::atoi(linha.substr(posicaoSeparador + 1).c_str());
+
+            if (registro.pontos > 0)
+            {
+                ranking.push_back(registro);
+            }
+        }
+
+        arquivoEntrada.close();
+    }
+
+    if (pJog1 != nullptr && pJog1->getPontos() > 0)
+    {
+        RegistroRanking registro;
+        registro.nome = pJog1->getNome();
+        registro.pontos = pJog1->getPontos();
+
+        ranking.push_back(registro);
+    }
+
+    if (pJog2 != nullptr && pJog2->getPontos() > 0)
+    {
+        RegistroRanking registro;
+        registro.nome = pJog2->getNome();
+        registro.pontos = pJog2->getPontos();
+
+        ranking.push_back(registro);
+    }
+
+    std::sort(ranking.begin(), ranking.end(), [](const RegistroRanking& a, const RegistroRanking& b) {
+        return a.pontos > b.pontos;
+    });
+
+    if (ranking.size() > 10)
+    {
+        ranking.resize(10);
+    }
+
+    std::ofstream arquivoSaida("ranking.txt");
+
+    if (!arquivoSaida.is_open())
+    {
+        return;
+    }
+
+    for (size_t i = 0; i < ranking.size(); i++)
+    {
+        arquivoSaida << ranking[i].nome << ", " << ranking[i].pontos << std::endl;
+    }
+
+    arquivoSaida.close();
+}
+
+const std::vector<RegistroRanking>& Jogo::getRanking() const
+{
+    return ranking;
 }
 
 void Jogo::salvarRanking()

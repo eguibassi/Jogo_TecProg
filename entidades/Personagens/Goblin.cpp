@@ -39,3 +39,4 @@ void Goblin::danificar(Jogador* pJogador){
 }
 
 void Goblin::salvar(){}
+
