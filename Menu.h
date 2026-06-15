@@ -16,16 +16,15 @@ private:
     sf::Text titulo;
     std::vector<sf::Text> opcoesMenu;    // Vetor para os botões principais
     std::vector<sf::Text> textosRanking; // Vetor para a tela de Ranking
-
-    sf::RectangleShape caixa1P;
-    sf::RectangleShape caixa2P;
-
+    //[0] = p1, [1] = p2
+    std::vector<sf::RectangleShape> caixaJogs;
     sf::Text texto1P;
     sf::Text texto2P;
 
     sf::Text textoCadastroTitulo;
     sf::Text textoCadastroNome;
     sf::Text textoCadastroAjuda;
+
 
     Jogo* pJog;
     bool ativo;

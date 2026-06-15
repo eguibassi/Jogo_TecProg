@@ -93,17 +93,15 @@ void Menu::inicializarTextos(){
     txtVoltar.setPosition(190.f, 520.f);
     textosRanking.push_back(txtVoltar);
 
-    caixa1P.setSize(sf::Vector2f(90.f, 50.f));
-    caixa1P.setPosition(300.f, 500.f);
-    caixa1P.setFillColor(sf::Color::Yellow);
-    caixa1P.setOutlineColor(sf::Color::White);
-    caixa1P.setOutlineThickness(3.f);
-
-    caixa2P.setSize(sf::Vector2f(90.f, 50.f));
-    caixa2P.setPosition(410.f, 500.f);
-    caixa2P.setFillColor(sf::Color::Transparent);
-    caixa2P.setOutlineColor(sf::Color::White);
-    caixa2P.setOutlineThickness(3.f);
+    caixaJogs.resize(2);
+    for(int i = 0; i < 2; i++){
+       caixaJogs[i].setSize(sf::Vector2f(90.f, 50.f));
+       caixaJogs[i].setPosition(300 + (110*i), 500.f);
+       caixaJogs[i].setOutlineColor(sf::Color::White);
+       caixaJogs[i].setOutlineThickness(3.f);
+    }
+    caixaJogs[0].setFillColor(sf::Color::Yellow);
+    caixaJogs[1].setFillColor(sf::Color::White);
 
     texto1P.setFont(fonte);
     texto1P.setString("1P");
@@ -170,8 +168,8 @@ void Menu::executar(){
 
         if (!rankingAberto && !cadastroAberto)
         {
-            pGG->getWindow()->draw(caixa1P);
-            pGG->getWindow()->draw(caixa2P);
+            for(int i = 0; i < 2; i++)
+                pGG->getWindow()->draw(caixaJogs[i]);
         }
     }
 
@@ -188,15 +186,15 @@ void Menu::atualizarMouse(){
 
     if (!segundoJogador)
     {
-        caixa1P.setFillColor(sf::Color::Yellow);
-        caixa2P.setFillColor(sf::Color::Transparent);
+        caixaJogs[0].setFillColor(sf::Color::Yellow);
+        caixaJogs[1].setFillColor(sf::Color::Transparent);
         texto1P.setFillColor(sf::Color::Black);
         texto2P.setFillColor(sf::Color::White);
     }
     else
     {
-        caixa1P.setFillColor(sf::Color::Transparent);
-        caixa2P.setFillColor(sf::Color::Yellow);
+        caixaJogs[0].setFillColor(sf::Color::Transparent);
+        caixaJogs[1].setFillColor(sf::Color::Yellow);
         texto1P.setFillColor(sf::Color::White);
         texto2P.setFillColor(sf::Color::Black);
     }
@@ -234,11 +232,11 @@ void Menu::verificarClique(){
             }
         }
 
-        if (mCaixa(caixa1P))
+        if (mCaixa(caixaJogs[0]))
         {
             segundoJogador = false;
         }
-        else if (mCaixa(caixa2P))
+        else if (mCaixa(caixaJogs[1]))
         {
             segundoJogador = true;
         }

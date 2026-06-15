@@ -15,7 +15,7 @@ namespace Entidades {
         corpo.setSize(sf::Vector2f(20.f, 20.f)); 
         corpo.setPosition((float)x, (float)y);
         
-     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Lapide.png");
+     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Jaula de goblin.png");
         
         if (textura != nullptr) {
             sprite.setTexture(*textura);
