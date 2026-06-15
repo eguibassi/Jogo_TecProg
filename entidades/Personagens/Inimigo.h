@@ -28,6 +28,8 @@ namespace Personagens {
         void setJogador(Jogador* j) { pJogador = j; }
         void mover(); /*arrumar*/
         bool getSeguindoJogador() const;
+
+        
         
        
     };
