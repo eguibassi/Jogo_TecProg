@@ -294,24 +294,16 @@ void Menu::abrirCadastro(const int numeroFase){
 
 void Menu::atualizarTextoCadastro(){
     if (digitandoJogador2)
-    {
         textoCadastroTitulo.setString("Nome do jogador 2");
-    }
     else
-    {
         textoCadastroTitulo.setString("Nome do jogador 1");
-    }
 
     std::string nomeAtual = getNomeDigitadoAtual();
 
     if (nomeAtual.empty())
-    {
         textoCadastroNome.setString("Nome: _");
-    }
     else
-    {
         textoCadastroNome.setString("Nome: " + nomeAtual + "_");
-    }
 }
 
 void Menu::iniciarFaseSelecionada(){

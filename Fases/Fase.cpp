@@ -78,7 +78,7 @@ namespace Fases {
         posicoesPlataformas.push_back(sf::Vector2f(206.0f, 430.0f));
         posicoesPlataformas.push_back(sf::Vector2f(444.0f, 430.0f));
 
-        int quantidadePlataformas = 1 + rand() % 5;
+        int quantidadePlataformas = 2 + rand() % 4;
 
         std::vector<bool> plataformaJaCriada;
 
@@ -87,19 +87,27 @@ namespace Fases {
         }
 
         // A plataforma da posição 0 sempre é criada
-        Entidades::Plataforma* plat = new Entidades::Plataforma();
+        Entidades::Plataforma* plat1 = new Entidades::Plataforma();
+        Entidades::Plataforma* plat2 = new Entidades::Plataforma();
 
-        plat->setPosicao(
+        plat1->setPosicao(
             posicoesPlataformas[0].x,
             posicoesPlataformas[0].y
         );
+         plat2->setPosicao(
+            posicoesPlataformas[1].x,
+            posicoesPlataformas[1].y
+        );
 
-        lista_ents.incluir(plat);
-        GC.incluirObstaculo(plat);
+        lista_ents.incluir(plat1);
+        GC.incluirObstaculo(plat1);
+        lista_ents.incluir(plat2);
+        GC.incluirObstaculo(plat2);
 
         plataformaJaCriada[0] = true;
+        plataformaJaCriada[1] = true;
 
-        int plataformasCriadas = 1;
+        int plataformasCriadas = 2;
 
         while (plataformasCriadas < quantidadePlataformas) {
         

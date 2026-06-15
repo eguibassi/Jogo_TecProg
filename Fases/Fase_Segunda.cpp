@@ -103,17 +103,19 @@ namespace Fases {
     }
 
     void FaseSegunda::criarJaulas() {
-    
-        for (int i = 0; i < 3; i++) {
-        
-            Entidades::Jaula* jaula = new Entidades::Jaula();
+        sementear();
+        int quantidade = (rand() % 3) + 1;
 
-            if (i == 0) {
-                jaula->setPosicao(120, 395); 
-            }
-            else {
-                jaula->setPosicao(250 + (i * 350), 500);
-            }
+        for (int i = 0; i < quantidade; i++) { 
+            Entidades::Jaula* jaula = new Entidades::Jaula();
+            if (i == 0) 
+                jaula->setPosicao(400.f, 500.f);
+            else if (i == 1) 
+                jaula->setPosicao(250.f, 500.f);
+            else 
+                jaula->setPosicao(600.f, 500.f);
+
+           
 
             lista_ents.incluir(jaula);
             GC.incluirObstaculo(jaula);

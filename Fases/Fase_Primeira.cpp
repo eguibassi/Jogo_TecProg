@@ -76,21 +76,20 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
     }
 
     void FasePrimeira::criarPilha() {
-    
-        for (int i = 0; i < 3; i++) {
-        
-            Entidades::Pilha* lama = new Entidades::Pilha();
+        sementear();
+        int quantidade = (rand() % 3) + 1;
 
-            if (i == 0) {
-                lama->setPosicao(120, 395); 
-            }
-            else {
-                lama->setPosicao(250 + (i * 350), 500);
-            }
+        for (int i = 0; i < quantidade; i++) { 
+            Entidades::Pilha* lama = new Entidades::Pilha();
+            if (i == 0) 
+                lama->setPosicao(400.f, 500.f);
+            else if (i == 1) 
+            lama->setPosicao(250.f, 500.f);
+            else 
+                lama->setPosicao(600.f, 500.f);
 
             lista_ents.incluir(lama);
             GC.incluirObstaculo(lama);
-        
         }
     }
 }
