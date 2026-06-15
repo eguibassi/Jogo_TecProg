@@ -6,6 +6,7 @@ LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 SRCS = main.cpp \
        Jogo.cpp \
 	   menu.cpp \
+          menuPausa.cpp \
        Ente.cpp \
        Fases/Fase.cpp \
        Fases/Fase_Primeira.cpp \

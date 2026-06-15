@@ -22,6 +22,8 @@ namespace Entidades {
 
         void executar();
         void salvar();/*fazer*/
+
+        float velocidadeY;
     };
 
 }

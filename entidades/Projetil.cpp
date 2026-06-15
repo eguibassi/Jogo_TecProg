@@ -1,12 +1,15 @@
 #include "Projetil.h"
 #include "../Gerenciadores/Gerenciador_Grafico.h"
 
+#define GRAVIDADE_PROJETIL 0.1f
+
 using namespace Entidades;
 
 Projetil::Projetil(const std::string& caminhoTextura):
     Entidade(),
     vx(10),
-    dano(1)
+    dano(1),
+    velocidadeY(0.f)
 {
     ativo = false;
 
@@ -46,7 +49,9 @@ void Projetil::executar()
         return;
     }
 
-    corpo.move((float)vx, 0.f);
+    velocidadeY += GRAVIDADE_PROJETIL; /*gravidade */
+
+    corpo.move((float)vx, velocidadeY);
 
     x = static_cast<int>(corpo.getPosition().x);
     y = static_cast<int>(corpo.getPosition().y);
@@ -54,6 +59,11 @@ void Projetil::executar()
     sprite.setPosition((float)x, (float)y);
 
     if (corpo.getPosition().x < 0 || corpo.getPosition().x > 1280) {
+        ativo = false;
+    }
+
+    /*desativa se o projetil cair no chao*/
+    if (corpo.getPosition().y > 550.f) {
         ativo = false;
     }
 }
