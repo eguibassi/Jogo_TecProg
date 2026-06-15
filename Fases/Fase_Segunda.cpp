@@ -82,6 +82,7 @@ namespace Fases {
 
     void FaseSegunda::criarInimigos() {
         criarHogs();
+        criarGoblins();
     }
 
     void FaseSegunda::criarHogs() {
