@@ -13,9 +13,15 @@ namespace Fases {
         GC.setChao(&chaoFase);
     }
 
-    Fase::~Fase() {
-    }
+    Fase::~Fase() {}
+    void Fase::pausaFase() {
+        desenharFundo();
 
+        if (pGG) 
+            pGG->desenharForma(chaoFase);
+
+        lista_ents.desenhar();
+    }
     void Fase::executar() {
 
         

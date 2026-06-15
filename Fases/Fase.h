@@ -27,6 +27,7 @@ namespace Fases {
         virtual ~Fase();
         
         void executar();
+        void pausaFase();
         const Listas::ListaEntidades& getLisEnt() const;
 
     protected:
