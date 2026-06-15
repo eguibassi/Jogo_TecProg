@@ -20,6 +20,11 @@ namespace Entidades {
         void salvar(); /*fazer*/
         void setPosicao(int novoX, int novoY);
         void setPisada();
+    protected:
+        
+        void aplicarGravidade();
+
+
     };
 
 }

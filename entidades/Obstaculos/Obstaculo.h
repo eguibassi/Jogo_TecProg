@@ -23,6 +23,15 @@ namespace Entidades {
         
         
         virtual void obstaculizar(Personagens::Jogador* p);
+
+        /*gravidade conceitual na pilha e jaula*/
+        int yBase;         
+        float velocidadeY; 
+
+    protected:
+    
+         virtual void aplicarGravidade();
+
     };
 
 } 

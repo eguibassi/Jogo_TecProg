@@ -10,12 +10,13 @@ namespace Entidades {
      
         x = 400; 
         y = 550; 
+        yBase = y;
         
       
         corpo.setSize(sf::Vector2f(20.f, 20.f)); 
         corpo.setPosition((float)x, (float)y);
         
-     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Jaula de goblin.png");
+     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Lapide.png");
         
         if (textura != nullptr) {
             sprite.setTexture(*textura);
@@ -34,11 +35,22 @@ namespace Entidades {
     }
 
     void Jaula::executar() {
-        
+        aplicarGravidade();
+        sprite.setPosition((float)x, (float)y);
     }
 
     void Jaula::salvar() {
         
+    }
+
+    void Jaula::setPosicao(int novoX, int novoY) {
+        x = novoX;
+        y = novoY;
+        yBase = novoY;
+        velocidadeY = 0.f;
+
+        corpo.setPosition((float)x, (float)y);
+        sprite.setPosition((float)x, (float)y);
     }
 
     void Jaula::obstaculizar(Personagens::Jogador* p) {

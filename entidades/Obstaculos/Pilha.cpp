@@ -7,6 +7,7 @@ namespace Entidades {
         danoso = false; 
         x = 150; 
         y = 500; 
+        yBase = y;
 
         corpo.setSize(sf::Vector2f(largura, 8.f)); 
         corpo.setPosition((float)x, (float)y);
@@ -31,7 +32,11 @@ namespace Entidades {
     }
 
     void Pilha::executar() {
-       
+        aplicarGravidade();
+
+        if (textura != nullptr) {
+            sprite.setPosition((float)x, (float)y + 20.0f);
+        }
     }
 
     void Pilha::salvar() {
@@ -46,6 +51,8 @@ namespace Entidades {
     void Pilha::setPosicao(float novoX, float novoY) {
         x = static_cast<int>(novoX);
         y = static_cast<int>(novoY);
+        yBase = y;
+        velocidadeY = 0.f;
 
         corpo.setPosition(novoX, novoY);
 

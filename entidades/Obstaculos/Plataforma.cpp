@@ -27,8 +27,7 @@ namespace Entidades {
         pisadaFrame = true;
     }
 
-    void Plataforma::executar() {
-         
+    void Plataforma::aplicarGravidade() {
         if (pisadaFrame) {
             /*acumula o offset ate o limite de 30 pixels*/
             if (offset < 30) offset += 1;
@@ -41,6 +40,10 @@ namespace Entidades {
 
         y = altura + offset;
         corpo.setPosition((float)x, (float)y);
+    }
+
+    void Plataforma::executar() {
+        aplicarGravidade();
         sprite.setPosition((float)x, (float)y);
     }
 
@@ -56,12 +59,12 @@ namespace Entidades {
         float centroJogY  = rectJog.top  + rectJog.height  / 2.0f;
         float centroPlatY = rectPlat.top + rectPlat.height / 2.0f;
 
-        /*ve se ta em baixo, esse eh o knockback*/
+        /*ve se ta em baixo, e aplica knockback*/
         if (centroJogY > centroPlatY) {
             sf::Vector2f velJog = pJog->getVelocidade();
             velJog.y = 4.0f; 
             pJog->setVelocidade(velJog);
         }
-        /*colisao de cima eh tratada pelo gerenciador via setPisada()*/
+        /*colisao de cima eh tratada pelo gerenciador pelo setPisada()*/
     }
 }
