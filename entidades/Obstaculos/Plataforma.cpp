@@ -59,12 +59,12 @@ namespace Entidades {
         float centroJogY  = rectJog.top  + rectJog.height  / 2.0f;
         float centroPlatY = rectPlat.top + rectPlat.height / 2.0f;
 
-        /*ve se ta em baixo, e aplica knockback*/
+        /*ve se ta em baixo, esse eh o knockback*/
         if (centroJogY > centroPlatY) {
             sf::Vector2f velJog = pJog->getVelocidade();
             velJog.y = 4.0f; 
             pJog->setVelocidade(velJog);
         }
-        /*colisao de cima eh tratada pelo gerenciador pelo setPisada()*/
+        /*colisao de cima eh tratada pelo gerenciador via setPisada()*/
     }
 }

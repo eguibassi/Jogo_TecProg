@@ -30,7 +30,7 @@ namespace Entidades {
         sf::RectangleShape& getCorpo()  { return corpo; }
         sf::Sprite& getSprite()  { return sprite; }
 
-        void setPosicao(int novoX, int novoY) {
+        virtual void setPosicao(int novoX, int novoY) {
             x = novoX;
             y = novoY;
             corpo.setPosition((float)x, (float)y);

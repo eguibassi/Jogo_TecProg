@@ -48,9 +48,9 @@ namespace Entidades {
             p->setLento(true);
         }
     }
-    void Pilha::setPosicao(float novoX, float novoY) {
-        x = static_cast<int>(novoX);
-        y = static_cast<int>(novoY);
+    void Pilha::setPosicao(int novoX, int novoY) {
+        x = novoX;
+        y = novoY;
         yBase = y;
         velocidadeY = 0.f;
 
