@@ -80,9 +80,9 @@ namespace Fases {
         posicoesPlataformas.push_back(sf::Vector2f(87.0f, 300.0f));
 
         posicoesPlataformas.push_back(sf::Vector2f(325.0f, 300.0f));
-        posicoesPlataformas.push_back(sf::Vector2f(206.0f, 430.0f));
+        posicoesPlataformas.push_back(sf::Vector2f(206.0f, 380.0f));
         posicoesPlataformas.push_back(sf::Vector2f(563.0f, 300.0f));
-        posicoesPlataformas.push_back(sf::Vector2f(444.0f, 430.0f));
+        posicoesPlataformas.push_back(sf::Vector2f(444.0f, 380.0f));
 
         int quantidadePlataformas = 3 + rand() % 3;
 
