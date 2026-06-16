@@ -63,17 +63,17 @@ void Menu::inicializarFundo(){
 
 sf::Text Menu::criarTexto(
     const std::string& conteudo,
-    const unsigned int tamanho,
+    const unsigned int tam,
     const sf::Color& cor,
-    const sf::Vector2f& posicao
+    const sf::Vector2f& pos
 ){
     sf::Text texto;
 
     texto.setFont(fonte);
     texto.setString(conteudo);
-    texto.setCharacterSize(tamanho);
+    texto.setCharacterSize(tam);
     texto.setFillColor(cor);
-    texto.setPosition(posicao);
+    texto.setPosition(pos);
 
     return texto;
 }

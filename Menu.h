@@ -22,9 +22,9 @@ protected:
 
     sf::Text criarTexto(
         const std::string& conteudo,
-        const unsigned int tamanho,
+        const unsigned int tam,
         const sf::Color& cor,
-        const sf::Vector2f& posicao
+        const sf::Vector2f& pos
     );
 
     template <typename T>
