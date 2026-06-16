@@ -37,7 +37,6 @@ namespace Personagens {
 
         if (pJogador != nullptr) {
             sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
-            sf::Vector2f posJogador2 = pJogador2->getCorpo().getPosition();
             sf::Vector2f posInimigo = corpo.getPosition();
 
             float distanciaX = posJogador.x - posInimigo.x;
