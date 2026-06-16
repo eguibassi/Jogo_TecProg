@@ -11,6 +11,7 @@ Hog::Hog() : Inimigo(), forca(5){
     corpo.setSize(sf::Vector2f(80.f, 80.f));
     corpo.setPosition((float)x, (float)y);
     corpo.setFillColor(sf::Color::Transparent);
+    sprite.setOrigin(0.0f,-75.0f);
     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Corredor.png");
     if (textura != nullptr) {
         sprite.setTexture(*textura);
