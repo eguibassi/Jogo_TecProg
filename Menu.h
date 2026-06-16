@@ -64,7 +64,7 @@ private:
     bool rankingAberto;
     bool cadastroAberto;
 
-    bool segundoJogador;
+    bool Jog2;
     bool menuPrincipalInicializado;
 
     int faseSelecionada;
@@ -86,7 +86,7 @@ private:
     void verificarTelaAberta();
     void executarSair();
 
-    void abrirCadastro(const int numeroFase);
+    void abrirCadastro(const int nFase);
     void atualizarTextoCadastro();
     void iniciarFaseSelecionada();
     void atualizarTextosRanking();

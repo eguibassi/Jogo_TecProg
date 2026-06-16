@@ -51,10 +51,10 @@ public:
     void executar();
 
     void entrarFase(
-        int numeroFase,
-        bool segundoJogador,
-        const std::string& nomeJogador1 = "",
-        const std::string& nomeJogador2 = ""
+        int nFase,
+        bool Jog2,
+        const std::string& nomeJ1 = "",
+        const std::string& nomeJ2 = ""
     );
 
     const std::vector<RegistroRanking>& getRanking() const;

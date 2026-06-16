@@ -6,7 +6,7 @@ Menu::Menu() :
     rankingAberto(false),
     cadastroAberto(false),
     mouseClick(false),
-    segundoJogador(false),
+    Jog2(false),
     menuPrincipalInicializado(false),
     faseSelecionada(1),
     indiceNomeAtual(0)
@@ -244,7 +244,7 @@ void Menu::atualizarMouse(){
     setVisibilidade(textosRanking, sf::Color::Transparent);
     setVisibilidade(textosCadastro, sf::Color::Transparent);
 
-    int jogadorSelecionado = segundoJogador ? 1 : 0;
+    int jogadorSelecionado = Jog2 ? 1 : 0;
 
     for (int i = 0; i < 2; i++) {
         if (i == jogadorSelecionado)
@@ -307,7 +307,7 @@ void Menu::verificarClique(){
         for (int i = 0; i < 2; i++) {
             if (mouseEmCima(caixaJogs[i]))
             {
-                segundoJogador = (i == 1);
+                Jog2 = (i == 1);
             }
         }
     }
@@ -338,8 +338,8 @@ void Menu::verificarTelaAberta(){
     }
 }
 
-void Menu::abrirCadastro(const int numeroFase){
-    faseSelecionada = numeroFase;
+void Menu::abrirCadastro(const int nFase){
+    faseSelecionada = nFase;
 
     cadastroAberto = true;
     rankingAberto = false;
@@ -380,7 +380,7 @@ void Menu::iniciarFaseSelecionada(){
 
     pJog->entrarFase(
         faseSelecionada,
-        segundoJogador,
+        Jog2,
         nomesJogadores[0],
         nomesJogadores[1]
     );
@@ -447,7 +447,7 @@ void Menu::tratarEvento(const sf::Event& evento){
     {
         if (evento.key.code == sf::Keyboard::Enter)
         {
-            if (segundoJogador && indiceNomeAtual == 0)
+            if (Jog2 && indiceNomeAtual == 0)
             {
                 indiceNomeAtual = 1;
                 atualizarTextoCadastro();

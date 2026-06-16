@@ -200,15 +200,15 @@ void Jogo::executar()
 }
 
 void Jogo::entrarFase(
-    int numeroFase,
-    bool segundoJogador,
-    const std::string& nomeJogador1,
-    const std::string& nomeJogador2
+    int nFase,
+    bool Jog2,
+    const std::string& nomeJ1,
+    const std::string& nomeJ2
 )
 {
     pausado = false;
 
-    if (numeroFase != 1 && numeroFase != 2)
+    if (nFase != 1 && nFase != 2)
     {
         return;
     }
@@ -238,13 +238,13 @@ void Jogo::entrarFase(
     }
 
     pJog1 = new Personagens::Jogador(false);
-    pJog1->setNome(nomeJogador1);
+    pJog1->setNome(nomeJ1);
     pJog1->setPosicao(110.0f, 250.0f);
 
-    if (segundoJogador)
+    if (Jog2)
     {
         pJog2 = new Personagens::Jogador(true);
-        pJog2->setNome(nomeJogador2);
+        pJog2->setNome(nomeJ2);
         pJog2->setPosicao(170.0f, 250.0f);
     }
     else
@@ -252,12 +252,12 @@ void Jogo::entrarFase(
         pJog2 = nullptr;
     }
 
-    if (numeroFase == 1)
+    if (nFase == 1)
     {
         fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2);
         estadoAtual = TELA_FASE1;
     }
-    else if (numeroFase == 2)
+    else if (nFase == 2)
     {
         faseSegunda = new Fases::FaseSegunda(pJog1, pJog2);
         estadoAtual = TELA_FASE2;
