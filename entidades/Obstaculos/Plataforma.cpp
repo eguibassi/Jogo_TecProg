@@ -1,4 +1,5 @@
 #include "Plataforma.h"
+#include "../../Gerenciadores/Gerenciador_Grafico.h"
 
 namespace Entidades {
 
@@ -9,6 +10,26 @@ namespace Entidades {
         corpo.setSize(sf::Vector2f(150.f, 15.f)); 
         corpo.setPosition((float)x, (float)y);
         corpo.setFillColor(sf::Color(139, 0, 0));
+
+        /*carrega a imagem da plataforma*/
+        textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Plataforma.png");
+
+        if (textura != nullptr) {
+            sprite.setTexture(*textura);
+
+            /*recorta a imagem para remover a margem preta/vazia ao redor da plataforma*/
+            sprite.setTextureRect(sf::IntRect(259, 446, 1019, 106));
+
+            sf::Vector2u tamanhoRecorte(1019, 106);
+
+            /*forca a imagem recortada a caber no tamanho do corpo (150x15)*/
+            sprite.setScale(
+                corpo.getSize().x / (float)tamanhoRecorte.x,
+                corpo.getSize().y / (float)tamanhoRecorte.y
+            );
+
+            sprite.setPosition((float)x, (float)y);
+        }
     }
 
     Plataforma::~Plataforma() {
