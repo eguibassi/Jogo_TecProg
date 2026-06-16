@@ -6,7 +6,7 @@ namespace Fases {
 
     FaseSegunda::FaseSegunda(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2) : 
         Fase(), 
-        maxHogs(5)
+        maxHogs(3)
     {
         for (int i = 0; i < 3; i++) {
             pHogs[i] = nullptr;
@@ -86,7 +86,7 @@ namespace Fases {
     }
 
     void FaseSegunda::criarHogs() {
-        int quantidade = (rand() % maxHogs) + 3; 
+        int quantidade = (rand() % maxHogs) + 1; 
         for (int i = 0; i < quantidade; i++) {
             
             Personagens::Hog* hog = new Personagens::Hog();
