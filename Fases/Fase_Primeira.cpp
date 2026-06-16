@@ -77,7 +77,7 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
 
     void FasePrimeira::criarPilha() {
         sementear();
-        int quantidade = (rand() % 3) + 1;
+        int quantidade = (rand() % 4) + 2;
 
         for (int i = 0; i < quantidade; i++) { 
             Entidades::Pilha* lama = new Entidades::Pilha();

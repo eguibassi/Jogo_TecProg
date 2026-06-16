@@ -104,7 +104,7 @@ namespace Fases {
 
     void FaseSegunda::criarJaulas() {
         sementear();
-        int quantidade = (rand() % 3) + 1;
+        int quantidade = (rand() % 4) + 2;
 
         for (int i = 0; i < quantidade; i++) { 
             Entidades::Jaula* jaula = new Entidades::Jaula();
