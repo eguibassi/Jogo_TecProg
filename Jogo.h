@@ -10,14 +10,10 @@
 #include "Entidades/Personagens/Jogador.h"
 #include "Fases/Fase_Primeira.h"
 #include "Fases/Fase_Segunda.h"
+#include "RegistroRanking.h"
 
 class Menu;
 class MenuPausa;
-
-struct RegistroRanking {
-    std::string nome;
-    int pontos;
-};
 
 class Jogo {
 private:

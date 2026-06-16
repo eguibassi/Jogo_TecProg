@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "RegistroRanking.h"
 
 class Menu : public Ente {
 protected:

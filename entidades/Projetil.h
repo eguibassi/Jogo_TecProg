@@ -11,6 +11,9 @@ namespace Entidades {
         /*usar o bool ativo */
 
     public:
+        float velocidadeY;
+    
+    public:
         Projetil(const std::string& caminhoTextura);
         ~Projetil();
 
@@ -22,8 +25,6 @@ namespace Entidades {
 
         void executar();
         void salvar();/*fazer*/
-
-        float velocidadeY;
     };
 
 }
