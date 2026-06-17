@@ -5,7 +5,7 @@
 namespace Fases {
 
     
-    Fase::Fase() : Ente(), pJogador(nullptr), pJogador2(nullptr) {
+    Fase::Fase() : Ente(), pJogador(nullptr), pJogador2(nullptr),maxGoblins(4) {
         
         chaoFase.setSize(sf::Vector2f(2000.f, 50.f));
         chaoFase.setPosition(0.f, 550.f);
@@ -54,7 +54,8 @@ namespace Fases {
     }
 
     void Fase::criarGoblins() {
-        int quantidade = (rand() % 3) + 2; 
+        sementear();
+        int quantidade = (rand()% maxGoblins ) + 3; 
 
         for (int i = 0; i < quantidade; i++) {
             Personagens::Goblin* goblin = new Personagens::Goblin();

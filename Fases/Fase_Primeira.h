@@ -9,7 +9,8 @@ namespace Fases {
     class FasePrimeira : public Fase {
     private:
         const int maxPekka;
-        const int maxGoblin;
+        const int maxPilha;
+        
         sf::Texture texturaFundo;
         sf::Sprite spriteFundo;
 

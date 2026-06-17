@@ -22,6 +22,9 @@ namespace Fases {
         Personagens::Jogador* pJogador2; 
         sf::RectangleShape chaoFase;
 
+    private:
+        const int maxGoblins;
+
     public:
         Fase();
         virtual ~Fase();

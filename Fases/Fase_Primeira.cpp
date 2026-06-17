@@ -7,7 +7,7 @@
 namespace Fases {
 
 
-FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2) : Fase(), maxPekka(3), maxGoblin(5) {
+FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2) : Fase(), maxPekka(2),maxPilha(2){
     
     //Vinculamos o Jogador recebido do Jogo
     pJogador = pJ1;
@@ -59,7 +59,8 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
 
 
     void FasePrimeira::criarPekka() {
-        int quantidade = (rand() % maxPekka) + 1; 
+        sementear();
+        int quantidade = (rand() % maxPekka) + 3; 
 
         for (int i = 0; i < quantidade; i++) {
             
@@ -77,7 +78,7 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
 
     void FasePrimeira::criarPilha() {
         sementear();
-        int quantidade = (rand() % 4) + 2;
+        int quantidade = (rand() % maxPilha) + 3;
 
         for (int i = 0; i < quantidade; i++) { 
             Entidades::Pilha* lama = new Entidades::Pilha();
@@ -85,7 +86,9 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
                 lama->setPosicao(400.f, 500.f);
             else if (i == 1) 
             lama->setPosicao(250.f, 500.f);
-            else 
+            else if(i == 2)
+                lama->setPosicao(700.f,500.f);
+            else if(i == 3)
                 lama->setPosicao(600.f, 500.f);
 
             lista_ents.incluir(lama);
