@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iomanip>
 #include "personagem.h"
 
 namespace Personagens {

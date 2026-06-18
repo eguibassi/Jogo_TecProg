@@ -84,7 +84,26 @@ namespace Personagens {
         mover();
     }
 
-    void Jogador::salvar() {}
+    void Jogador::salvar() 
+{
+    std::ofstream arquivo("salvar.txt", std::ios::app);
 
+    if (!arquivo.is_open()){return;}
+
+    salvarDataBuffer();
+
+    arquivo << "JOGADOR "
+            << jogador2 << " "
+            << std::quoted(nome) << " "
+            << pontos << " "
+            << num_vidas << " "
+            << buffer.str()
+            << velocidade.x << " "
+            << velocidade.y << " "
+            << lento
+            << std::endl;
+
+    arquivo.close();
+}
 
 } 

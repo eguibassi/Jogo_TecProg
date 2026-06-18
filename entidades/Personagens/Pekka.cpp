@@ -35,4 +35,23 @@ void Pekka::danificar(Jogador* pJogador){
     }
 }
 
-void Pekka::salvar(){}
+void Pekka::salvar()
+{
+    std::ofstream arquivo("salvar.txt", std::ios::app);
+
+    if (!arquivo.is_open()){return;}
+
+    salvarDataBuffer();
+
+    arquivo << "PEKKA "
+            << buffer.str()
+            << num_vidas << " "
+            << nivel_maldade << " "
+            << velocidade.x << " "
+            << velocidade.y << " "
+            << direcao << " "
+            << tamanho
+            << std::endl;
+
+    arquivo.close();
+}

@@ -15,7 +15,7 @@ namespace Entidades {
         virtual ~Obstaculo();
 
         
-        void salvarDataBuffer();/*fazer*/
+        void salvarDataBuffer();
         
 
         virtual void executar() = 0;

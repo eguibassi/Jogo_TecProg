@@ -40,7 +40,18 @@ namespace Entidades {
     }
 
     void Pilha::salvar() {
-     
+        std::ofstream arquivo("salvar.txt", std::ios::app);
+
+        if (!arquivo.is_open()) {return;}
+
+        salvarDataBuffer();
+
+        arquivo << "PILHA "
+            << buffer.str()
+            << largura
+            << std::endl;
+
+        arquivo.close();
     }
 
     void Pilha::obstaculizar(Personagens::Jogador* p) {

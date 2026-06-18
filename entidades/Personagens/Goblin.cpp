@@ -38,5 +38,24 @@ void Goblin::danificar(Jogador* pJogador){
     }
 }
 
-void Goblin::salvar(){}
+void Goblin::salvar()
+{
+    std::ofstream arquivo("salvar.txt", std::ios::app);
+
+    if (!arquivo.is_open()){return;}
+
+    salvarDataBuffer();
+
+    arquivo << "GOBLIN "
+            << buffer.str()
+            << num_vidas << " "
+            << nivel_maldade << " "
+            << velocidade.x << " "
+            << velocidade.y << " "
+            << direcao << " "
+            << raio
+            << std::endl;
+
+    arquivo.close();
+}
 

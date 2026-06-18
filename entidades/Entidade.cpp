@@ -10,6 +10,12 @@ using namespace Entidades;
     }
 
     void Entidade::salvarDataBuffer() {
+        buffer.str("");
+        buffer.clear();
+
+        buffer << ativo << " "
+           << x << " "
+           << y << " ";
     }
 
    

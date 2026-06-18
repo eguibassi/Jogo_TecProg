@@ -22,7 +22,11 @@ namespace Entidades {
     }
 
     void Obstaculo::salvarDataBuffer() {
-        
+        Entidade::salvarDataBuffer();
+
+        buffer << danoso << " "
+           << yBase << " "
+           << velocidadeY << " ";
     }
 
     void Obstaculo::obstaculizar(Personagens::Jogador* p) {

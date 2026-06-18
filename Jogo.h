@@ -58,4 +58,6 @@ public:
     );
 
     const std::vector<RegistroRanking>& getRanking() const;
+    void salvarJogo();
+    void carregarJogo();
 };

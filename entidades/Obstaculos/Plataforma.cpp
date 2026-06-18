@@ -68,9 +68,6 @@ namespace Entidades {
         sprite.setPosition((float)x, (float)y);
     }
 
-    void Plataforma::salvar() {
-    }
-
     void Plataforma::obstaculizar(Personagens::Jogador* pJog) {
         if (pJog == nullptr) return;
 
@@ -87,5 +84,21 @@ namespace Entidades {
             pJog->setVelocidade(velJog);
         }
         /*colisao de cima eh tratada pelo gerenciador via setPisada()*/
+    }
+    void Plataforma::salvar() {
+        std::ofstream arquivo("salvar.txt", std::ios::app);
+
+        if (!arquivo.is_open()) {return;}
+
+        salvarDataBuffer();
+
+        arquivo << "PLATAFORMA "
+            << buffer.str()
+            << altura << " "
+            << offset << " "
+            << pisadaFrame
+            << std::endl;
+
+        arquivo.close();
     }
 }

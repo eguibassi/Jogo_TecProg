@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <windows.h>
+#include <fstream>
 #include "Gerenciadores/Gerenciador_Grafico.h"
 
 

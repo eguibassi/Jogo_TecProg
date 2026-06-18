@@ -16,7 +16,7 @@ namespace Entidades {
         corpo.setSize(sf::Vector2f(20.f, 20.f)); 
         corpo.setPosition((float)x, (float)y);
         
-     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Lapide.png");
+     textura = Gerenciadores::Gerenciador_Grafico::getInstancia()->carregarTextura("Assets/Jaula de goblin.png");
         
         if (textura != nullptr) {
             sprite.setTexture(*textura);
@@ -30,18 +30,25 @@ namespace Entidades {
     Jaula::~Jaula() {
     }
 
-    void Jaula::salvarDataBuffer() {
-        
-    }
-
     void Jaula::executar() {
         aplicarGravidade();
         sprite.setPosition((float)x, (float)y);
     }
 
     void Jaula::salvar() {
-        
-    }
+        std::ofstream arquivo("salvar.txt", std::ios::app);
+
+        if (!arquivo.is_open()) {return;}
+
+        salvarDataBuffer();
+
+        arquivo << "JAULA "
+            << buffer.str()
+            << danosidade
+            << std::endl;
+
+        arquivo.close();
+}
 
     void Jaula::setPosicao(int novoX, int novoY) {
         x = novoX;

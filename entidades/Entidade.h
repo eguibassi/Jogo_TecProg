@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include <sstream> 
 #include "../Ente.h"
 namespace Entidades {
@@ -16,7 +17,7 @@ namespace Entidades {
 
         bool ativo;
     protected:
-        void salvarDataBuffer();/*fazer,tirar duvida se passa pras outras*/
+        void salvarDataBuffer();
     public:
         Entidade();
         virtual ~Entidade();

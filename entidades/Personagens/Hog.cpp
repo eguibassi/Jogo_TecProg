@@ -59,4 +59,23 @@ void Hog::danificar(Jogador* p) {
     p->tomarDano(forca);
 }
 
-void Hog::salvar() {}
+void Hog::salvar()
+{
+    std::ofstream arquivo("salvar.txt", std::ios::app);
+
+    if (!arquivo.is_open()){return;}
+
+    salvarDataBuffer();
+
+    arquivo << "HOG "
+            << buffer.str()
+            << num_vidas << " "
+            << nivel_maldade << " "
+            << velocidade.x << " "
+            << velocidade.y << " "
+            << direcao << " "
+            << forca
+            << std::endl;
+
+    arquivo.close();
+}
