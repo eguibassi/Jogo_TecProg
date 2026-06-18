@@ -5,13 +5,14 @@
 namespace Fases {
 
     class FaseSegunda : public Fase {
-            const int maxHogs;
+            const int maxJaula;
+            const int maxHogs; // usado apenas na fórmula de quantidade aleatória
 
             sf::Texture texturaFundo;
             sf::Sprite spriteFundo;
 
             sf::Clock relogioProjetil;
-            Personagens::Hog* pHogs[3];
+            Personagens::Hog* pHogs[4];
 
         public:
         

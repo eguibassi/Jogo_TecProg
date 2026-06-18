@@ -19,8 +19,8 @@ namespace Personagens {
         ~Jogador();
         
         void executar();
-        void salvar();/*fazer*/
-        void mover();/*arruumar bug do pulo*/
+        void salvar();
+        void mover();
 
          
         int getPontos() const { return pontos; }

@@ -5,7 +5,7 @@
 namespace Fases {
 
     
-    Fase::Fase() : Ente(), pJogador(nullptr), pJogador2(nullptr),maxGoblins(4) {
+    Fase::Fase() : Ente(), pJogador(nullptr), pJogador2(nullptr), maxGoblins(4), maxPlat(3) {
         
         chaoFase.setSize(sf::Vector2f(2000.f, 50.f));
         chaoFase.setPosition(0.f, 550.f);
@@ -85,7 +85,7 @@ namespace Fases {
         posicoesPlataformas.push_back(sf::Vector2f(563.0f, 300.0f));
         posicoesPlataformas.push_back(sf::Vector2f(444.0f, 380.0f));
 
-        int quantidadePlataformas = 3 + rand() % 3;
+        int quantidadePlataformas = (rand() % maxPlat) + 3;
 
         std::vector<bool> plataformaJaCriada;
 
@@ -106,7 +106,7 @@ namespace Fases {
             posicoesPlataformas[1].x,
             posicoesPlataformas[1].y
         );
-         plat2->setPosicao(
+         plat3->setPosicao(
             posicoesPlataformas[2].x,
             posicoesPlataformas[2].y
         );

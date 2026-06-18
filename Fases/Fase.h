@@ -24,6 +24,7 @@ namespace Fases {
 
     private:
         const int maxGoblins;
+        const int maxPlat;
 
     public:
         Fase();

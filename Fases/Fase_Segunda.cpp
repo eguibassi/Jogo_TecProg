@@ -6,9 +6,10 @@ namespace Fases {
 
     FaseSegunda::FaseSegunda(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2) : 
         Fase(), 
-        maxHogs(3)
+        maxHogs(2),
+        maxJaula(2)
     {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             pHogs[i] = nullptr;
         }
 
@@ -31,7 +32,7 @@ namespace Fases {
     }
 
     FaseSegunda::~FaseSegunda() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             pHogs[i] = nullptr;
         }
     }
@@ -86,13 +87,13 @@ namespace Fases {
     }
 
     void FaseSegunda::criarHogs() {
-        int quantidade = (rand() % maxHogs) + 1; 
+        sementear();
+        int quantidade = (rand() % maxHogs) + 3; // 3 a 4 Hogs
         for (int i = 0; i < quantidade; i++) {
             
             Personagens::Hog* hog = new Personagens::Hog();
 
-            //Posição deve ser alterada quando colocarmos as plataformas
-            //e implementarmos a logística do nível
+        
             hog->setPosicao(500.0f + (i * 100.0f), 400.0f);
             hog->setJogador(pJogador);
 
@@ -105,7 +106,7 @@ namespace Fases {
 
     void FaseSegunda::criarJaulas() {
         sementear();
-        int quantidade = (rand() % 4) + 2;
+        int quantidade = (rand() % maxJaula) + 3;
 
         for (int i = 0; i < quantidade; i++) { 
             Entidades::Jaula* jaula = new Entidades::Jaula();
@@ -130,7 +131,7 @@ namespace Fases {
 
         relogioProjetil.restart();
 
-        for (int i = 0; i < maxHogs; i++) {
+        for (int i = 0; i < 4; i++) {
             if (pHogs[i] == nullptr) {
                 continue;
             }

@@ -15,7 +15,7 @@ namespace Personagens {
         Personagem();
         ~Personagem();
 
-        /*duvida salvarDataBuffer na entidade*/
+    
         
         virtual void executar() = 0;
         virtual void salvar() = 0;

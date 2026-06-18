@@ -24,7 +24,7 @@ namespace Entidades {
         int getDano() const;
 
         void executar();
-        void salvar();/*fazer*/
+        void salvar();
     };
 
 }

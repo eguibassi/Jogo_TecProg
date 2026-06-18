@@ -26,7 +26,7 @@ namespace Personagens {
         virtual void salvar() = 0; 
         
         void setJogador(Jogador* j) { pJogador = j; }
-        void mover(); /*arrumar*/
+        void mover(); 
         bool getSeguindoJogador() const;
 
         
