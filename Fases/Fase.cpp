@@ -55,7 +55,7 @@ namespace Fases {
 
     void Fase::criarGoblins() {
         sementear();
-        int quantidade = (rand()% maxGoblins ) + 3; 
+        int quantidade = (rand()% maxGoblins ) + 4; 
 
         for (int i = 0; i < quantidade; i++) {
             Personagens::Goblin* goblin = new Personagens::Goblin();

@@ -5,6 +5,7 @@
 namespace Fases {
 
     class FaseSegunda : public Fase {
+        private:
             const int maxJaula;
             const int maxHogs; // usado apenas na fórmula de quantidade aleatória
 
