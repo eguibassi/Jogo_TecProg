@@ -41,6 +41,17 @@ namespace Fases {
         return lista_ents;
     }
 
+    void Fase::salvar()
+    {
+        if (pJogador != nullptr)
+            pJogador->salvar();
+
+        if (pJogador2 != nullptr)
+            pJogador2->salvar();
+
+        lista_ents.salvar();
+    }
+
     void Fase::incEntCar(Entidades::Entidade* ent){
     if (ent == nullptr)
     {
@@ -165,20 +176,19 @@ namespace Fases {
 
         int plataformasCriadas = 3;
 
-        while (plataformasCriadas < quantidadePlataformas) {
-            int indiceSorteado = rand() % 5;
-
-            if (!plataformaJaCriada[indiceSorteado]) {
+        // percorre apenas os slots restantes (3 e 4), sem depender de sorte
+        for (int i = 3; i < 5 && plataformasCriadas < quantidadePlataformas; i++) {
+            if (!plataformaJaCriada[i]) {
                 Entidades::Plataforma* plat = new Entidades::Plataforma();
 
                 plat->setPosicao(
-                    posicoesPlataformas[indiceSorteado].x,
-                    posicoesPlataformas[indiceSorteado].y);
+                    posicoesPlataformas[i].x,
+                    posicoesPlataformas[i].y);
 
                 lista_ents.incluir(plat);
                 GC.incluirObstaculo(plat);
 
-                plataformaJaCriada[indiceSorteado] = true;
+                plataformaJaCriada[i] = true;
                 plataformasCriadas++;
             }
         }
