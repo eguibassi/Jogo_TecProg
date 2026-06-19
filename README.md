@@ -1,2 +1,2 @@
-# Jogo_TecProg
-# g++ main.cpp Ente.cpp Jogo.cpp Menu.cpp Fases/Fase.cpp Fases/Fase_Primeira.cpp Fases/Fase_Segunda.cpp Listas/ListaEntidades.cpp Entidades/Entidade.cpp Entidades/Projetil.cpp Entidades/Personagens/personagem.cpp Entidades/Personagens/Jogador.cpp Entidades/Personagens/Inimigo.cpp Entidades/Personagens/Pekka.cpp Entidades/Personagens/Hog.cpp Entidades/Personagens/Goblin.cpp Entidades/Obstaculos/Obstaculo.cpp Entidades/Obstaculos/Plataforma.cpp Entidades/Obstaculos/Jaula.cpp Entidades/Obstaculos/Pilha.cpp Gerenciadores/Gerenciador_Colisoes.cpp Gerenciadores/Gerenciador_Grafico.cpp -o main.exe -lsfml-graphics -lsfml-window -lsfml-system
+Todas as Imagens .png do Jogo clash++ foram geradas pela inteligência artificial
+ChatGPT. A data em que cada uma foi criada está disponível no GitHUB

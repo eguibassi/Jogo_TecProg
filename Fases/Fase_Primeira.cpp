@@ -58,22 +58,38 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
     }
 
 
-    void FasePrimeira::criarPekka() {
+   void FasePrimeira::criarPekka() {
         sementear();
-        int quantidade = (rand() % maxPekka) + 3; 
+        int quantidade = (rand() % maxPekka) + 3;
 
-        for (int i = 0; i < quantidade; i++) {
-            
+        
+        bool pekkaEmPlataforma = false;
+        for (int i = 0; i < 5 && !pekkaEmPlataforma; i++) {
+            if (i == 0 || i == 2) continue;         // nao criar nesses slots
+            if (!plataformaJaCriada[i]) continue;    // nao foi sorteada
+
             Personagens::Pekka* pekka = new Personagens::Pekka();
 
-            //Posição deve ser alterada quando colocarmos as plataformas
-            //e implementarmos a logística do nível
-            pekka->setPosicao(150.0f +(i*150.0f), 400.0f);
+        
+            float px = posicoesPlataformas[i].x + 40.0f;
+            float py = posicoesPlataformas[i].y - 87.5f;
+
+            pekka->setPosicao(px, py);
+            pekka->setJogador(pJogador);
+            lista_ents.incluir(pekka);
+            GC.incluirInimigo(pekka);
+            pekkaEmPlataforma = true;
+        }
+
+        // o resto das pekkas vai para o chao
+        int inicio = pekkaEmPlataforma ? 1 : 0;
+        for (int i = inicio; i < quantidade; i++) {
+            Personagens::Pekka* pekka = new Personagens::Pekka();
+            pekka->setPosicao(150.0f + (i * 150.0f), 400.0f);
             pekka->setJogador(pJogador);
             lista_ents.incluir(pekka);
             GC.incluirInimigo(pekka);
         }
-
     }
 
     void FasePrimeira::criarPilha() {
