@@ -13,6 +13,17 @@ namespace Personagens{
 
     public:
         Pekka();
+        Pekka(
+        bool ativo,
+        int x,
+        int y,
+        int vidas,
+        int nivel,
+        float vx,
+        float vy,
+        int direcao,
+        int tamanho
+    );
         ~Pekka();
 
         void executar();

@@ -17,10 +17,11 @@ namespace Fases {
 
         public:
         
-            FaseSegunda(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2);
+            FaseSegunda(Personagens::Jogador* j1, Personagens::Jogador* j2, bool car = false);
             ~FaseSegunda();
 
             void executar();
+            void incHogCar(Personagens::Hog* hog);
 
         protected:
             void criarInimigos();

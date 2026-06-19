@@ -143,6 +143,12 @@ void Jogo::executar()
                         pausado = false;
                         voltarMenu();
                     }
+                    else if (opcao == 3)
+                    {
+                        salvarJogo();
+                        pausado = false;
+                        voltarMenu();
+                    }
                 }
                 else
                 {
@@ -175,6 +181,12 @@ void Jogo::executar()
                     }
                     else if (opcao == 2)
                     {
+                        pausado = false;
+                        voltarMenu();
+                    }
+                    else if (opcao == 3)
+                    {
+                        salvarJogo();
                         pausado = false;
                         voltarMenu();
                     }
@@ -413,4 +425,494 @@ void Jogo::salvarRanking()
 const std::vector<RegistroRanking>& Jogo::getRanking() const
 {
     return ranking;
+}
+void Jogo::salvarJogo()
+{
+    if (estadoAtual == TELA_MENU)
+    {
+        return;
+    }
+
+    std::ofstream arqJogo("save_jogo.txt", std::ios::trunc);
+
+    if (!arqJogo.is_open())
+    {
+        return;
+    }
+
+    arqJogo << "CLASHPP_SAVE 1" << std::endl;
+    arqJogo << "FASE " << estadoAtual << std::endl;
+    arqJogo << "DOIS_JOGADORES " << (pJog2 != nullptr) << std::endl;
+
+    arqJogo.close();
+
+    if (estadoAtual == TELA_FASE1 && fasePrimeira != nullptr)
+    {
+        fasePrimeira->salvar();
+    }
+    else if (estadoAtual == TELA_FASE2 && faseSegunda != nullptr)
+    {
+        faseSegunda->salvar();
+    }
+}
+void Jogo::carregarJogo()
+{
+    std::ifstream arqJogo("save_jogo.txt");
+
+    if (!arqJogo.is_open())
+    {
+        return;
+    }
+
+    std::vector<std::string> linhas;
+    std::string linha;
+    std::string assinatura;
+    int versao = 0;
+    int faseSalva = 0;
+    bool temJogador2 = false;
+
+    if (!std::getline(arqJogo, linha))
+    {
+        arqJogo.close();
+        return;
+    }
+
+    std::istringstream cabecalho(linha);
+    cabecalho >> assinatura >> versao;
+
+    if (assinatura != "CLASHPP_SAVE" || versao != 1)
+    {
+        arqJogo.close();
+        return;
+    }
+
+    while (std::getline(arqJogo, linha))
+    {
+        linhas.push_back(linha);
+
+        std::istringstream leitor(linha);
+        std::string tipo;
+
+        leitor >> tipo;
+
+        if (tipo == "FASE")
+        {
+            leitor >> faseSalva;
+        }
+        else if (tipo == "DOIS_JOGADORES")
+        {
+            leitor >> temJogador2;
+        }
+    }
+
+    arqJogo.close();
+
+    if (faseSalva != TELA_FASE1 && faseSalva != TELA_FASE2)
+    {
+        return;
+    }
+
+    pausado = false;
+
+    if (fasePrimeira != nullptr)
+    {
+        delete fasePrimeira;
+        fasePrimeira = nullptr;
+    }
+
+    if (faseSegunda != nullptr)
+    {
+        delete faseSegunda;
+        faseSegunda = nullptr;
+    }
+
+    if (pJog1 != nullptr)
+    {
+        delete pJog1;
+        pJog1 = nullptr;
+    }
+
+    if (pJog2 != nullptr)
+    {
+        delete pJog2;
+        pJog2 = nullptr;
+    }
+
+    for (size_t i = 0; i < linhas.size(); i++)
+    {
+        std::istringstream leitor(linhas[i]);
+
+        std::string tipo;
+        bool ehJogador2 = false;
+        std::string nome;
+        int pontos = 0;
+        int vidas = 0;
+        bool ativo = true;
+        int x = 0;
+        int y = 0;
+        float vx = 0.0f;
+        float vy = 0.0f;
+        bool lento = false;
+
+        leitor >> tipo;
+
+        if (tipo != "JOGADOR")
+        {
+            continue;
+        }
+
+        leitor >> ehJogador2
+               >> std::quoted(nome)
+               >> pontos
+               >> vidas
+               >> ativo
+               >> x
+               >> y
+               >> vx
+               >> vy
+               >> lento;
+
+        Personagens::Jogador* jog = new Personagens::Jogador(
+            ehJogador2,
+            nome,
+            pontos,
+            vidas,
+            ativo,
+            x,
+            y,
+            vx,
+            vy,
+            lento
+        );
+
+        if (ehJogador2)
+        {
+            pJog2 = jog;
+        }
+        else
+        {
+            pJog1 = jog;
+        }
+    }
+
+    if (pJog1 == nullptr)
+    {
+        pJog1 = new Personagens::Jogador(false);
+    }
+
+    if (temJogador2 && pJog2 == nullptr)
+    {
+        pJog2 = new Personagens::Jogador(true);
+    }
+
+    if (!temJogador2 && pJog2 != nullptr)
+    {
+        delete pJog2;
+        pJog2 = nullptr;
+    }
+
+    if (faseSalva == TELA_FASE1)
+    {
+        fasePrimeira = new Fases::FasePrimeira(pJog1, pJog2, true);
+        estadoAtual = TELA_FASE1;
+    }
+    else if (faseSalva == TELA_FASE2)
+    {
+        faseSegunda = new Fases::FaseSegunda(pJog1, pJog2, true);
+        estadoAtual = TELA_FASE2;
+    }
+        for (size_t i = 0; i < linhas.size(); i++)
+    {
+        std::istringstream leitor(linhas[i]);
+        std::string tipo;
+
+        leitor >> tipo;
+
+        if (tipo == "GOBLIN")
+        {
+            bool ativo = true;
+            int x = 0;
+            int y = 0;
+            int vidas = 0;
+            int nivel = 0;
+            float vx = 0.0f;
+            float vy = 0.0f;
+            int direcao = 1;
+            float raio = 0.0f;
+
+            leitor >> ativo
+                   >> x
+                   >> y
+                   >> vidas
+                   >> nivel
+                   >> vx
+                   >> vy
+                   >> direcao
+                   >> raio;
+
+            Personagens::Goblin* goblin = new Personagens::Goblin(
+                ativo,
+                x,
+                y,
+                vidas,
+                nivel,
+                vx,
+                vy,
+                direcao,
+                raio
+            );
+
+            if (faseSalva == TELA_FASE1 && fasePrimeira != nullptr)
+            {
+                fasePrimeira->incEntCar(goblin);
+                fasePrimeira->incInimGC(goblin);
+            }
+            else if (faseSalva == TELA_FASE2 && faseSegunda != nullptr)
+            {
+                faseSegunda->incEntCar(goblin);
+                faseSegunda->incInimGC(goblin);
+            }
+        }
+        else if (tipo == "PEKKA")
+        {
+            bool ativo = true;
+            int x = 0;
+            int y = 0;
+            int vidas = 0;
+            int nivel = 0;
+            float vx = 0.0f;
+            float vy = 0.0f;
+            int direcao = 1;
+            int tamanho = 0;
+
+            leitor >> ativo
+                   >> x
+                   >> y
+                   >> vidas
+                   >> nivel
+                   >> vx
+                   >> vy
+                   >> direcao
+                   >> tamanho;
+
+            Personagens::Pekka* pekka = new Personagens::Pekka(
+                ativo,
+                x,
+                y,
+                vidas,
+                nivel,
+                vx,
+                vy,
+                direcao,
+                tamanho
+            );
+
+            if (faseSalva == TELA_FASE1 && fasePrimeira != nullptr)
+            {
+                fasePrimeira->incEntCar(pekka);
+                fasePrimeira->incInimGC(pekka);
+            }
+        }
+        else if (tipo == "HOG")
+        {
+            bool ativo = true;
+            int x = 0;
+            int y = 0;
+            int vidas = 0;
+            int nivel = 0;
+            float vx = 0.0f;
+            float vy = 0.0f;
+            int direcao = 1;
+            int forca = 0;
+
+            leitor >> ativo
+                   >> x
+                   >> y
+                   >> vidas
+                   >> nivel
+                   >> vx
+                   >> vy
+                   >> direcao
+                   >> forca;
+
+            Personagens::Hog* hog = new Personagens::Hog(
+                ativo,
+                x,
+                y,
+                vidas,
+                nivel,
+                vx,
+                vy,
+                direcao,
+                forca
+            );
+
+            if (faseSalva == TELA_FASE2 && faseSegunda != nullptr)
+            {
+                faseSegunda->incHogCar(hog);
+            }
+        }
+    }
+        for (size_t i = 0; i < linhas.size(); i++)
+    {
+        std::istringstream leitor(linhas[i]);
+        std::string tipo;
+
+        leitor >> tipo;
+
+        if (tipo == "PLATAFORMA")
+        {
+            bool ativo = true;
+            int x = 0;
+            int y = 0;
+            bool danoso = false;
+            int yBase = 0;
+            float velocidadeY = 0.0f;
+            int altura = 0;
+            int offset = 0;
+            bool pisadaFrame = false;
+
+            leitor >> ativo
+                   >> x
+                   >> y
+                   >> danoso
+                   >> yBase
+                   >> velocidadeY
+                   >> altura
+                   >> offset
+                   >> pisadaFrame;
+
+            Entidades::Plataforma* plataforma = new Entidades::Plataforma(
+                ativo,
+                x,
+                y,
+                danoso,
+                yBase,
+                velocidadeY,
+                altura,
+                offset,
+                pisadaFrame
+            );
+
+            if (faseSalva == TELA_FASE1 && fasePrimeira != nullptr)
+            {
+                fasePrimeira->incEntCar(plataforma);
+                fasePrimeira->incObsGC(plataforma);
+            }
+            else if (faseSalva == TELA_FASE2 && faseSegunda != nullptr)
+            {
+                faseSegunda->incEntCar(plataforma);
+                faseSegunda->incObsGC(plataforma);
+            }
+        }
+        else if (tipo == "PILHA")
+        {
+            bool ativo = true;
+            int x = 0;
+            int y = 0;
+            bool danoso = false;
+            int yBase = 0;
+            float velocidadeY = 0.0f;
+            float largura = 0.0f;
+
+            leitor >> ativo
+                   >> x
+                   >> y
+                   >> danoso
+                   >> yBase
+                   >> velocidadeY
+                   >> largura;
+
+            Entidades::Pilha* pilha = new Entidades::Pilha(
+                ativo,
+                x,
+                y,
+                danoso,
+                yBase,
+                velocidadeY,
+                largura
+            );
+
+            if (faseSalva == TELA_FASE1 && fasePrimeira != nullptr)
+            {
+                fasePrimeira->incEntCar(pilha);
+                fasePrimeira->incObsGC(pilha);
+            }
+        }
+        else if (tipo == "JAULA")
+        {
+            bool ativo = true;
+            int x = 0;
+            int y = 0;
+            bool danoso = false;
+            int yBase = 0;
+            float velocidadeY = 0.0f;
+            int danosidade = 0;
+
+            leitor >> ativo
+                   >> x
+                   >> y
+                   >> danoso
+                   >> yBase
+                   >> velocidadeY
+                   >> danosidade;
+
+            Entidades::Jaula* jaula = new Entidades::Jaula(
+                ativo,
+                x,
+                y,
+                danoso,
+                yBase,
+                velocidadeY,
+                danosidade
+            );
+
+            if (faseSalva == TELA_FASE2 && faseSegunda != nullptr)
+            {
+                faseSegunda->incEntCar(jaula);
+                faseSegunda->incObsGC(jaula);
+            }
+        }
+    }
+        for (size_t i = 0; i < linhas.size(); i++)
+    {
+        std::istringstream leitor(linhas[i]);
+        std::string tipo;
+
+        leitor >> tipo;
+
+        if (tipo == "PROJETIL")
+        {
+            bool ativo = true;
+            int x = 0;
+            int y = 0;
+            int vx = 0;
+            int dano = 0;
+            float velocidadeY = 0.0f;
+
+            leitor >> ativo
+                   >> x
+                   >> y
+                   >> vx
+                   >> dano
+                   >> velocidadeY;
+
+            Entidades::Projetil* projetil = new Entidades::Projetil(
+                ativo,
+                x,
+                y,
+                vx,
+                dano,
+                velocidadeY
+            );
+
+            if (faseSegunda != nullptr)
+            {
+                faseSegunda->incEntCar(projetil);
+                faseSegunda->incProjGC(projetil);
+            }
+        }
+    }
+
+    pausado = false;
 }

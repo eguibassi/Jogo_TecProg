@@ -27,6 +27,24 @@ namespace Entidades {
             sprite.setPosition((float)x, (float)y);
         }
     }
+    Pilha::Pilha(
+    bool ativo,
+    int x,
+    int y,
+    bool danoso,
+    int yBase,
+    float velocidadeY,
+    float largura
+) : Pilha()
+{
+    this->ativo = ativo;
+    this->danoso = danoso;
+    this->yBase = yBase;
+    this->velocidadeY = velocidadeY;
+    this->largura = largura;
+
+    setPosicao(x, y);
+}
 
     Pilha::~Pilha() {
     }
@@ -40,7 +58,7 @@ namespace Entidades {
     }
 
     void Pilha::salvar() {
-        std::ofstream arquivo("salvar.txt", std::ios::app);
+        std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
         if (!arquivo.is_open()) {return;}
 

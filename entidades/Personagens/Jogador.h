@@ -16,13 +16,24 @@ namespace Personagens {
 
     public:
         Jogador(bool segundo_jogador = false);
+        Jogador(
+        bool segundo_jogador,
+        const std::string& nome,
+        int pontos,
+        int vidas,
+        bool ativo,
+        int x,
+        int y,
+        float vx,
+        float vy,
+        bool lento
+);
         ~Jogador();
         
         void executar();
         void salvar();
         void mover();
 
-         
         int getPontos() const { return pontos; }
         void setNome(const std::string& n);
         const std::string& getNome() const;

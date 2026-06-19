@@ -25,6 +25,29 @@ Hog::Hog() : Inimigo(), forca(5){
         }
     }
 }
+Hog::Hog(
+    bool ativo,
+    int x,
+    int y,
+    int vidas,
+    int nivel,
+    float vx,
+    float vy,
+    int direcao,
+    int forca
+) : Hog()
+{
+    this->ativo = ativo;
+    num_vidas = vidas;
+    nivel_maldade = nivel;
+    velocidade.x = vx;
+    velocidade.y = vy;
+    this->direcao = direcao;
+
+    setPosicao(x, y);
+
+    (void)forca;
+}
 Hog::~Hog(){forca = -1;}
 
 Entidades::Projetil* Hog::arremessar() {
@@ -61,7 +84,7 @@ void Hog::danificar(Jogador* p) {
 
 void Hog::salvar()
 {
-    std::ofstream arquivo("salvar.txt", std::ios::app);
+    std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
     if (!arquivo.is_open()){return;}
 

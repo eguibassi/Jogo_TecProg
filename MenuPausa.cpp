@@ -8,7 +8,8 @@ MenuPausa::MenuPausa()
 MenuPausa::~MenuPausa(){
 }
 
-void MenuPausa::inicializarTextosPausa(){
+void MenuPausa::inicializarTextosPausa()
+{
     fundoPausa.setSize(sf::Vector2f(430.f, 300.f));
     fundoPausa.setPosition(185.f, 150.f);
     fundoPausa.setFillColor(sf::Color(0, 0, 0, 190));
@@ -48,7 +49,7 @@ void MenuPausa::inicializarTextosPausa(){
         criarTexto(
             "SALVAR E SAIR",
             30,
-            sf::Color(130, 130, 130),
+            sf::Color::White,
             sf::Vector2f(285.f, 375.f)
         )
     );
@@ -59,7 +60,8 @@ void MenuPausa::inicializarTextosPausa(){
     }
 }
 
-int MenuPausa::executarPausa(){
+int MenuPausa::executarPausa()
+{
     if (pGG == nullptr || pGG->getWindow() == nullptr)
     {
         return 0;
@@ -69,12 +71,6 @@ int MenuPausa::executarPausa(){
 
     for (size_t i = 1; i < opcoesMenu.size(); i++)
     {
-        if (i == 3)
-        {
-            opcoesMenu[i].setFillColor(sf::Color(130, 130, 130));
-            continue;
-        }
-
         if (mouseEmCima(opcoesMenu[i]))
         {
             opcoesMenu[i].setFillColor(sf::Color::Yellow);

@@ -18,7 +18,7 @@ namespace Listas {
         void incluir(Entidades::Entidade* pE);
         //Percorre a lista de entidades
         void percorrer();
-        
+        void salvar();
         //Chama o desenhar das entidades da lista
         void desenhar();
 

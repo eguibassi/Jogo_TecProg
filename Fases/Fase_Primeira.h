@@ -16,7 +16,7 @@ namespace Fases {
 
     public:
         
-        FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2);
+        FasePrimeira(Personagens::Jogador* j1, Personagens::Jogador* j2, bool car = false);
         ~FasePrimeira();
 
     protected:

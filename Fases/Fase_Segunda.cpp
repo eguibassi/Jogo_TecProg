@@ -4,7 +4,7 @@
 
 namespace Fases {
 
-    FaseSegunda::FaseSegunda(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2) : 
+    FaseSegunda::FaseSegunda(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2, bool car) : 
         Fase(), 
         maxHogs(2),
         maxJaula(2)
@@ -27,8 +27,13 @@ namespace Fases {
             GC.setJogador2(pJogador2);
         }
 
+    if(!car){
         // Criamos o cenário
-        criarCenario(); 
+        criarCenario();}
+    else
+    {
+        criarFundo();
+    } 
     }
 
     FaseSegunda::~FaseSegunda() {
@@ -140,7 +145,21 @@ namespace Fases {
             GC.incluirObstaculo(jaula);
         }
     }
+    void FaseSegunda::incHogCar(Personagens::Hog* hog) {
+        if (hog == nullptr) {
+            return;
+        }
 
+        incEntCar(hog);
+        incInimGC(hog);
+
+        for (int i = 0; i < 4; i++) {
+            if (pHogs[i] == nullptr) {
+                pHogs[i] = hog;
+                return;
+            }
+        }
+    }
     void FaseSegunda::criarProjetil() {
         if (relogioProjetil.getElapsedTime().asSeconds() < 3.0f) {
             return;

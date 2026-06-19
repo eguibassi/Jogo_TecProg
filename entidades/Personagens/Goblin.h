@@ -13,6 +13,17 @@ namespace Personagens{
 
     public:
         Goblin();
+        Goblin(
+        bool ativo,
+        int x,
+        int y,
+        int vidas,
+        int nivel,
+        float vx,
+        float vy,
+        int direcao,
+        float raio
+        );
         ~Goblin();
 
         void executar();

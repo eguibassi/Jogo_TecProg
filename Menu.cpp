@@ -238,7 +238,8 @@ void Menu::setVisibilidade(std::vector<sf::Text>& textos, const sf::Color& cor){
     }
 }
 
-void Menu::atualizarMouse(){
+void Menu::atualizarMouse()
+{
     titulo.setFillColor(sf::Color::White);
 
     setVisibilidade(textosRanking, sf::Color::Transparent);
@@ -246,7 +247,8 @@ void Menu::atualizarMouse(){
 
     int jogadorSelecionado = Jog2 ? 1 : 0;
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++)
+    {
         if (i == jogadorSelecionado)
         {
             caixaJogs[i].setFillColor(sf::Color::Yellow);
@@ -259,38 +261,38 @@ void Menu::atualizarMouse(){
         }
     }
 
-    for (size_t i = 0; i < opcoesMenu.size(); i++) {
+    for (size_t i = 0; i < opcoesMenu.size(); i++)
+    {
         opcoesMenu[i].setStyle(sf::Text::Bold);
 
-        if (i == 2)
+        if (mouseEmCima(opcoesMenu[i]))
         {
-            opcoesMenu[i].setFillColor(sf::Color(130, 130, 130));
-            continue;
-        }
-
-        if (mouseEmCima(opcoesMenu[i])) {
             opcoesMenu[i].setFillColor(sf::Color::Yellow);
         }
-        else {
+        else
+        {
             opcoesMenu[i].setFillColor(sf::Color::White);
         }
     }
 }
 
-void Menu::verificarClique(){
+void Menu::verificarClique()
+{
     bool clicouAgora = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
     if (clicouAgora && !mouseClick)
     {
-        for (size_t i = 0; i < opcoesMenu.size(); i++) {
-            if (mouseEmCima(opcoesMenu[i])) {
+        for (size_t i = 0; i < opcoesMenu.size(); i++)
+        {
+            if (mouseEmCima(opcoesMenu[i]))
+            {
                 if (i < 2 && pJog != nullptr)
                 {
                     abrirCadastro(static_cast<int>(i + 1));
                 }
-                else if (i == 2)
+                else if (i == 2 && pJog != nullptr)
                 {
-                    // CARREGAR JOGO será implementado futuramente
+                    pJog->carregarJogo();
                 }
                 else if (i == 3)
                 {
@@ -304,7 +306,8 @@ void Menu::verificarClique(){
             }
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++)
+        {
             if (mouseEmCima(caixaJogs[i]))
             {
                 Jog2 = (i == 1);

@@ -9,6 +9,17 @@ namespace Personagens{
             short int forca;
         public:
             Hog();
+            Hog(
+        bool ativo,
+        int x,
+        int y,
+        int vidas,
+        int nivel,
+        float vx,
+        float vy,
+        int direcao,
+        int forca
+    );
             ~Hog();
 
             Entidades::Projetil* arremessar();

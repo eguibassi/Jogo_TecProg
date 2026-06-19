@@ -13,6 +13,15 @@ namespace Entidades {
         
     public:
         Jaula();
+        Jaula(
+            bool ativo,
+            int x,
+            int y,
+            bool danoso,
+            int yBase,
+            float velocidadeY,
+            int danosidade
+        );
         ~Jaula();
         
         

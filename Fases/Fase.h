@@ -37,6 +37,12 @@ namespace Fases {
         
         void executar();
         void pausaFase();
+        void salvar();
+        
+        void incEntCar(Entidades::Entidade* ent);
+        void incInimGC(Personagens::Inimigo* inim);
+        void incObsGC(Entidades::Obstaculo* obs);
+        void incProjGC(Entidades::Projetil* proj);
         const Listas::ListaEntidades& getLisEnt() const;
 
     protected:

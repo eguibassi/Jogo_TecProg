@@ -33,7 +33,29 @@ namespace Personagens {
 
             }
     }
+    Jogador::Jogador(
+        bool segundo_jogador,
+        const std::string& nome,
+        int pontos,
+        int vidas,
+        bool ativo,
+        int x,
+        int y,
+        float vx,
+        float vy,
+        bool lento
+    ) : Jogador(segundo_jogador)
+    {
+        this->nome = nome;
+        this->pontos = pontos;
+        num_vidas = vidas;
+        this->ativo = ativo;
+        velocidade.x = vx;
+        velocidade.y = vy;
+        this->lento = lento;
 
+        setPosicao(x, y);
+    }
     Jogador::~Jogador() {}
    
     /* sempre adiciono a gravidade ao jogador para que fique puxando ele pra baixo, se a velocidadeY for zero(está pisando em algo) pula no W adicionando um impulso negativo (pra cima)*/
@@ -86,7 +108,7 @@ namespace Personagens {
 
     void Jogador::salvar() 
 {
-    std::ofstream arquivo("salvar.txt", std::ios::app);
+    std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
     if (!arquivo.is_open()){return;}
 

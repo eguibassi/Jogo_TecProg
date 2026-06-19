@@ -7,7 +7,7 @@
 namespace Fases {
 
 
-FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2) : Fase(), maxPekka(2),maxPilha(2){
+FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2, bool car) : Fase(), maxPekka(2),maxPilha(2){
     
     //Vinculamos o Jogador recebido do Jogo
     pJogador = pJ1;
@@ -22,9 +22,13 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2)
         lista_ents.incluir(pJogador2);
         GC.setJogador2(pJogador2);
     }
-
-    // Criamos o cenário
-    criarCenario(); 
+    if(!car){
+        // Criamos o cenário
+        criarCenario();}
+    else
+    {
+        criarFundo();
+    } 
 }
 
     FasePrimeira::~FasePrimeira() {}
