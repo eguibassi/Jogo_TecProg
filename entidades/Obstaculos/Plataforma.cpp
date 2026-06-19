@@ -31,6 +31,28 @@ namespace Entidades {
             sprite.setPosition((float)x, (float)y);
         }
     }
+    Plataforma::Plataforma(
+    bool ativo,
+    int x,
+    int y,
+    bool danoso,
+    int yBase,
+    float velocidadeY,
+    int altura,
+    int offset,
+    bool pisadaFrame
+) : Plataforma()
+{
+    this->ativo = ativo;
+    this->danoso = danoso;
+    this->yBase = yBase;
+    this->velocidadeY = velocidadeY;
+    this->altura = altura;
+    this->offset = offset;
+    this->pisadaFrame = pisadaFrame;
+
+    setPosicao(x, y);
+}
 
     Plataforma::~Plataforma() {
     }
@@ -86,7 +108,7 @@ namespace Entidades {
         /*colisao de cima eh tratada pelo gerenciador via setPisada()*/
     }
     void Plataforma::salvar() {
-        std::ofstream arquivo("salvar.txt", std::ios::app);
+        std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
         if (!arquivo.is_open()) {return;}
 

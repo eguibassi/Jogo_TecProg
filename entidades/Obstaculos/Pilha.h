@@ -12,6 +12,15 @@ namespace Entidades {
 
     public:
         Pilha();
+        Pilha(
+            bool ativo,
+            int x,
+            int y,
+            bool danoso,
+            int yBase,
+            float velocidadeY,
+            float largura
+        );
         ~Pilha();
 
         void executar();

@@ -15,6 +15,14 @@ namespace Entidades {
     
     public:
         Projetil(const std::string& caminhoTextura);
+       Projetil(
+            bool ativo,
+            int x,
+            int y,
+            int vx,
+            int dano,
+            float velocidadeY
+);
         ~Projetil();
 
         void setVx(int n);

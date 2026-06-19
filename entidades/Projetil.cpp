@@ -34,7 +34,22 @@ Projetil::Projetil(const std::string& caminhoTextura):
         sprite.setPosition(0.f, 0.f);
     }
 }
+Projetil::Projetil(
+    bool ativo,
+    int x,
+    int y,
+    int vx,
+    int dano,
+    float velocidadeY
+) : Projetil("Assets/Projetil Rei.png")
+{
+    this->ativo = ativo;
+    this->vx = vx;
+    this->dano = dano;
+    this->velocidadeY = velocidadeY;
 
+    setPosicao(x, y);
+}
 Projetil::~Projetil(){}
 
 void Projetil::setVx(int n){ vx = n; }
@@ -68,7 +83,22 @@ void Projetil::executar()
     }
 }
 
-void Projetil::salvar()
-{
-    //implementar futuramente
+void Projetil::salvar(){
+    std::ofstream arquivo("save_jogo.txt", std::ios::app);
+
+    if (!arquivo.is_open())
+    {
+        return;
+    }
+
+    salvarDataBuffer();
+
+    arquivo << "PROJETIL "
+            << buffer.str()
+            << vx << " "
+            << dano << " "
+            << velocidadeY
+            << std::endl;
+
+    arquivo.close();
 }

@@ -16,6 +16,29 @@ Pekka::Pekka() : Inimigo(), tamanho(35){
         sprite.setScale(0.25f, 0.25f);
     }
 }
+Pekka::Pekka(
+    bool ativo,
+    int x,
+    int y,
+    int vidas,
+    int nivel,
+    float vx,
+    float vy,
+    int direcao,
+    int tamanho
+) : Pekka()
+{
+    this->ativo = ativo;
+    num_vidas = vidas;
+    nivel_maldade = nivel;
+    velocidade.x = vx;
+    velocidade.y = vy;
+    this->direcao = direcao;
+
+    setPosicao(x, y);
+
+    (void)tamanho;
+}
 
 Pekka::~Pekka(){}
 
@@ -37,7 +60,7 @@ void Pekka::danificar(Jogador* pJogador){
 
 void Pekka::salvar()
 {
-    std::ofstream arquivo("salvar.txt", std::ios::app);
+    std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
     if (!arquivo.is_open()){return;}
 

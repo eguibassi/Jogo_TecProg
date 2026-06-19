@@ -26,7 +26,24 @@ namespace Entidades {
         }
         
     }
+    Jaula::Jaula(
+    bool ativo,
+    int x,
+    int y,
+    bool danoso,
+    int yBase,
+    float velocidadeY,
+    int danosidade
+) : Jaula()
+{
+    this->ativo = ativo;
+    this->danoso = danoso;
+    this->yBase = yBase;
+    this->velocidadeY = velocidadeY;
+    this->danosidade = danosidade;
 
+    setPosicao(x, y);
+}
     Jaula::~Jaula() {
     }
 
@@ -36,7 +53,7 @@ namespace Entidades {
     }
 
     void Jaula::salvar() {
-        std::ofstream arquivo("salvar.txt", std::ios::app);
+        std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
         if (!arquivo.is_open()) {return;}
 

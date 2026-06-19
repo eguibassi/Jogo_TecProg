@@ -13,6 +13,17 @@ namespace Entidades {
 
     public:
         Plataforma();
+        Plataforma(
+            bool ativo,
+            int x,
+            int y,
+            bool danoso,
+            int yBase,
+            float velocidadeY,
+            int altura,
+            int offset,
+            bool pisadaFrame
+        );
         ~Plataforma();
              
         void executar();

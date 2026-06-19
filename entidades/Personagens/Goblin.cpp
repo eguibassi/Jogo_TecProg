@@ -19,7 +19,28 @@ Goblin::Goblin() : Inimigo(), raio(15.0f){
         sprite.setScale(0.1f, 0.1f);
     }
 }
+Goblin::Goblin(
+    bool ativo,
+    int x,
+    int y,
+    int vidas,
+    int nivel,
+    float vx,
+    float vy,
+    int direcao,
+    float raio
+) : Goblin(){
+    this->ativo = ativo;
+    num_vidas = vidas;
+    nivel_maldade = nivel;
+    velocidade.x = vx;
+    velocidade.y = vy;
+    this->direcao = direcao;
 
+    setPosicao(x, y);
+
+    (void)raio;
+}
 Goblin::~Goblin(){}
 
 void Goblin::executar(){
@@ -40,7 +61,7 @@ void Goblin::danificar(Jogador* pJogador){
 
 void Goblin::salvar()
 {
-    std::ofstream arquivo("salvar.txt", std::ios::app);
+    std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
     if (!arquivo.is_open()){return;}
 

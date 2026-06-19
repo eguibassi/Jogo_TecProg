@@ -22,6 +22,7 @@ namespace Fases {
 
         lista_ents.desenhar();
     }
+    void Fase::salvar(){lista_ents.salvar();}
     void Fase::executar() {
 
         
@@ -45,6 +46,38 @@ namespace Fases {
         return lista_ents;
     }
 
+    void Fase::incEntCar(Entidades::Entidade* ent){
+    if (ent == nullptr)
+    {
+        return;
+    }
+
+    lista_ents.incluir(ent);
+}
+    void Fase::incInimGC(Personagens::Inimigo* inim){
+        if (inim == nullptr)
+        {
+            return;
+        }
+
+        inim->setJogador(pJogador);
+        GC.incluirInimigo(inim);
+    }
+    void Fase::incObsGC(Entidades::Obstaculo* obs){
+        if (obs == nullptr){
+        return;
+        }
+
+        GC.incluirObstaculo(obs);
+    }
+    void Fase::incProjGC(Entidades::Projetil* proj){
+        if (proj == nullptr)
+        {
+            return;
+        }
+
+        GC.incluirProjetil(proj);
+    }
     void Fase::criarCenario()
     {
         criarFundo();
