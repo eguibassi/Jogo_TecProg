@@ -5,4 +5,7 @@ class RegistroRanking {
 public:
     std::string nome;
     int pontos;
+public:
+    RegistroRanking();
+    ~RegistroRanking();
 };
