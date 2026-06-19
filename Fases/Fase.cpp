@@ -94,7 +94,7 @@ namespace Fases {
 
     void Fase::criarGoblins() {
         sementear();
-        int quantidade = (rand() % maxGoblins) + 3;
+        int quantidade = (rand() % maxGoblins) + 4;
 
         int goblinsNaFase = 0;
 
