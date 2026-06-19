@@ -5,14 +5,10 @@
 namespace Fases {
 
     FaseSegunda::FaseSegunda(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2, bool car) : 
-        Fase(), 
-        maxHogs(2),
-        maxJaula(2)
-    {
-        for (int i = 0; i < 4; i++) {
-            pHogs[i] = nullptr;
-        }
-
+    Fase(), 
+    maxHogs(3),
+    maxJaula(2)
+    {   
         //Vinculamos o Jogador recebido do Jogo
         pJogador = pJ1;
         pJogador2 = pJ2;
@@ -36,11 +32,7 @@ namespace Fases {
     } 
     }
 
-    FaseSegunda::~FaseSegunda() {
-        for (int i = 0; i < 4; i++) {
-            pHogs[i] = nullptr;
-        }
-    }
+    FaseSegunda::~FaseSegunda() {lisHogs.clear();}
 
     void FaseSegunda::executar() {
         lista_ents.percorrer();/*faz todos se moverem*/
@@ -102,7 +94,6 @@ namespace Fases {
             hog->setPosicao(500.0f + (i * 100.0f), 400.0f);
             hog->setJogador(pJogador);
 
-            pHogs[i] = hog;
 
             lista_ents.incluir(hog);
             GC.incluirInimigo(hog);
@@ -128,50 +119,47 @@ namespace Fases {
             GC.incluirObstaculo(jaula);
         }
     }
-    void FaseSegunda::incHogCar(Personagens::Hog* hog) {
+    
+    void FaseSegunda::criarProjetil() {
+    if (relogioProjetil.getElapsedTime().asSeconds() < 3.0f) {
+        return;
+    }
+
+    relogioProjetil.restart();
+
+    std::list<Personagens::Hog*>::iterator it;
+
+    for (it = lisHogs.begin(); it != lisHogs.end(); it++) {
+        Personagens::Hog* hog = *it;
+
+        if (hog == nullptr) {
+            continue;
+        }
+
+        if (!hog->getAtivo()) {
+            continue;
+        }
+
+        if (!hog->getSeguindoJogador()) {
+            continue;
+        }
+
+        Entidades::Projetil* projetil = hog->arremessar();
+
+        if (projetil == nullptr) {
+            continue;
+        }
+
+        lista_ents.incluir(projetil);
+        GC.incluirProjetil(projetil);
+    }
+}
+    void FaseSegunda::incInimGC(Personagens::Hog* hog) {
         if (hog == nullptr) {
             return;
         }
 
-        incEntCar(hog);
-        incInimGC(hog);
-
-        for (int i = 0; i < 4; i++) {
-            if (pHogs[i] == nullptr) {
-                pHogs[i] = hog;
-                return;
-            }
-        }
+        Fase::incInimGC(hog);
+        lisHogs.push_back(hog);
     }
-    void FaseSegunda::criarProjetil() {
-        if (relogioProjetil.getElapsedTime().asSeconds() < 3.0f) {
-            return;
-        }
-
-        relogioProjetil.restart();
-
-        for (int i = 0; i < 4; i++) {
-            if (pHogs[i] == nullptr) {
-                continue;
-            }
-
-            if (!pHogs[i]->getAtivo()) {
-                continue;
-            }
-
-            if (!pHogs[i]->getSeguindoJogador()) {
-                continue;
-            }
-
-            Entidades::Projetil* projetil = pHogs[i]->arremessar();
-
-            if (projetil == nullptr) {
-                continue;
-            }
-
-            lista_ents.incluir(projetil);
-            GC.incluirProjetil(projetil);
-        }
-    }
-
 }

@@ -749,7 +749,8 @@ void Jogo::carregarJogo()
 
             if (faseSalva == TELA_FASE2 && faseSegunda != nullptr)
             {
-                faseSegunda->incHogCar(hog);
+                faseSegunda->incEntCar(hog);
+                faseSegunda->incInimGC(hog);
             }
         }
     }
