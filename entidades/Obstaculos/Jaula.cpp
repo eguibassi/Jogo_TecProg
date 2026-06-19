@@ -3,7 +3,7 @@
 
 namespace Entidades {
 
-    Jaula::Jaula() {
+    Jaula::Jaula() : contadorPulso(0) {
         danosidade = 1; // Tira 1 ponto de vida
         danoso = true;  
 
@@ -49,6 +49,14 @@ namespace Entidades {
 
     void Jaula::executar() {
         aplicarGravidade();
+
+        // pulso continuo: contadorPulso vai de 0 a 59 e reinicia
+        contadorPulso = (contadorPulso + 1) % 60;
+
+        // oscila opacidade entre 150 e 255 usando o contador
+        sf::Uint8 opacidade = static_cast<sf::Uint8>(80 + (contadorPulso * 175) / 60);
+        sprite.setColor(sf::Color(255, 255, 255, opacidade));
+
         sprite.setPosition((float)x, (float)y);
     }
 

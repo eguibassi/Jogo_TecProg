@@ -9,6 +9,7 @@ namespace Entidades {
     private:
         
         float largura;
+        bool emContato;
 
     public:
         Pilha();

@@ -3,7 +3,7 @@
 
 namespace Entidades {
 
-    Pilha::Pilha() : largura(90.f) {
+    Pilha::Pilha() : largura(90.f), emContato(false) {
         danoso = false; 
         x = 150; 
         y = 500; 
@@ -52,6 +52,13 @@ namespace Entidades {
     void Pilha::executar() {
         aplicarGravidade();
 
+        if (emContato)
+            sprite.setColor(sf::Color(255, 150, 150)); // tom avermelhado ao ser pisada
+        else
+            sprite.setColor(sf::Color(255, 255, 255)); // cor original
+
+        emContato = false; // reseta a cada frame, obstaculizar seta true quando ha contato
+
         if (textura != nullptr) {
             sprite.setPosition((float)x, (float)y + 20.0f);
         }
@@ -75,6 +82,7 @@ namespace Entidades {
     void Pilha::obstaculizar(Personagens::Jogador* p) {
         if (p != nullptr) {
             p->setLento(true);
+            emContato = true;
         }
     }
     void Pilha::setPosicao(int novoX, int novoY) {
