@@ -9,10 +9,13 @@ namespace Personagens {
     private:
         bool jogador2;
         std::string nome;
+        sf::Clock relogioTontura;
+        float duracaoTontura; // interno: recebido do Goblin via setTonto, nao salvo
         
     protected:
         int pontos;
         bool lento;
+        bool tonto;
 
     public:
         Jogador(bool segundo_jogador = false);
@@ -26,7 +29,8 @@ namespace Personagens {
         int y,
         float vx,
         float vy,
-        bool lento
+        bool lento,
+        bool tonto
 );
         ~Jogador();
         
@@ -42,6 +46,9 @@ namespace Personagens {
         
         void setLento(bool estado) { lento = estado; }
         bool getLento() const { return lento; }
+
+        void setTonto(bool estado, float duracao = 3.0f);
+        bool getTonto() const { return tonto; }
      
 
     };

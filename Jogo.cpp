@@ -553,6 +553,7 @@ void Jogo::carregarJogo()
         float vx = 0.0f;
         float vy = 0.0f;
         bool lento = false;
+        bool tonto = false;
 
         leitor >> tipo;
 
@@ -570,7 +571,8 @@ void Jogo::carregarJogo()
                >> y
                >> vx
                >> vy
-               >> lento;
+               >> lento
+               >> tonto;
 
         Personagens::Jogador* jog = new Personagens::Jogador(
             ehJogador2,
@@ -582,7 +584,8 @@ void Jogo::carregarJogo()
             y,
             vx,
             vy,
-            lento
+            lento,
+            tonto
         );
 
         if (ehJogador2)
@@ -639,6 +642,7 @@ void Jogo::carregarJogo()
             float vy = 0.0f;
             int direcao = 1;
             float raio = 0.0f;
+            float duracaoTontura = 3.0f;
 
             leitor >> ativo
                    >> x
@@ -648,7 +652,8 @@ void Jogo::carregarJogo()
                    >> vx
                    >> vy
                    >> direcao
-                   >> raio;
+                   >> raio
+                   >> duracaoTontura;
 
             Personagens::Goblin* goblin = new Personagens::Goblin(
                 ativo,
@@ -659,7 +664,8 @@ void Jogo::carregarJogo()
                 vx,
                 vy,
                 direcao,
-                raio
+                raio,
+                duracaoTontura
             );
 
             if (faseSalva == TELA_FASE1 && fasePrimeira != nullptr)
@@ -684,6 +690,7 @@ void Jogo::carregarJogo()
             float vy = 0.0f;
             int direcao = 1;
             int tamanho = 0;
+            int aumentaVida = 2;
 
             leitor >> ativo
                    >> x
@@ -693,7 +700,8 @@ void Jogo::carregarJogo()
                    >> vx
                    >> vy
                    >> direcao
-                   >> tamanho;
+                   >> tamanho
+                   >> aumentaVida;
 
             Personagens::Pekka* pekka = new Personagens::Pekka(
                 ativo,
@@ -704,7 +712,8 @@ void Jogo::carregarJogo()
                 vx,
                 vy,
                 direcao,
-                tamanho
+                tamanho,
+                aumentaVida
             );
 
             if (faseSalva == TELA_FASE1 && fasePrimeira != nullptr)

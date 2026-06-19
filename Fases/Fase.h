@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "../Ente.h" 
 #include "../Listas/ListaEntidades.h"
 #include "../Gerenciadores/Gerenciador_Colisoes.h"
@@ -21,6 +22,10 @@ namespace Fases {
         Personagens::Jogador* pJogador;
         Personagens::Jogador* pJogador2; 
         sf::RectangleShape chaoFase;
+
+        //por uml
+        std::vector<sf::Vector2f> posicoesPlataformas;
+        std::vector<bool> plataformaJaCriada;
 
     private:
         const int maxGoblins;

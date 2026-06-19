@@ -86,11 +86,29 @@ namespace Fases {
     void FaseSegunda::criarHogs() {
         sementear();
         int quantidade = (rand() % maxHogs) + 3; // 3 a 4 Hogs
-        for (int i = 0; i < quantidade; i++) {
-            
-            Personagens::Hog* hog = new Personagens::Hog();
+
+        int hogsNaFase = 0;
 
         
+        for (int i = 0; i < 5 && hogsNaFase < 2; i++) {
+            if (i == 0 || i == 2) continue;        // nao criar nesses slots
+            if (!plataformaJaCriada[i]) continue;  // nao foi sorteada
+
+            Personagens::Hog* hog = new Personagens::Hog();
+
+            float hx = posicoesPlataformas[i].x + 35.0f;
+            float hy = posicoesPlataformas[i].y - 80.0f;
+
+            hog->setPosicao(hx, hy);
+            hog->setJogador(pJogador);
+            lista_ents.incluir(hog);
+            GC.incluirInimigo(hog);
+            hogsNaFase++;
+        }
+
+        // resto pro chao
+        for (int i = hogsNaFase; i < quantidade; i++) {
+            Personagens::Hog* hog = new Personagens::Hog();
             hog->setPosicao(500.0f + (i * 100.0f), 400.0f);
             hog->setJogador(pJogador);
 

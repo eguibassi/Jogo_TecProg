@@ -10,6 +10,7 @@ namespace Entidades {
     private:
         
         short int danosidade;
+           int contadorPulso; // controla a pulsacao de opacidade do sprite
         
     public:
         Jaula();
