@@ -3,7 +3,7 @@
 using namespace Personagens;
 
 
-Goblin::Goblin() : Inimigo(), raio(15.0f){
+Goblin::Goblin() : Inimigo(), raio(15.0f), duracaoTontura(3.0f){
     nivel_maldade = 1; 
     num_vidas = 3;     
 
@@ -28,7 +28,8 @@ Goblin::Goblin(
     float vx,
     float vy,
     int direcao,
-    float raio
+    float raio,
+    float duracaoTontura
 ) : Goblin(){
     this->ativo = ativo;
     num_vidas = vidas;
@@ -36,6 +37,7 @@ Goblin::Goblin(
     velocidade.x = vx;
     velocidade.y = vy;
     this->direcao = direcao;
+    this->duracaoTontura = duracaoTontura;
 
     setPosicao(x, y);
 
@@ -55,7 +57,8 @@ void Goblin::executar(){
 void Goblin::danificar(Jogador* pJogador){
     if (pJogador != nullptr)
     {
-        pJogador->tomarDano(nivel_maldade); 
+        pJogador->tomarDano(nivel_maldade);
+        pJogador->setTonto(true, duracaoTontura);
     }
 }
 
@@ -74,9 +77,9 @@ void Goblin::salvar()
             << velocidade.x << " "
             << velocidade.y << " "
             << direcao << " "
-            << raio
+            << raio << " "
+            << duracaoTontura
             << std::endl;
 
     arquivo.close();
 }
-

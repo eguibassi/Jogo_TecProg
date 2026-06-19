@@ -2,7 +2,7 @@
 
 using namespace Personagens;
 
-Pekka::Pekka() : Inimigo(), tamanho(35){
+Pekka::Pekka() : Inimigo(), tamanho(35), aumentaVida(2){
     nivel_maldade = 8;
     num_vidas = 6;
 
@@ -25,7 +25,8 @@ Pekka::Pekka(
     float vx,
     float vy,
     int direcao,
-    int tamanho
+    int tamanho,
+    int aumentaVida
 ) : Pekka()
 {
     this->ativo = ativo;
@@ -34,6 +35,7 @@ Pekka::Pekka(
     velocidade.x = vx;
     velocidade.y = vy;
     this->direcao = direcao;
+    this->aumentaVida = aumentaVida;
 
     setPosicao(x, y);
 
@@ -55,6 +57,7 @@ void Pekka::danificar(Jogador* pJogador){
     if (pJogador != nullptr)
     {
         pJogador->tomarDano(nivel_maldade);
+        num_vidas += aumentaVida;
     }
 }
 
@@ -73,7 +76,8 @@ void Pekka::salvar()
             << velocidade.x << " "
             << velocidade.y << " "
             << direcao << " "
-            << tamanho
+            << tamanho << " "
+            << aumentaVida
             << std::endl;
 
     arquivo.close();

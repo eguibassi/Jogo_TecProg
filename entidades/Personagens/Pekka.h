@@ -10,6 +10,7 @@ namespace Personagens{
     class Pekka: public Inimigo{
     private:
         int tamanho;
+        int aumentaVida; 
 
     public:
         Pekka();
@@ -22,7 +23,8 @@ namespace Personagens{
         float vx,
         float vy,
         int direcao,
-        int tamanho
+        int tamanho,
+        int aumentaVida
     );
         ~Pekka();
 
@@ -33,4 +35,3 @@ namespace Personagens{
        
     };
 }
-

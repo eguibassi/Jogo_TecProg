@@ -9,7 +9,7 @@
 
 namespace Personagens {
 
-    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), jogador2(segundo_jogador)
+    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), tonto(false), duracaoTontura(0.0f), jogador2(segundo_jogador)
      {/*lento só é true quando estiver em contato com o Pilha*/
         num_vidas = 5; 
         corpo.setSize(sf::Vector2f(25.f, 50.f)); 
@@ -43,7 +43,8 @@ namespace Personagens {
         int y,
         float vx,
         float vy,
-        bool lento
+        bool lento,
+        bool tonto
     ) : Jogador(segundo_jogador)
     {
         this->nome = nome;
@@ -53,45 +54,60 @@ namespace Personagens {
         velocidade.x = vx;
         velocidade.y = vy;
         this->lento = lento;
+        this->tonto = tonto;
 
         setPosicao(x, y);
     }
     Jogador::~Jogador() {}
    
+    void Jogador::setTonto(bool estado, float duracao) {
+        tonto = estado;
+        duracaoTontura = duracao;
+        if (estado) relogioTontura.restart();
+    }
+
     /* sempre adiciono a gravidade ao jogador para que fique puxando ele pra baixo, se a velocidadeY for zero(está pisando em algo) pula no W adicionando um impulso negativo (pra cima)*/
     void Jogador::mover() {
         velocidade.x = 0.f;
 
+        // reseta tonto apos duracaoTontura segundos
+        if (tonto && relogioTontura.getElapsedTime().asSeconds() >= duracaoTontura)
+            tonto = false;
+
         float velAtualX = VELOCIDADE_X_JOGADOR;
-        if (lento) velAtualX = VELOCIDADE_X_JOGADOR * 0.3f; /*se tiver no obstaculo lento vai devagar*/
+        if (lento) velAtualX = VELOCIDADE_X_JOGADOR * 0.3f;
 
-        if(!jogador2){
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocidade.x = -velAtualX; /*esquerda*/
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocidade.x = velAtualX;  /*direita*/
-
-            /* aqui o que comentei em cima da classe*/
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && velocidade.y == 0.f) {
-            velocidade.y = FORCA_PULO; 
+        if (!jogador2) {
+            if (!tonto) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocidade.x = -velAtualX;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocidade.x =  velAtualX;
+            } else {
+                // teclas invertidas
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) velocidade.x =  velAtualX;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) velocidade.x = -velAtualX;
             }
-        }
-        else{
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) velocidade.x = -velAtualX; /*esquerda*/
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) velocidade.x = velAtualX;  /*direita*/
-
-            /* aqui o que comentei em cima da classe*/
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && velocidade.y == 0.f) {
-            velocidade.y = FORCA_PULO;     
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && velocidade.y == 0.f)
+                velocidade.y = FORCA_PULO;
+        } else {
+            if (!tonto) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  velocidade.x = -velAtualX;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) velocidade.x =  velAtualX;
+            } else {
+                // teclas invertidas
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  velocidade.x =  velAtualX;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) velocidade.x = -velAtualX;
             }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && velocidade.y == 0.f)
+                velocidade.y = FORCA_PULO;
         }
 
-        velocidade.y += GRAVIDADE; /*sempre atualizando Vy para puxar ele*/
+        velocidade.y += GRAVIDADE;
+        corpo.move(velocidade);
 
-        corpo.move(velocidade);/*move ele com base nas velocidades*/
-
-        x = static_cast<int>(corpo.getPosition().x);   /*pegam as novas posicoes e salvam*/
+        x = static_cast<int>(corpo.getPosition().x);
         y = static_cast<int>(corpo.getPosition().y);
 
-        sprite.setPosition((float)x, (float)y); /*atualiza posiçao da imagem*/
+        sprite.setPosition((float)x, (float)y);
 
         lento = false;
     }   
@@ -122,10 +138,11 @@ namespace Personagens {
             << buffer.str()
             << velocidade.x << " "
             << velocidade.y << " "
-            << lento
+            << lento << " "
+            << tonto
             << std::endl;
 
     arquivo.close();
 }
 
-} 
+}
