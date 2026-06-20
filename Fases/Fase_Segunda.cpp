@@ -84,41 +84,43 @@ namespace Fases {
     }
 
     void FaseSegunda::criarHogs() {
-        sementear();
-        int quantidade = (rand() % maxHogs) + 3; // 3 a 4 Hogs
+    sementear();
+    int quantidade = (rand() % maxHogs) + 3; // 3 a 5 Hogs
 
-        int hogsNaFase = 0;
+    int hogsNaFase = 0;
 
-        
-        for (int i = 0; i < 5 && hogsNaFase < 2; i++) {
-            if (i == 0 || i == 2) continue;        // nao criar nesses slots
-            if (!plataformaJaCriada[i]) continue;  // nao foi sorteada
+    for (int i = 0; i < 5 && hogsNaFase < 2; i++) {
+        if (i == 0 || i == 2) continue;
+        if (!plataformaJaCriada[i]) continue;
 
-            Personagens::Hog* hog = new Personagens::Hog();
+        Personagens::Hog* hog = new Personagens::Hog();
 
-            float hx = posicoesPlataformas[i].x + 35.0f;
-            float hy = posicoesPlataformas[i].y - 80.0f;
+        float hx = posicoesPlataformas[i].x + 35.0f;
+        float hy = posicoesPlataformas[i].y - 80.0f;
 
-            hog->setPosicao(hx, hy);
-            hog->setJogador(pJogador);
-            hog->setJogador2(pJogador2);
-            lista_ents.incluir(hog);
-            GC.incluirInimigo(hog);
-            hogsNaFase++;
-        }
+        hog->setPosicao(hx, hy);
+        hog->setJogador(pJogador);
+        hog->setJogador2(pJogador2);
 
-        // resto pro chao
-        for (int i = hogsNaFase; i < quantidade; i++) {
-            Personagens::Hog* hog = new Personagens::Hog();
-            hog->setPosicao(500.0f + (i * 100.0f), 400.0f);
-            hog->setJogador(pJogador);
-            hog->setJogador2(pJogador2);
+        lista_ents.incluir(hog);
+        GC.incluirInimigo(hog);
+        lisHogs.push_back(hog);
 
-            lista_ents.incluir(hog);
-            GC.incluirInimigo(hog);
-        }
+        hogsNaFase++;
     }
 
+    for (int i = hogsNaFase; i < quantidade; i++) {
+        Personagens::Hog* hog = new Personagens::Hog();
+
+        hog->setPosicao(500.0f + (i * 100.0f), 400.0f);
+        hog->setJogador(pJogador);
+        hog->setJogador2(pJogador2);
+
+        lista_ents.incluir(hog);
+        GC.incluirInimigo(hog);
+        lisHogs.push_back(hog);
+    }
+}
     void FaseSegunda::criarJaulas() {
         sementear();
         int quantidade = (rand() % maxJaula) + 3;
