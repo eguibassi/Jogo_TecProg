@@ -41,7 +41,9 @@ namespace Personagens {
         int getPontos() const { return pontos; }
         void setNome(const std::string& n);
         const std::string& getNome() const;
+        
         void operator++();
+        void operator--();
 
         
         void setLento(bool estado) { lento = estado; }

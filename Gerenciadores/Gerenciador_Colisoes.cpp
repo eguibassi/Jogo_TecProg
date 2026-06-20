@@ -310,6 +310,10 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
             else {
                 ini->danificar(pJog1);
 
+                if (!pJog1->getAtivo()) {
+                    pJog1->operator--();
+                }
+
                 sf::Vector2f posJog = pJog1->getPosicao();
                 sf::Vector2f velJog = pJog1->getVelocidade();
 
@@ -378,6 +382,10 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
             else {
                 ini->danificar(pJog2);
 
+                if (!pJog2->getAtivo()) {
+                    pJog2->operator--();
+                }
+
                 sf::Vector2f posJog = pJog2->getPosicao();
                 sf::Vector2f velJog = pJog2->getVelocidade();
 
@@ -417,6 +425,11 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
         // causa dano no jogador e desativa o projétil.
         if (pJog1 != nullptr && pJog1->getAtivo() && verificarColisao(pJog1, proj)) {
             pJog1->tomarDano(proj->getDano());
+
+            if (!pJog1->getAtivo()) {
+                pJog1->operator--();
+            }
+
             proj->setAtivo(false);
             continue;
         }
@@ -424,6 +437,11 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
         // Colisão do projétil com jogador 2:
         if (pJog2 != nullptr && pJog2->getAtivo() && verificarColisao(pJog2, proj)) {
             pJog2->tomarDano(proj->getDano());
+
+            if (!pJog2->getAtivo()) {
+                pJog2->operator--();
+            }
+
             proj->setAtivo(false);
             continue;
         }

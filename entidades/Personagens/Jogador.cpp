@@ -117,6 +117,10 @@ namespace Personagens {
 
     void Jogador::operator++() {pontos++;}
     
+    void Jogador::operator--() {
+        if (pontos > 0) pontos--;
+    }
+    
     void Jogador::executar() {
         if (!ativo) return;
         mover();
