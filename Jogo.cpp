@@ -669,7 +669,7 @@ void Jogo::carregarJogo(){
                    >> vy
                    >> direcao
                    >> raio
-                   >> duracaoTontura;
+                   >> durrTont;
 
             Personagens::Goblin* goblin = new Personagens::Goblin(
                 ativo,
