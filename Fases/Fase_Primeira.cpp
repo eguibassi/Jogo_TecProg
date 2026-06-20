@@ -70,13 +70,13 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2,
         bool pekkaEmPlataforma = false;
         for (int i = 0; i < 5 && !pekkaEmPlataforma; i++) {
             if (i == 0 || i == 2) continue;         // nao criar nesses slots
-            if (!plataformaJaCriada[i]) continue;    // nao foi sorteada
+            if (!platCriada[i]) continue;    // nao foi sorteada
 
             Personagens::Pekka* pekka = new Personagens::Pekka();
 
         
-            float px = posicoesPlataformas[i].x + 40.0f;
-            float py = posicoesPlataformas[i].y - 87.5f;
+            float px = posPlats[i].x + 40.0f;
+            float py = posPlats[i].y - 87.5f;
 
             pekka->setPosicao(px, py);
             pekka->setJogador(pJogador);

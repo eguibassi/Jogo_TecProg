@@ -103,7 +103,7 @@ namespace Fases {
     void Fase::criarCenario()
     {
         criarFundo();
-        criarPlataformas(); // popula posicoesPlataformas e plataformaJaCriada
+        criarPlataformas(); // popula posPlats e platCriada
         criarObstaculo();
         criarInimigos();    // criarGoblins consulta os membros acima
     }
@@ -116,14 +116,14 @@ namespace Fases {
 
         for (int i = 0; i < 5 && goblinsNaFase < quantidade; i++) {
             if (i == 0 || i == 2) continue;          // slot proibidos
-            if (!plataformaJaCriada[i]) continue;     // plataforma nao foi sorteada
+            if (!platCriada[i]) continue;     // plataforma nao foi sorteada
 
             Personagens::Goblin* goblin = new Personagens::Goblin();
 
             // centralizado na plataforma (150px largura, goblin 30px): offset +60
             // encostado em cima da plataforma (goblin 30px de altura): offset -30
-            float gx = posicoesPlataformas[i].x + 60.0f;
-            float gy = posicoesPlataformas[i].y - 30.0f;
+            float gx = posPlats[i].x + 60.0f;
+            float gy = posPlats[i].y - 30.0f;
 
             goblin->setPosicao(gx, gy);
             goblin->setJogador(pJogador);
@@ -149,18 +149,18 @@ namespace Fases {
         sementear();
 
         // populamos os membros para que criarGoblins possa consultar depois
-        posicoesPlataformas.clear();
-        posicoesPlataformas.push_back(sf::Vector2f(87.0f,  300.0f)); // slot 0 - spawn jogadores, proibido p/ goblins
-        posicoesPlataformas.push_back(sf::Vector2f(325.0f, 300.0f)); // slot 1
-        posicoesPlataformas.push_back(sf::Vector2f(206.0f, 380.0f)); // slot 2 - proibido p/ goblins (precaucao j2)
-        posicoesPlataformas.push_back(sf::Vector2f(563.0f, 300.0f)); // slot 3
-        posicoesPlataformas.push_back(sf::Vector2f(444.0f, 380.0f)); // slot 4
+        posPlats.clear();
+        posPlats.push_back(sf::Vector2f(87.0f,  300.0f)); // slot 0 - spawn jogadores, proibido p/ goblins
+        posPlats.push_back(sf::Vector2f(325.0f, 300.0f)); // slot 1
+        posPlats.push_back(sf::Vector2f(206.0f, 380.0f)); // slot 2 - proibido p/ goblins (precaucao j2)
+        posPlats.push_back(sf::Vector2f(563.0f, 300.0f)); // slot 3
+        posPlats.push_back(sf::Vector2f(444.0f, 380.0f)); // slot 4
 
         int quantidadePlataformas = (rand() % maxPlat) + 4;
 
-        plataformaJaCriada.clear();
+        platCriada.clear();
         for (int i = 0; i < 5; i++) {
-            plataformaJaCriada.push_back(false);
+            platCriada.push_back(false);
         }
 
         // slots 0, 1 e 2 sempre sao criados
@@ -169,16 +169,16 @@ namespace Fases {
         Entidades::Plataforma* plat3 = new Entidades::Plataforma();
 
         plat1->setPosicao(
-            posicoesPlataformas[0].x,
-            posicoesPlataformas[0].y
+            posPlats[0].x,
+            posPlats[0].y
         );
         plat2->setPosicao(
-            posicoesPlataformas[1].x,
-            posicoesPlataformas[1].y
+            posPlats[1].x,
+            posPlats[1].y
         );
         plat3->setPosicao(
-            posicoesPlataformas[2].x,
-            posicoesPlataformas[2].y
+            posPlats[2].x,
+            posPlats[2].y
         );
 
         lista_ents.incluir(plat1);
@@ -188,25 +188,25 @@ namespace Fases {
         lista_ents.incluir(plat3);
         GC.incluirObstaculo(plat3);
 
-        plataformaJaCriada[0] = true;
-        plataformaJaCriada[1] = true;
-        plataformaJaCriada[2] = true;
+        platCriada[0] = true;
+        platCriada[1] = true;
+        platCriada[2] = true;
 
         int plataformasCriadas = 3;
 
         // percorre apenas os slots restantes (3 e 4), sem depender de sorte
         for (int i = 3; i < 5 && plataformasCriadas < quantidadePlataformas; i++) {
-            if (!plataformaJaCriada[i]) {
+            if (!platCriada[i]) {
                 Entidades::Plataforma* plat = new Entidades::Plataforma();
 
                 plat->setPosicao(
-                    posicoesPlataformas[i].x,
-                    posicoesPlataformas[i].y);
+                    posPlats[i].x,
+                    posPlats[i].y);
 
                 lista_ents.incluir(plat);
                 GC.incluirObstaculo(plat);
 
-                plataformaJaCriada[i] = true;
+                platCriada[i] = true;
                 plataformasCriadas++;
             }
         }
