@@ -10,7 +10,7 @@ namespace Personagens{
     class Goblin: public Inimigo{
     private:
         float raio;
-        float duracaoTontura; // parametro exclusivo: tempo que o jogador fica tonto
+        float durrTont; // parametro exclusivo: tempo que o jogador fica tonto
 
     public:
         Goblin();
@@ -24,7 +24,7 @@ namespace Personagens{
         float vy,
         int direcao,
         float raio,
-        float duracaoTontura
+        float durrTont
         );
         ~Goblin();
 

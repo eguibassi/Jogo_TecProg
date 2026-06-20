@@ -658,18 +658,19 @@ void Jogo::carregarJogo(){
             float vy = 0.0f;
             int direcao = 1;
             float raio = 0.0f;
-            float duracaoTontura = 3.0f;
+            float durrTont = 3.0f;
 
             leitor >> ativo
-                >> x
-                >> y
-                >> vidas
-                >> vx
-                >> vy
-                >> nivel
-                >> direcao
-                >> raio
-                >> duracaoTontura;
+                   >> x
+                   >> y
+                   >> vidas
+                   >> nivel
+                   >> vx
+                   >> vy
+                   >> direcao
+                   >> raio
+                   >> duracaoTontura;
+
             Personagens::Goblin* goblin = new Personagens::Goblin(
                 ativo,
                 x,
@@ -680,7 +681,7 @@ void Jogo::carregarJogo(){
                 vy,
                 direcao,
                 raio,
-                duracaoTontura
+                durrTont
             );
 
             if (faseSalva == TELA_FASE1 && fasePrimeira != nullptr)
