@@ -7,6 +7,9 @@
 #include <sstream>
 #include <iomanip>
 #include <queue>
+#include <iostream>
+#include <stdexcept>
+#include <cstdio>
 
 #include "Gerenciadores/Gerenciador_Grafico.h"
 #include "Entidades/Personagens/Jogador.h"

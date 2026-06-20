@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <stdexcept>
+#include <string>
 #include "../Ente.h" 
 #include "../Listas/ListaEntidades.h"
 #include "../Gerenciadores/Gerenciador_Colisoes.h"
@@ -38,7 +40,7 @@ namespace Fases {
         void executar();
         void pausaFase();
         void salvar();
-        
+
         void incEntCar(Entidades::Entidade* ent);
         void incInimGC(Personagens::Inimigo* inim);
         void incObsGC(Entidades::Obstaculo* obs);

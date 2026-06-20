@@ -418,31 +418,61 @@ void Jogo::salvarJogo()
         return;
     }
 
-    std::ofstream arqJogo("save_jogo.txt", std::ios::trunc);
-
-    if (!arqJogo.is_open())
+    try
     {
-        return;
+        if (estadoAtual == TELA_FASE1 && fasePrimeira == nullptr)
+        {
+            throw std::runtime_error("Erro: fase 1 não existe.");
+        }
+
+        if (estadoAtual == TELA_FASE2 && faseSegunda == nullptr)
+        {
+            throw std::runtime_error("Erro: fase 2 não existe.");
+        }
+
+        std::ofstream arqJogo;
+
+        arqJogo.exceptions(std::ios::failbit | std::ios::badbit);
+
+        arqJogo.open("save_jogo.txt", std::ios::trunc);
+
+        arqJogo << "CLASHPP_SAVE 1" << std::endl;
+        arqJogo << "FASE " << estadoAtual << std::endl;
+        arqJogo << "DOIS_JOGADORES " << (pJog2 != nullptr) << std::endl;
+
+        arqJogo.close();
+
+        if (estadoAtual == TELA_FASE1)
+        {
+            fasePrimeira->salvar();
+        }
+        else if (estadoAtual == TELA_FASE2)
+        {
+            faseSegunda->salvar();
+        }
+        else
+        {
+            throw std::runtime_error("Erro: estado invalido no salvamento.");
+        }
     }
-
-    arqJogo << "CLASHPP_SAVE 1" << std::endl;
-    arqJogo << "FASE " << estadoAtual << std::endl;
-    arqJogo << "DOIS_JOGADORES " << (pJog2 != nullptr) << std::endl;
-
-    arqJogo.close();
-
-    if (estadoAtual == TELA_FASE1 && fasePrimeira != nullptr)
+    catch (const std::exception& erro)
     {
-        fasePrimeira->salvar();
+        std::remove("save_jogo.txt");
+
+        std::cerr << "Falha ao salvar o jogo: "
+                  << erro.what()
+                  << std::endl;
     }
-    else if (estadoAtual == TELA_FASE2 && faseSegunda != nullptr)
+    catch (...)
     {
-        faseSegunda->salvar();
+        std::remove("save_jogo.txt");
+
+        std::cerr << "Falha desconhecida ao salvar o jogo."
+                  << std::endl;
     }
 }
 
-void Jogo::carregarJogo()
-{
+void Jogo::carregarJogo(){
     std::ifstream arqJogo("save_jogo.txt");
 
     if (!arqJogo.is_open())

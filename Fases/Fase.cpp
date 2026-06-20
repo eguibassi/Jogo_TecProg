@@ -42,15 +42,30 @@ namespace Fases {
     }
 
     void Fase::salvar()
+{
+    try
     {
-        if (pJogador != nullptr)
-            pJogador->salvar();
+        if (pJogador == nullptr)
+        {
+            throw std::runtime_error("Jogador 1 nulo.");
+        }
+
+        pJogador->salvar();
 
         if (pJogador2 != nullptr)
+        {
             pJogador2->salvar();
+        }
 
         lista_ents.salvar();
     }
+    catch (const std::exception& erro)
+    {
+        throw std::runtime_error(
+            std::string("Erro ao salvar fase: ") + erro.what()
+        );
+    }
+}
 
     void Fase::incEntCar(Entidades::Entidade* ent){
     if (ent == nullptr)
