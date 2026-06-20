@@ -1,19 +1,20 @@
 #pragma once
 #include "Fase.h"
 #include "../Entidades/Personagens/Hog.h"
+#include <list>
 
 namespace Fases {
 
     class FaseSegunda : public Fase {
         private:
             const int maxJaula;
-            const int maxHogs; // usado apenas na fórmula de quantidade aleatória
+            const int maxHogs;
 
             sf::Texture texturaFundo;
             sf::Sprite spriteFundo;
 
             sf::Clock relogioProjetil;
-            Personagens::Hog* pHogs[4];
+            std::list<Personagens::Hog*> lisHogs;
 
         public:
         
@@ -21,7 +22,9 @@ namespace Fases {
             ~FaseSegunda();
 
             void executar();
-            void incHogCar(Personagens::Hog* hog);
+
+            using Fase::incInimGC;
+            void incInimGC(Personagens::Hog* hog);
 
         protected:
             void criarInimigos();
