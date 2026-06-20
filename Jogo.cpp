@@ -347,72 +347,57 @@ void Jogo::voltarMenu()
 void Jogo::salvarRanking()
 {
     ranking.clear();
-
+    filaRanking = std::priority_queue<RegistroRanking>();
     std::ifstream arquivoEntrada("ranking.txt");
 
-    if (arquivoEntrada.is_open())
-    {
+    if(arquivoEntrada.is_open()){
         std::string linha;
-
-        while (std::getline(arquivoEntrada, linha))
-        {
+        while(std::getline(arquivoEntrada, linha)){
             size_t posicaoSeparador = linha.find_last_of(';');
-
-            if (posicaoSeparador == std::string::npos)
-            {
-                continue;
-            }
+            if(posicaoSeparador == std::string::npos){continue;}
 
             RegistroRanking registro;
             registro.nome = linha.substr(0, posicaoSeparador);
-            registro.pontos = std::atoi(linha.substr(posicaoSeparador + 1).c_str());
-
-            if (registro.pontos > 0)
-            {
-                ranking.push_back(registro);
-            }
+            registro.pontos = std::atoi(linha.substr(posicaoSeparador+1).c_str());
+            if(registro.nome != "" && registro.pontos > 0)
+                {filaRanking.push(registro);}
         }
-
         arquivoEntrada.close();
     }
 
-    if (pJog1 != nullptr && pJog1->getPontos() > 0)
-    {
+    if(pJog1 != nullptr && pJog1->getPontos() > 0){
         RegistroRanking registro;
-        registro.nome = pJog1->getNome();
-        registro.pontos = pJog1->getPontos();
+        registro.setNome(pJog1->getNome());
+        registro.setPontos(pJog1->getPontos());
 
-        ranking.push_back(registro);
+        filaRanking.push(registro);
     }
-
     if (pJog2 != nullptr && pJog2->getPontos() > 0)
     {
         RegistroRanking registro;
-        registro.nome = pJog2->getNome();
-        registro.pontos = pJog2->getPontos();
+        registro.setNome(pJog2->getNome());
+        registro.setPontos(pJog2->getPontos());
 
-        ranking.push_back(registro);
+        filaRanking.push(registro);
     }
 
-    std::sort(
-        ranking.begin(),
-        ranking.end(),
-        [](const RegistroRanking& a, const RegistroRanking& b) {
-            return a.pontos > b.pontos;
-        }
-    );
+    std::priority_queue<RegistroRanking> filaAuxiliar = filaRanking;
 
-    if (ranking.size() > 10)
+    int quantidade = 0;
+
+    while (!filaAuxiliar.empty() && quantidade < 10)
     {
-        ranking.resize(10);
+        RegistroRanking registro = filaAuxiliar.top();
+        filaAuxiliar.pop();
+
+        ranking.push_back(registro);
+
+        quantidade++;
     }
 
     std::ofstream arquivoSaida("ranking.txt");
 
-    if (!arquivoSaida.is_open())
-    {
-        return;
-    }
+    if (!arquivoSaida.is_open()){return;}
 
     for (size_t i = 0; i < ranking.size(); i++)
     {
@@ -421,11 +406,11 @@ void Jogo::salvarRanking()
 
     arquivoSaida.close();
 }
-
 const std::vector<RegistroRanking>& Jogo::getRanking() const
 {
     return ranking;
 }
+
 void Jogo::salvarJogo()
 {
     if (estadoAtual == TELA_MENU)
@@ -455,6 +440,7 @@ void Jogo::salvarJogo()
         faseSegunda->salvar();
     }
 }
+
 void Jogo::carregarJogo()
 {
     std::ifstream arqJogo("save_jogo.txt");

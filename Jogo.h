@@ -1,12 +1,12 @@
 #pragma once
 
 #include <fstream>
-#include <algorithm>
 #include <cstdlib>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <iomanip>
+#include <queue>
 
 #include "Gerenciadores/Gerenciador_Grafico.h"
 #include "Entidades/Personagens/Jogador.h"
@@ -37,6 +37,7 @@ private:
     MenuPausa* menuPausa;
 
     std::vector<RegistroRanking> ranking;
+    std::priority_queue<RegistroRanking> filaRanking;
 
     bool pausado;
 

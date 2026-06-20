@@ -8,4 +8,8 @@ public:
 public:
     RegistroRanking();
     ~RegistroRanking();
+    
+    void setNome(const std::string& nome);
+    void setPontos(const int pontos);
+    bool operator<(const RegistroRanking& outro) const;
 };
