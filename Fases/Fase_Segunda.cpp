@@ -101,6 +101,7 @@ namespace Fases {
 
             hog->setPosicao(hx, hy);
             hog->setJogador(pJogador);
+            hog->setJogador2(pJogador2);
             lista_ents.incluir(hog);
             GC.incluirInimigo(hog);
             hogsNaFase++;
@@ -111,7 +112,7 @@ namespace Fases {
             Personagens::Hog* hog = new Personagens::Hog();
             hog->setPosicao(500.0f + (i * 100.0f), 400.0f);
             hog->setJogador(pJogador);
-
+            hog->setJogador2(pJogador2);
 
             lista_ents.incluir(hog);
             GC.incluirInimigo(hog);

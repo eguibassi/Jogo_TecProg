@@ -12,7 +12,8 @@ namespace Personagens {
         nivel_maldade(1), 
         seguindoJogador(false), 
         direcao(1),
-        pJogador(nullptr) 
+        pJogador(nullptr),
+        pJogador2(nullptr)
     {
         num_vidas = 3; 
         
@@ -31,51 +32,84 @@ namespace Personagens {
     }
 
     void Inimigo::mover() {
-        velocidade.x = 0.f; /*Zera a velocidade horizontal a cada frame, para ele parar se não tiver um alvo */
+    velocidade.x = 0.f;
 
-        seguindoJogador = false;
+    seguindoJogador = false;
 
-        if (pJogador != nullptr) {
-            sf::Vector2f posJogador = pJogador->getCorpo().getPosition();/*pegando a posição do jogador*/
-            sf::Vector2f posInimigo = corpo.getPosition();
+    Jogador* alvo = nullptr;
 
-            float distanciaX = posJogador.x - posInimigo.x;
+    sf::Vector2f posInimigo = corpo.getPosition();
 
-            if (distanciaX < 0.0f) {
-                distanciaX = -distanciaX;
-            }
+    float menorDistancia = DISTANCIA_SEGUIR_X + 1.0f;
 
-            if (distanciaX <= DISTANCIA_SEGUIR_X && posJogador.y >= posInimigo.y) {
-                seguindoJogador = true;
+    if (pJogador != nullptr) {
+        sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
 
-                if (posJogador.x < posInimigo.x) { /*se o jogador está na esquerda vai para esquerda*/
-                    velocidade.x = -VELOCIDADE_X_INIMIGO; 
-                } 
-                else if (posJogador.x > posInimigo.x) { /*se está na direita vai para direita*/
-                    velocidade.x = VELOCIDADE_X_INIMIGO;
-                }
-            }
+        float distanciaX = posJogador.x - posInimigo.x;
+
+        if (distanciaX < 0.0f) {
+            distanciaX = -distanciaX;
         }
 
-        if (!seguindoJogador) {
-            if (relogioDirecaoAleatoria.getElapsedTime().asSeconds() >= 0.5f) {
-                if (rand() % 10 > 5) {
-                    direcao *= -1;
-                }
+        float baseJogador = posJogador.y + pJogador->getCorpo().getSize().y;
+        float baseInimigo = posInimigo.y + corpo.getSize().y;
 
-                relogioDirecaoAleatoria.restart();
-            }
-
-            velocidade.x = VELOCIDADE_X_INIMIGO * direcao;
+        if (distanciaX <= DISTANCIA_SEGUIR_X && baseJogador >= baseInimigo - 10.0f) {
+            alvo = pJogador;
+            menorDistancia = distanciaX;
         }
-
-        velocidade.y += GRAVIDADE; /*fica puxando ele para baixo*/
-        
-        corpo.move(velocidade); /*aplica as velocidades no corpo*/
-
-        x = static_cast<int>(corpo.getPosition().x);  /*atualizando as variaveis*/
-        y = static_cast<int>(corpo.getPosition().y);
     }
+
+    if (pJogador2 != nullptr) {
+        sf::Vector2f posJogador2 = pJogador2->getCorpo().getPosition();
+
+        float distanciaX = posJogador2.x - posInimigo.x;
+
+        if (distanciaX < 0.0f) {
+            distanciaX = -distanciaX;
+        }
+
+        float baseJogador2 = posJogador2.y + pJogador2->getCorpo().getSize().y;
+        float baseInimigo = posInimigo.y + corpo.getSize().y;
+
+        if (distanciaX <= DISTANCIA_SEGUIR_X && baseJogador2 >= baseInimigo - 10.0f && distanciaX < menorDistancia) {
+            alvo = pJogador2;
+            menorDistancia = distanciaX;
+        }
+    }
+
+    if (alvo != nullptr) {
+        seguindoJogador = true;
+
+        sf::Vector2f posAlvo = alvo->getCorpo().getPosition();
+
+        if (posAlvo.x < posInimigo.x) {
+            velocidade.x = -VELOCIDADE_X_INIMIGO;
+        } 
+        else if (posAlvo.x > posInimigo.x) {
+            velocidade.x = VELOCIDADE_X_INIMIGO;
+        }
+    }
+
+    if (!seguindoJogador) {
+        if (relogioDirecaoAleatoria.getElapsedTime().asSeconds() >= 0.5f) {
+            if (rand() % 10 > 5) {
+                direcao *= -1;
+            }
+
+            relogioDirecaoAleatoria.restart();
+        }
+
+        velocidade.x = VELOCIDADE_X_INIMIGO * direcao;
+    }
+
+    velocidade.y += GRAVIDADE;
+    
+    corpo.move(velocidade);
+
+    x = static_cast<int>(corpo.getPosition().x);
+    y = static_cast<int>(corpo.getPosition().y);
+}
 
     bool Inimigo::getSeguindoJogador() const {return seguindoJogador;}
 }

@@ -15,7 +15,8 @@ namespace Personagens {
         sf::Clock relogioDirecaoAleatoria;
 
     private:
-        Jogador* pJogador; 
+        Jogador* pJogador;
+        Jogador* pJogador2;
 
     public:
         Inimigo();
@@ -26,12 +27,10 @@ namespace Personagens {
         virtual void salvar() = 0; 
         
         void setJogador(Jogador* j) { pJogador = j; }
+        void setJogador2(Jogador* j) { pJogador2 = j; }
+
         void mover(); 
         bool getSeguindoJogador() const;
-
-        
-        
-       
     };
 
-} 
+}

@@ -80,6 +80,7 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2,
 
             pekka->setPosicao(px, py);
             pekka->setJogador(pJogador);
+            pekka->setJogador2(pJogador2);
             lista_ents.incluir(pekka);
             GC.incluirInimigo(pekka);
             pekkaEmPlataforma = true;
@@ -91,6 +92,7 @@ FasePrimeira::FasePrimeira(Personagens::Jogador* pJ1, Personagens::Jogador* pJ2,
             Personagens::Pekka* pekka = new Personagens::Pekka();
             pekka->setPosicao(150.0f + (i * 150.0f), 400.0f);
             pekka->setJogador(pJogador);
+            pekka->setJogador2(pJogador2);
             lista_ents.incluir(pekka);
             GC.incluirInimigo(pekka);
         }

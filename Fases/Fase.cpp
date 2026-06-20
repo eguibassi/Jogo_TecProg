@@ -82,6 +82,7 @@ namespace Fases {
         }
 
         inim->setJogador(pJogador);
+        inim->setJogador2(pJogador2);
         GC.incluirInimigo(inim);
     }
     void Fase::incObsGC(Entidades::Obstaculo* obs){
@@ -126,6 +127,7 @@ namespace Fases {
 
             goblin->setPosicao(gx, gy);
             goblin->setJogador(pJogador);
+            goblin->setJogador2(pJogador2);
             lista_ents.incluir(goblin);
             GC.incluirInimigo(goblin);
             goblinsNaFase++;
@@ -137,6 +139,7 @@ namespace Fases {
             Personagens::Goblin* goblin = new Personagens::Goblin();
             goblin->setPosicao(100.0f + (i * 200.0f), 400.0f);
             goblin->setJogador(pJogador);
+            goblin->setJogador2(pJogador2);
             lista_ents.incluir(goblin);
             GC.incluirInimigo(goblin);
         }
