@@ -26,8 +26,8 @@ namespace Fases {
         sf::RectangleShape chaoFase;
 
         //por uml
-        std::vector<sf::Vector2f> posicoesPlataformas;
-        std::vector<bool> plataformaJaCriada;
+        std::vector<sf::Vector2f> posPlats;
+        std::vector<bool> platCriada;
 
     private:
         const int maxGoblins;

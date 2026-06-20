@@ -8,7 +8,7 @@ namespace Entidades {
     private:
         int vx;
         int dano;
-        /*usar o bool ativo */
+      
 
     public:
         float velocidadeY;

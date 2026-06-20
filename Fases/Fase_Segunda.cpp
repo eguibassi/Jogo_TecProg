@@ -91,12 +91,12 @@ namespace Fases {
 
     for (int i = 0; i < 5 && hogsNaFase < 2; i++) {
         if (i == 0 || i == 2) continue;
-        if (!plataformaJaCriada[i]) continue;
+        if (!platCriada[i]) continue;
 
         Personagens::Hog* hog = new Personagens::Hog();
 
-        float hx = posicoesPlataformas[i].x + 35.0f;
-        float hy = posicoesPlataformas[i].y - 80.0f;
+        float hx = posPlats[i].x + 35.0f;
+        float hy = posPlats[i].y - 80.0f;
 
         hog->setPosicao(hx, hy);
         hog->setJogador(pJogador);
