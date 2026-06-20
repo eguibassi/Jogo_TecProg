@@ -8,6 +8,7 @@ namespace Personagens {
     class Personagem : public Entidades::Entidade {
     protected:
         int num_vidas;
+        int maxVidas; // 0 ate a primeira chamada de desenhar(), quando se auto-inicializa
         
         sf::Vector2f velocidade; 
 
@@ -20,10 +21,11 @@ namespace Personagens {
         virtual void executar() = 0;
         virtual void salvar() = 0;
         virtual void mover() = 0;
+        virtual void desenhar();
         
         void setVelocidade(sf::Vector2f vel) { velocidade = vel; }
         sf::Vector2f getVelocidade() const { return velocidade; }
         void tomarDano(int dano);
     };
 
-} 
+}

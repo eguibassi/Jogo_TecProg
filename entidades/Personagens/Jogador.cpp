@@ -11,7 +11,7 @@ namespace Personagens {
 
     Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), tonto(false), duracaoTontura(0.0f), jogador2(segundo_jogador)
      {/*lento só é true quando estiver em contato com o Pilha*/
-        num_vidas = 5; 
+        num_vidas = 7; 
         corpo.setSize(sf::Vector2f(25.f, 50.f)); 
         corpo.setFillColor(sf::Color::Transparent);
         if(!jogador2){ 
@@ -116,6 +116,10 @@ namespace Personagens {
     const std::string& Jogador::getNome() const {return nome;}
 
     void Jogador::operator++() {pontos++;}
+    
+    void Jogador::operator--() {
+        if (pontos > 0) pontos--;
+    }
     
     void Jogador::executar() {
         if (!ativo) return;
