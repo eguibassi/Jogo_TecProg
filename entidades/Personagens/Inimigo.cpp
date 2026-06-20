@@ -125,4 +125,11 @@ namespace Personagens {
     }
 
     bool Inimigo::getSeguindoJogador() const {return seguindoJogador;}
+    
+    void Inimigo::salvarDataBuffer() {
+        Personagem::salvarDataBuffer();
+
+        buffer << nivel_maldade << " "
+            << direcao << " ";
+    }   
 }

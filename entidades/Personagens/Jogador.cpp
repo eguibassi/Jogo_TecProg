@@ -138,15 +138,11 @@ namespace Personagens {
             << jogador2 << " "
             << std::quoted(nome) << " "
             << pontos << " "
-            << num_vidas << " "
             << buffer.str()
-            << velocidade.x << " "
-            << velocidade.y << " "
             << lento << " "
             << tonto
             << std::endl;
 
     arquivo.close();
 }
-
 }

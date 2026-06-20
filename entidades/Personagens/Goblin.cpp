@@ -46,14 +46,33 @@ Goblin::Goblin(
 Goblin::~Goblin(){}
 
 void Goblin::executar(){
-    mover(); 
+    if (!ativo) {
+        return;
+    }
+
+    if (!seguindoJogador)
+    {
+        velocidade.x = 5.0f;
+    }
+    else
+    {
+        velocidade.x = 2.5f;
+    }
+
+    mover();
+
+    x = static_cast<int>(corpo.getPosition().x);
+    y = static_cast<int>(corpo.getPosition().y);
 
     if (sprite.getTexture() != nullptr)
     {
         sprite.setPosition(corpo.getPosition());
     }
-}
 
+    if (num_vidas <= 0) {
+        ativo = false;
+    }
+}
 void Goblin::danificar(Jogador* pJogador){
     if (pJogador != nullptr)
     {
@@ -72,11 +91,6 @@ void Goblin::salvar()
 
     arquivo << "GOBLIN "
             << buffer.str()
-            << num_vidas << " "
-            << nivel_maldade << " "
-            << velocidade.x << " "
-            << velocidade.y << " "
-            << direcao << " "
             << raio << " "
             << duracaoTontura
             << std::endl;

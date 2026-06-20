@@ -45,11 +45,33 @@ Pekka::Pekka(
 Pekka::~Pekka(){}
 
 void Pekka::executar(){
+    if (!ativo) {
+        return;
+    }
+
+    if (num_vidas <= 3)
+    {
+        nivel_maldade = 12;
+        velocidade.x = 4.0f;
+    }
+    else
+    {
+        nivel_maldade = 8;
+        velocidade.x = 2.0f;
+    }
+
     mover();
+
+    x = static_cast<int>(corpo.getPosition().x);
+    y = static_cast<int>(corpo.getPosition().y);
 
     if (sprite.getTexture() != nullptr)
     {
         sprite.setPosition(corpo.getPosition());
+    }
+
+    if (num_vidas <= 0) {
+        ativo = false;
     }
 }
 
@@ -61,8 +83,7 @@ void Pekka::danificar(Jogador* pJogador){
     }
 }
 
-void Pekka::salvar()
-{
+void Pekka::salvar(){
     std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
     if (!arquivo.is_open()){return;}
@@ -71,11 +92,6 @@ void Pekka::salvar()
 
     arquivo << "PEKKA "
             << buffer.str()
-            << num_vidas << " "
-            << nivel_maldade << " "
-            << velocidade.x << " "
-            << velocidade.y << " "
-            << direcao << " "
             << tamanho << " "
             << aumentaVida
             << std::endl;

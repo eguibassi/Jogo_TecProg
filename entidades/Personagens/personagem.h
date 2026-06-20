@@ -11,6 +11,8 @@ namespace Personagens {
         int maxVidas; // 0 ate a primeira chamada de desenhar(), quando se auto-inicializa
         
         sf::Vector2f velocidade; 
+    protected:
+        void salvarDataBuffer();
 
     public:
         Personagem();

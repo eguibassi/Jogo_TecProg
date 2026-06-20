@@ -579,16 +579,16 @@ void Jogo::carregarJogo(){
         }
 
         leitor >> ehJogador2
-               >> std::quoted(nome)
-               >> pontos
-               >> vidas
-               >> ativo
-               >> x
-               >> y
-               >> vx
-               >> vy
-               >> lento
-               >> tonto;
+            >> std::quoted(nome)
+            >> pontos
+            >> ativo
+            >> x
+            >> y
+            >> vidas
+            >> vx
+            >> vy
+            >> lento
+            >> tonto;
 
         Personagens::Jogador* jog = new Personagens::Jogador(
             ehJogador2,
@@ -661,16 +661,15 @@ void Jogo::carregarJogo(){
             float duracaoTontura = 3.0f;
 
             leitor >> ativo
-                   >> x
-                   >> y
-                   >> vidas
-                   >> nivel
-                   >> vx
-                   >> vy
-                   >> direcao
-                   >> raio
-                   >> duracaoTontura;
-
+                >> x
+                >> y
+                >> vidas
+                >> vx
+                >> vy
+                >> nivel
+                >> direcao
+                >> raio
+                >> duracaoTontura;
             Personagens::Goblin* goblin = new Personagens::Goblin(
                 ativo,
                 x,
@@ -709,15 +708,15 @@ void Jogo::carregarJogo(){
             int aumentaVida = 2;
 
             leitor >> ativo
-                   >> x
-                   >> y
-                   >> vidas
-                   >> nivel
-                   >> vx
-                   >> vy
-                   >> direcao
-                   >> tamanho
-                   >> aumentaVida;
+                >> x
+                >> y
+                >> vidas
+                >> vx
+                >> vy
+                >> nivel
+                >> direcao
+                >> tamanho
+                >> aumentaVida;
 
             Personagens::Pekka* pekka = new Personagens::Pekka(
                 ativo,
@@ -751,14 +750,14 @@ void Jogo::carregarJogo(){
             int forca = 0;
 
             leitor >> ativo
-                   >> x
-                   >> y
-                   >> vidas
-                   >> nivel
-                   >> vx
-                   >> vy
-                   >> direcao
-                   >> forca;
+                >> x
+                >> y
+                >> vidas
+                >> vx
+                >> vy
+                >> nivel
+                >> direcao
+                >> forca;
 
             Personagens::Hog* hog = new Personagens::Hog(
                 ativo,

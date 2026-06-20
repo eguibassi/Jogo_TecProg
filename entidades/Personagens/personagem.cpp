@@ -58,6 +58,12 @@ namespace Personagens {
         vidaBarra.setFillColor(proporcao < 0.3f ? sf::Color::Red : sf::Color::Green);
         pGraf->desenharForma(vidaBarra);
     }
-    
+   void Personagem::salvarDataBuffer() {
+    Entidade::salvarDataBuffer();
+
+    buffer << num_vidas << " "
+           << velocidade.x << " "
+           << velocidade.y << " ";
+} 
 
 }

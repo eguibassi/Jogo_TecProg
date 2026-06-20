@@ -65,12 +65,22 @@ Entidades::Projetil* Hog::arremessar() {
 }
 
 void Hog::executar() {
-    if (!ativo) {return;}
+    if (!ativo) {
+        return;
+    }
+
+    if (rand() % 150 == 0)
+    {
+        velocidade.y = -12.0f;
+    }
+
     mover();
+
     x = static_cast<int>(corpo.getPosition().x);
     y = static_cast<int>(corpo.getPosition().y);
 
     sprite.setPosition((float)x, (float)y);
+
     if (num_vidas <= 0) {
         ativo = false;
     }
@@ -82,8 +92,7 @@ void Hog::danificar(Jogador* p) {
     p->tomarDano(forca);
 }
 
-void Hog::salvar()
-{
+void Hog::salvar(){
     std::ofstream arquivo("save_jogo.txt", std::ios::app);
 
     if (!arquivo.is_open()){return;}
@@ -92,11 +101,6 @@ void Hog::salvar()
 
     arquivo << "HOG "
             << buffer.str()
-            << num_vidas << " "
-            << nivel_maldade << " "
-            << velocidade.x << " "
-            << velocidade.y << " "
-            << direcao << " "
             << forca
             << std::endl;
 

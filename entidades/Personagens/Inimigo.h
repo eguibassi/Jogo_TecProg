@@ -17,6 +17,8 @@ namespace Personagens {
     private:
         Jogador* pJogador;
         Jogador* pJogador2;
+    protected:
+        void salvarDataBuffer();
 
     public:
         Inimigo();
