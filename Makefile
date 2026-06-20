@@ -7,6 +7,7 @@ SRCS = main.cpp \
        Jogo.cpp \
 	   menu.cpp \
           menuPausa.cpp \
+          Registroranking.cpp \
        Ente.cpp \
        Fases/Fase.cpp \
        Fases/Fase_Primeira.cpp \
