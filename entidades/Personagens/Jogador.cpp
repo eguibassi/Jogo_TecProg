@@ -9,7 +9,7 @@
 
 namespace Personagens {
 
-    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), tonto(false), duracaoTontura(0.0f), jogador2(segundo_jogador)
+    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), tonto(false), durrTont(0.0f), jogador2(segundo_jogador)
      {/*lento só é true quando estiver em contato com o Pilha*/
         num_vidas = 7; 
         corpo.setSize(sf::Vector2f(25.f, 50.f)); 
@@ -62,7 +62,7 @@ namespace Personagens {
    
     void Jogador::setTonto(bool estado, float duracao) {
         tonto = estado;
-        duracaoTontura = duracao;
+        durrTont = duracao;
         if (estado) relogioTontura.restart();
     }
 
@@ -70,8 +70,8 @@ namespace Personagens {
     void Jogador::mover() {
         velocidade.x = 0.f;
 
-        // reseta tonto apos duracaoTontura segundos
-        if (tonto && relogioTontura.getElapsedTime().asSeconds() >= duracaoTontura)
+        // reseta tonto apos durrTont segundos
+        if (tonto && relogioTontura.getElapsedTime().asSeconds() >= durrTont)
             tonto = false;
 
         float velAtualX = VELOCIDADE_X_JOGADOR;
