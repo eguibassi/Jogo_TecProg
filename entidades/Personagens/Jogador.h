@@ -18,9 +18,9 @@ namespace Personagens {
         bool tonto;
 
     public:
-        Jogador(bool segundo_jogador = false);
+        Jogador(bool jog2 = false);
         Jogador(
-        bool segundo_jogador,
+        bool jog2,
         const std::string& nome,
         int pontos,
         int vidas,

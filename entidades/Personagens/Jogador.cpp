@@ -9,7 +9,7 @@
 
 namespace Personagens {
 
-    Jogador::Jogador(bool segundo_jogador) : pontos(0), lento(false), tonto(false), durrTont(0.0f), jogador2(segundo_jogador)
+    Jogador::Jogador(bool jog2) : pontos(0), lento(false), tonto(false), durrTont(0.0f), jogador2(jog2)
      {/*lento só é true quando estiver em contato com o Pilha*/
         num_vidas = 7; 
         corpo.setSize(sf::Vector2f(25.f, 50.f)); 
@@ -34,7 +34,7 @@ namespace Personagens {
             }
     }
     Jogador::Jogador(
-        bool segundo_jogador,
+        bool jog2,
         const std::string& nome,
         int pontos,
         int vidas,
@@ -45,7 +45,7 @@ namespace Personagens {
         float vy,
         bool lento,
         bool tonto
-    ) : Jogador(segundo_jogador)
+    ) : Jogador(jog2)
     {
         this->nome = nome;
         this->pontos = pontos;
