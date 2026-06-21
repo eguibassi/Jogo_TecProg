@@ -1,6 +1,27 @@
 #include "Menu.h"
 #include "Jogo.h"
 namespace Menus{
+Menu::RegistroRanking::RegistroRanking() :
+    nome(""),
+    pontos(0)
+{}
+
+Menu::RegistroRanking::~RegistroRanking(){}
+
+void Menu::RegistroRanking::setNome(const std::string& nome){this->nome = nome;}
+
+void Menu::RegistroRanking::setPontos(const int pontos){this->pontos = pontos;}
+
+bool Menu::RegistroRanking::operator<(const RegistroRanking& outro) const
+{
+    if (pontos == outro.pontos)
+    {
+        return nome > outro.nome;
+    }
+
+    return pontos < outro.pontos;
+}
+
 Menu::Menu() :
     pJog(nullptr),
     ativo(true),
@@ -396,7 +417,7 @@ void Menu::atualizarTextosRanking(){
         return;
     }
 
-    const std::vector<RegistroRanking>& ranking = pJog->getRanking();
+    const std::vector<Menus::Menu::RegistroRanking>& ranking = pJog->getRanking();
 
     for (int i = 0; i < 10; i++) {
         if (i < static_cast<int>(ranking.size())) {
