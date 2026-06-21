@@ -15,7 +15,7 @@
 #include "Entidades/Personagens/Jogador.h"
 #include "Fases/Fase_Primeira.h"
 #include "Fases/Fase_Segunda.h"
-#include "Menu.h"
+#include "Menus/Menu.h"
 namespace Menus{
 class Menu;
 class MenuPausa;

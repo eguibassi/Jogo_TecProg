@@ -1,5 +1,5 @@
 #include "Menu.h"
-#include "Jogo.h"
+#include "../Jogo.h"
 namespace Menus{
 Menu::RegistroRanking::RegistroRanking() :
     nome(""),

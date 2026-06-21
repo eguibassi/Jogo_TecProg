@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ente.h"
+#include "../Ente.h"
 #include <iostream>
 #include <vector>
 #include <string>
