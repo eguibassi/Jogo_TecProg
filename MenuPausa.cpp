@@ -1,5 +1,7 @@
 #include "MenuPausa.h"
+using namespace std;
 
+using namespace Menus;
 MenuPausa::MenuPausa()
 {
     inicializarTextosPausa();

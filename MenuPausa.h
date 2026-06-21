@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Menu.h"
-
+namespace Menus{
 class MenuPausa : public Menu {
 private:
     sf::RectangleShape fundoPausa;
@@ -15,3 +15,4 @@ public:
 
     int executarPausa();
 };
+}

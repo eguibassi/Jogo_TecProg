@@ -23,11 +23,11 @@ Jogo::Jogo() :
 
     salvarRanking();
 
-    menu = new Menu();
+    menu = new Menus::Menu();
     menu->setMenuPrincipal();
     menu->setJogo(this);
 
-    menuPausa = new MenuPausa();
+    menuPausa = new Menus::MenuPausa();
 }
 
 Jogo::~Jogo()

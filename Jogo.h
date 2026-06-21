@@ -16,9 +16,10 @@
 #include "Fases/Fase_Primeira.h"
 #include "Fases/Fase_Segunda.h"
 #include "RegistroRanking.h"
-
+namespace Menus{
 class Menu;
 class MenuPausa;
+}
 
 class Jogo {
 private:
@@ -36,8 +37,8 @@ private:
     Fases::FasePrimeira* fasePrimeira;
     Fases::FaseSegunda* faseSegunda;
 
-    Menu* menu;
-    MenuPausa* menuPausa;
+    Menus::Menu* menu;
+    Menus::MenuPausa* menuPausa;
 
     std::vector<RegistroRanking> ranking;
     std::priority_queue<RegistroRanking> filaRanking;

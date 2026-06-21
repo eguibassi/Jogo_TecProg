@@ -1,5 +1,6 @@
 #include "Menu.h"
-
+#include "Jogo.h"
+namespace Menus{
 Menu::Menu() :
     pJog(nullptr),
     ativo(true),
@@ -480,4 +481,5 @@ void Menu::setAtivo(const bool estado){
 
 bool Menu::getAtivo() const{
     return ativo;
+}
 }

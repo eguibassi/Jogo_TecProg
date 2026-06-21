@@ -1,11 +1,14 @@
 #pragma once
 
 #include "Ente.h"
-#include "Jogo.h"
 #include <iostream>
 #include <vector>
 #include <string>
 #include "RegistroRanking.h"
+
+class Jogo;
+
+namespace Menus {
 
 class Menu : public Ente {
 protected:
@@ -105,3 +108,4 @@ public:
 
     void tratarEvento(const sf::Event& evento);
 };
+}
