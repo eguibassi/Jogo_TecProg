@@ -15,7 +15,7 @@
 #include "Entidades/Personagens/Jogador.h"
 #include "Fases/Fase_Primeira.h"
 #include "Fases/Fase_Segunda.h"
-#include "RegistroRanking.h"
+#include "Menus/Menu.h"
 namespace Menus{
 class Menu;
 class MenuPausa;
@@ -40,8 +40,8 @@ private:
     Menus::Menu* menu;
     Menus::MenuPausa* menuPausa;
 
-    std::vector<RegistroRanking> ranking;
-    std::priority_queue<RegistroRanking> filaRanking;
+    std::vector<Menus::Menu::RegistroRanking> ranking;
+    std::priority_queue<Menus::Menu::RegistroRanking> filaRanking;
 
     bool pausado;
 
@@ -63,7 +63,7 @@ public:
         const std::string& nomeJ2 = ""
     );
 
-    const std::vector<RegistroRanking>& getRanking() const;
+    const std::vector<Menus::Menu::RegistroRanking>& getRanking() const;
     void salvarJogo();
     void carregarJogo();
 };

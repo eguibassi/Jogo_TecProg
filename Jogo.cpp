@@ -347,7 +347,7 @@ void Jogo::voltarMenu()
 void Jogo::salvarRanking()
 {
     ranking.clear();
-    filaRanking = std::priority_queue<RegistroRanking>();
+    filaRanking = std::priority_queue<Menus::Menu::RegistroRanking>();
     std::ifstream arquivoEntrada("ranking.txt");
 
     if(arquivoEntrada.is_open()){
@@ -356,7 +356,7 @@ void Jogo::salvarRanking()
             size_t posicaoSeparador = linha.find_last_of(';');
             if(posicaoSeparador == std::string::npos){continue;}
 
-            RegistroRanking registro;
+            Menus::Menu::RegistroRanking registro;
             registro.nome = linha.substr(0, posicaoSeparador);
             registro.pontos = std::atoi(linha.substr(posicaoSeparador+1).c_str());
             if(registro.nome != "" && registro.pontos > 0)
@@ -366,7 +366,7 @@ void Jogo::salvarRanking()
     }
 
     if(pJog1 != nullptr && pJog1->getPontos() > 0){
-        RegistroRanking registro;
+        Menus::Menu::RegistroRanking registro;
         registro.setNome(pJog1->getNome());
         registro.setPontos(pJog1->getPontos());
 
@@ -374,20 +374,20 @@ void Jogo::salvarRanking()
     }
     if (pJog2 != nullptr && pJog2->getPontos() > 0)
     {
-        RegistroRanking registro;
+        Menus::Menu::RegistroRanking registro;
         registro.setNome(pJog2->getNome());
         registro.setPontos(pJog2->getPontos());
 
         filaRanking.push(registro);
     }
 
-    std::priority_queue<RegistroRanking> filaAuxiliar = filaRanking;
+    std::priority_queue<Menus::Menu::RegistroRanking> filaAuxiliar = filaRanking;
 
     int quantidade = 0;
 
     while (!filaAuxiliar.empty() && quantidade < 10)
     {
-        RegistroRanking registro = filaAuxiliar.top();
+        Menus::Menu::RegistroRanking registro = filaAuxiliar.top();
         filaAuxiliar.pop();
 
         ranking.push_back(registro);
@@ -406,10 +406,7 @@ void Jogo::salvarRanking()
 
     arquivoSaida.close();
 }
-const std::vector<RegistroRanking>& Jogo::getRanking() const
-{
-    return ranking;
-}
+const std::vector<Menus::Menu::RegistroRanking>& Jogo::getRanking() const{return ranking;}
 
 void Jogo::salvarJogo()
 {
