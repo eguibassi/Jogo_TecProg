@@ -49,10 +49,6 @@ private:
     void voltarMenu();
     void salvarRanking();
     bool jogsDerr() const;
-    void carregarJogador();
-    void carregarInimigo(int faseSalva);
-    void carregarObstaculo(int faseSalva);
-    void carregarProjetil();
 public:
     Jogo();
     ~Jogo();
