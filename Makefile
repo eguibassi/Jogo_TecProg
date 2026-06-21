@@ -1,13 +1,12 @@
-
 CXX = g++
 TARGET = main.exe
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+INCLUDES = -IMenus
 
 SRCS = main.cpp \
        Jogo.cpp \
-	   menu.cpp \
-          menuPausa.cpp \
-          Registroranking.cpp \
+       Menus/Menu.cpp \
+       Menus/MenuPausa.cpp \
        Ente.cpp \
        Fases/Fase.cpp \
        Fases/Fase_Primeira.cpp \
@@ -28,10 +27,8 @@ SRCS = main.cpp \
        Gerenciadores/Gerenciador_Colisoes.cpp \
        Gerenciadores/Gerenciador_Grafico.cpp
 
-
 all:
-	$(CXX) $(SRCS) -o $(TARGET) $(LIBS)
-
+	$(CXX) $(SRCS) $(INCLUDES) -o $(TARGET) $(LIBS)
 
 clean:
 	del $(TARGET)

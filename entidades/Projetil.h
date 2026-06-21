@@ -8,9 +8,6 @@ namespace Entidades {
     private:
         int vx;
         int dano;
-      
-
-    public:
         float velocidadeY;
     
     public:
