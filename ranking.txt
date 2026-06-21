@@ -4,7 +4,7 @@ a;10
 a;10
 a;10
 a;9
+atributo;9
 a;8
 a;8
 a;7
-paco;7

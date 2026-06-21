@@ -9,8 +9,10 @@ Menu::RegistroRanking::RegistroRanking() :
 Menu::RegistroRanking::~RegistroRanking(){}
 
 void Menu::RegistroRanking::setNome(const std::string& nome){this->nome = nome;}
+std::string Menu::RegistroRanking::getNome()const{return nome;}
 
 void Menu::RegistroRanking::setPontos(const int pontos){this->pontos = pontos;}
+int Menu::RegistroRanking::getPontos()const{return pontos;}
 
 bool Menu::RegistroRanking::operator<(const RegistroRanking& outro) const
 {
@@ -423,8 +425,8 @@ void Menu::atualizarTextosRanking(){
         if (i < static_cast<int>(ranking.size())) {
             textosRanking[i + 1].setString(
                 std::to_string(i + 1) + ". " +
-                ranking[i].nome + " - " +
-                std::to_string(ranking[i].pontos) + " pontos"
+                ranking[i].getNome() + " - " +
+                std::to_string(ranking[i].getPontos()) + " pontos"
             );
         }
         else if (i == 0) {

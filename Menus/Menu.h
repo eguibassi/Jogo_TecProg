@@ -12,7 +12,7 @@ namespace Menus {
 class Menu : public Ente {
 public:
     class RegistroRanking {
-    public:
+    private:
         std::string nome;
         int pontos;
 
@@ -21,7 +21,9 @@ public:
         ~RegistroRanking();
 
         void setNome(const std::string& nome);
+        std::string getNome()const;
         void setPontos(const int pontos);
+        int getPontos()const;
         bool operator<(const RegistroRanking& outro) const;
     };
 

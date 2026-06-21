@@ -357,9 +357,9 @@ void Jogo::salvarRanking()
             if(posicaoSeparador == std::string::npos){continue;}
 
             Menus::Menu::RegistroRanking registro;
-            registro.nome = linha.substr(0, posicaoSeparador);
-            registro.pontos = std::atoi(linha.substr(posicaoSeparador+1).c_str());
-            if(registro.nome != "" && registro.pontos > 0)
+            registro.setNome(linha.substr(0, posicaoSeparador));
+            registro.setPontos(std::atoi(linha.substr(posicaoSeparador+1).c_str()));
+            if(registro.getNome() != "" && registro.getPontos() > 0)
                 {filaRanking.push(registro);}
         }
         arquivoEntrada.close();
@@ -401,7 +401,7 @@ void Jogo::salvarRanking()
 
     for (size_t i = 0; i < ranking.size(); i++)
     {
-        arquivoSaida << ranking[i].nome << ";" << ranking[i].pontos << std::endl;
+        arquivoSaida << ranking[i].getNome() << ";" << ranking[i].getPontos() << std::endl;
     }
 
     arquivoSaida.close();
