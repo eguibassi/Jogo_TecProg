@@ -1,10 +1,2 @@
-a;15
-a;11
-a;10
-a;10
-a;10
-a;9
-atributo;9
-a;8
-a;8
-a;7
+Paco;7
+Gui;3
