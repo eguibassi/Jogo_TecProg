@@ -24,7 +24,7 @@ public:
         std::string getNome()const;
         void setPontos(const int pontos);
         int getPontos()const;
-        
+        bool operator<(const RegistroRanking& outro) const;
     };
 
 protected:

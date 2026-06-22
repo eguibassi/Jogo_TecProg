@@ -14,7 +14,15 @@ std::string Menu::RegistroRanking::getNome()const{return nome;}
 void Menu::RegistroRanking::setPontos(const int pontos){this->pontos = pontos;}
 int Menu::RegistroRanking::getPontos()const{return pontos;}
 
+bool Menu::RegistroRanking::operator<(const RegistroRanking& outro) const
+{
+    if (pontos == outro.pontos)
+    {
+        return nome > outro.nome;
+    }
 
+    return pontos < outro.pontos;
+}
 
 Menu::Menu() :
     pJog(nullptr),
