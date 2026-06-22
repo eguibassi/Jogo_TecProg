@@ -8,6 +8,8 @@ https://github.com/Giovanenero/JogoPlataforma2D-Jungle/blob/main/Jungle%2B%2B/sr
 
 
 namespace Gerenciadores {
+    const float Gerenciador_Colisoes::LARGURA_TELA = 800.0f;
+    const float Gerenciador_Colisoes::ALTURA_TELA = 600.0f;
 
     Gerenciador_Colisoes::Gerenciador_Colisoes() : pJog1(nullptr), pJog2(nullptr),chaoFase(nullptr){}
 

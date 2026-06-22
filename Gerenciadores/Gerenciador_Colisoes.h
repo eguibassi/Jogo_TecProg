@@ -1,6 +1,4 @@
 #pragma once
-#define LARGURA_TELA 800.0f
-#define ALTURA_TELA 600.0f
 
 #include <list>
 #include <set>
@@ -24,6 +22,9 @@ namespace Gerenciadores {
         std::set<Entidades::Projetil*> Lps;
 
         sf::RectangleShape* chaoFase;
+
+        static const float LARGURA_TELA;
+        static const float ALTURA_TELA;
 
     private:
         bool verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2) const;
