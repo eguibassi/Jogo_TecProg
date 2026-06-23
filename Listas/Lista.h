@@ -1,6 +1,7 @@
 #pragma once
 
-// Template inspirado no slide 10A de conceitos avançados de C++
+// Template inspirado no slide 10A de conceitos avançados de C++ 
+//https://pessoal.dainf.ct.utfpr.edu.br/jeansimao/Fundamentos2/LinguagemC++UML/Fundamentos2-SlidesC++10B-2020-07-20.pdf
 // Elemento fica dentro de Lista, como no UML
 
 namespace Listas
