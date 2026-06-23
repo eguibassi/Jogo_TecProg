@@ -1,3 +1,8 @@
 Paco;7
+l;5
+Gui;4
+PACO;4
 Gui;3
 a;3
+gUI;1
+w;1
